@@ -1,0 +1,22 @@
+<div class="dialog-container">
+    <img loading="lazy" src="./assets/template/welcome/bubble-frame.png" alt="Welcome Speech Bobble"/>
+    <div class="console">
+        <p class="hello changing-text" > Hello! </p>
+
+        <span
+            class="txt-rotate"
+            typingAnimation
+            [phrasePeriod]="2000"
+            [startDelay]="1500"
+            [typeSpeed]="190"
+            [data]='[
+                {
+                    "language": "en",
+                    "phrases": [ "My name is Emmanuel.","I am a software Engineer.","A degree holder in Bsc. Computer Science."," I am a Software Engineer" , "I develop multi platform  software", "I do software consultancy.", "I Design , Code and Deploy."]
+                }
+            ]'></span>
+    </div>
+</div>
+
+
+

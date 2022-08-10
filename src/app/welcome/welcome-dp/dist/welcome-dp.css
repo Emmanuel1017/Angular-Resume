@@ -1,0 +1,13 @@
+.picture {
+  display: block;
+  width: 610px;
+  height: 610px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 99em;
+  background-image: url("../../../assets/template/welcome/dp.png");
+  border: 0px solid #cde0c5;
+  margin-left: -6em;
+  margin-right: 6em;
+}

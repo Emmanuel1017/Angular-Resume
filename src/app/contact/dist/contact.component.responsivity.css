@@ -1,0 +1,118 @@
+@media screen and (max-width: 1400px) {
+  #contact .container .left-side {
+    flex-grow: 1;
+  }
+  #contact .container .right-side {
+    flex-grow: 3;
+  }
+}
+@media screen and (max-width: 1280px) {
+  #contact .illustration {
+    display: none;
+  }
+  #contact .half-circle {
+    display: none;
+  }
+  #contact .container .left-side {
+    flex-grow: 1;
+  }
+  #contact .container .right-side {
+    flex-grow: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  #contact .container .left-side .title h1 {
+    font-size: 34px;
+  }
+  #contact .container .left-side .top-container {
+    flex-wrap: wrap;
+    padding: 0.7em;
+    justify-content: center;
+  }
+  #contact .container .left-side .top-container .picture {
+    display: none;
+  }
+  #contact .container .left-side .top-container .info p {
+    font-size: 16px;
+  }
+  #contact .container .left-side .top-container .info .name {
+    text-align: center;
+    font-size: 18px;
+  }
+  #contact .container .left-side .bottom-container {
+    padding: 0.7em;
+  }
+  #contact .container .left-side .bottom-container form .form-group {
+    margin-bottom: 0.7em;
+  }
+  #contact .container .left-side .bottom-container form label {
+    font-size: 14px;
+  }
+  #contact .container .left-side .bottom-container form input[type=text], #contact .container .left-side .bottom-container form input[type=email] {
+    font-size: 16px;
+  }
+  #contact .container .left-side .bottom-container form input[type=text].is-invalid, #contact .container .left-side .bottom-container form input[type=email].is-invalid {
+    border: 1px solid red;
+  }
+  #contact .container .left-side .bottom-container form input[type=submit] {
+    font-size: 22px;
+  }
+  #contact .container .left-side .bottom-container form input[type=submit].is-invalid {
+    border: 1px solid red;
+  }
+  #contact .container .left-side .bottom-container form textarea {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 420px) {
+  #contact .container .left-side .top-container {
+    padding: 0.5em;
+  }
+  #contact .container .left-side .top-container .info p {
+    font-size: 14px;
+  }
+  #contact .container .left-side .top-container .info .name {
+    font-size: 16px;
+  }
+  #contact .container .left-side .bottom-container {
+    padding: 0.5em;
+  }
+  #contact .container .left-side .bottom-container form .form-group {
+    margin-bottom: 0.5em;
+  }
+  #contact .container .left-side .bottom-container form label {
+    font-size: 14px;
+  }
+  #contact .container .left-side .bottom-container form input[type=text], #contact .container .left-side .bottom-container form input[type=email] {
+    font-size: 14px;
+  }
+  #contact .container .left-side .bottom-container form input[type=submit] {
+    font-size: 20px;
+  }
+  #contact .container .left-side .bottom-container form textarea {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 370px) {
+  #contact .container .left-side .top-container .info p {
+    font-size: 12px;
+  }
+  #contact .container .left-side .top-container .info .name {
+    font-size: 14px;
+  }
+  #contact .container .left-side .bottom-container {
+    padding: 0.5em;
+  }
+  #contact .container .left-side .bottom-container form label {
+    font-size: 12px;
+  }
+  #contact .container .left-side .bottom-container form input[type=text], #contact .container .left-side .bottom-container form input[type=email] {
+    font-size: 12px;
+  }
+  #contact .container .left-side .bottom-container form input[type=submit] {
+    font-size: 18px;
+  }
+  #contact .container .left-side .bottom-container form textarea {
+    font-size: 12px;
+  }
+}
