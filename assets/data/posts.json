@@ -1,0 +1,51 @@
+[
+  {
+    "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/graduation.png",
+    "http": "https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Korir%20K%20Emmanuel%20My%20CV.pdf?alt=media&token=0b1abffb-f31b-41dc-b9c0-3890585223d9",
+    "date": "02-16-2022",
+    "internationalizations": [
+        {
+            "language": "en",
+            "title": "My Resume Document.",
+            "description": "Check out my downloadable resume document otherwise known as CV document. it basically highlights much which is already highlighted here in a more refined office standard kind of way.it is in pdf format trying my best to keep it short and precise. ."
+        }
+    ]
+    },
+    {
+    "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/android.jpg",
+    "http": "https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Emmanuel%20Resume.apk?alt=media&token=4ccce073-462b-4d77-866c-ed849d2b271b",
+    "date": "02-16-2022",
+    "internationalizations": [
+        {
+            "language": "en",
+            "title": "My Android App.",
+            "description": "Check out my android application just a simple application showcasing my design constraints and also my resume in form of an apk. the application is written purely in java hosted on my github page where the source code can be traced with plans to do lots of future iterations."
+        }
+    ]
+    },
+    {
+        "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/opencv.png",
+        "http": "https://opencv.org/",
+        "date": "06-03-2021",
+        "internationalizations": [
+            {
+                "language": "en",
+                "title": "Open CV.",
+                "description": "OpenCV is the huge open-source library for the computer vision, machine learning, and image processing and now it plays a major role in real-time operation which is very important in today’s systems. By using it, one can process images and videos to identify objects, faces, or even handwriting of a human. When it integrated with various libraries, such as NumPy, python is capable of processing the OpenCV array structure for analysis. To Identify image pattern and its various features we use vector space and perform mathematical operations on these features."
+            }
+        ]
+    },
+    {
+        "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/bitcoin.jpg",
+        "http": "https://www.brookings.edu/opinions/the-brutal-truth-about-bitcoin/",
+        "date": "07-24-2021",
+        "internationalizations": [
+            {
+                "language": "en",
+                "title": "Truth about Bitcoin.",
+                "description": "Bitcoin, the original cryptocurrency, has been on a wild ride since its creation in 2009.As of today the total market value of all cryptocurrencies now exceeds $1.5 trillion, a staggering amount for virtual objects that are nothing more than computer code.Bitcoin was created (by a person or group that remains unidentified to this day) as a way to conduct transactions without the intervention of a trusted third party, such as a central bank or financial institution. Its emergence amid the global financial crisis, which shook trust in banks and even governments, was perfectly timed. Bitcoin enabled transactions using only digital identities, granting users some degree of anonymity. This made Bitcoin the preferred currency for illicit activities, including recent ransomware attacks. It powered the shadowy darknet of illegal online commerce much like PayPal helped the rise of eBay by making payments easier."
+            }
+        ]
+    }
+
+]

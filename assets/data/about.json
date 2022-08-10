@@ -1,0 +1,44 @@
+{
+    "internationalizations": [
+
+    {
+        "language": "en",
+        "description": " "
+    }
+    ],
+    "medias": [
+        {
+            "icon": "linkedin",
+            "title": "LinkedIn",
+            "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+        },
+        {
+            "icon": "github",
+            "title": "GitHub",
+            "http": "https://github.com/Emmanuel1017"
+        },
+        {
+            "icon": "facebook",
+            "title": "Facebook",
+            "http": "https://www.facebook.com/"
+        }
+    ],
+    "hobbies": [
+        {
+            "icon": "biking",
+            "title": "Cycling"
+        },
+        {
+            "icon": "code",
+            "title": "Coding"
+        },
+        {
+            "icon": "suitcase-rolling",
+            "title": "Travelling"
+        },
+        {
+            "icon": "book",
+            "title": "Reading"
+        }
+    ]
+}
