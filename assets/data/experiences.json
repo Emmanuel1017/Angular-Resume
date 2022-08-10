@@ -6,7 +6,7 @@
         "endAt": "12-15-2018",
         "companyName": "Kenya Urban Roads Authority",
         "website": "http://www.kura.go.ke/",
-        "logo": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/logo/kura.png",
+        "logo": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/logo/kura.png",
         "internationalizations": [
             {
                 "language": "en",
@@ -31,7 +31,7 @@
             "http": "https://drive.google.com/u/0/uc?id=1gJPtlfN37IUr6j5w0u_fUGLWuMtmif4n&export=download"
           }
         ],
-        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/lake.jpg"
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/lake.jpg"
     },
     {
         "id": 2,
@@ -76,6 +76,6 @@
                 "http": "https://github.com/Emmanuel1017/"
             }
         ],
-        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/rotterdam.jpg"
     }
 ]
