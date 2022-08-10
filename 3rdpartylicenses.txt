@@ -63,9 +63,6 @@ MIT
 @angular/forms
 MIT
 
-@angular/localize
-MIT
-
 @angular/material
 MIT
 The MIT License
