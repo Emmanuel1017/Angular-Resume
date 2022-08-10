@@ -1,0 +1,119 @@
+<section id="contact" itemscope itemtype="https://schema.org/ContactPage">
+    <div class="feedback-container" [ngClass]="feedbackStatus">
+        <p class="success">
+            <span > 😀  Thank you for contacting me. i'll Reply soon. Kudos! 😀.</span>
+            <fa-icon [icon]="faTimes" class="icon" title="Close" (click)="closeFeedbackMessage()"></fa-icon>
+        </p>
+        <p class="error">
+            <span >Sorry, there is an instability, try again later. You can contact me via phone or email too.</span>
+            <fa-icon [icon]="faTimes" class="icon" title="Close" (click)="closeFeedbackMessage()"></fa-icon>
+        </p>
+
+    </div>
+    <div class="container" [ngClass]="{'fade': hasBeenSubmited}">
+        <div class="left-side">
+            <div class="title">
+                <h1 >Contact</h1>
+            </div>
+            <div class="top-container">
+                <div class="picture"></div>
+                <div class="info">
+                    <p class="name" *ngIf="name"><span itemprop="name">{{ name }}</span></p>
+                    <p class="email" *ngIf="email"><fa-icon [icon]="faEnvelope" class="icon" title="Email"></fa-icon><a  href="mailto:{{ email }}" itemprop="email">{{ email }}</a></p>
+                    <p class="phone" *ngIf="phone"><fa-icon [icon]="faPhone" class="icon" title="Phone"></fa-icon><span itemprop="telephone">{{ phone }}</span></p>
+                    <p class="location" *ngIf="location"><fa-icon [icon]="faMapMarkerAlt" class="icon" title="City"></fa-icon><span itemprop="city">{{ location }}</span></p>
+                </div>
+            </div>
+            <div class="bottom-container">
+
+
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactNgForm)" #contactNgForm="ngForm" [ngClass]="{'loading': isLoading}">
+
+                    <div class="form-group">
+                        <label for="name" >Your Name:</label>
+                        <input [class.is-invalid]="senderName.invalid && senderName.touched"
+                            type="text" name="name"  placeholder="Your Name here..." formControlName="name" >
+                        <div class="warnings" *ngIf="(senderName.invalid && senderName.touched) || senderName.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+                            <small *ngIf="senderName.errors?.required" class="text-danger" >The name is required.</small>
+                            <small *ngIf="senderName.errors?.pattern" class="text-danger" >Please, provide a valid name.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" >Email:</label>
+                        <input [class.is-invalid]="senderEmail.invalid && senderEmail.touched"
+                            type="email" name="email"  placeholder="Your Email here..." formControlName="email" required>
+                        <div class="warnings" *ngIf="(senderEmail.invalid && senderEmail.touched) || senderEmail.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+                            <small *ngIf="senderEmail.errors?.required" class="text-danger" i18n="contact@@requiredEmailError">The email is required.</small>
+                            <small *ngIf="senderEmail.errors?.pattern" class="text-danger" i18n="contact@@invalidEmailError">Please, provide a valid email address.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" >Your message:</label>
+                        <textarea [class.is-invalid]="senderMessage.invalid && senderMessage.touched"
+                            name="message"  placeholder="Write here your message... I will reply to you soon." formControlName="message" required></textarea>
+                        <div class="warnings" *ngIf="(senderMessage.invalid && senderMessage.touched) || senderMessage.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+                            <small *ngIf="senderMessage.errors?.required" class="text-danger" >The message is required.</small>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                    <button class="button smoke dark">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="right-side"></div>
+    </div>
+   
+    
+
+<div class="illustration">
+ <div class="stage">
+  <div class="table"></div>
+  <div class="pc"></div>
+  <div class="cup"></div>
+  <div class="cup-cover"></div>
+  <div class="clock">
+    <div class="marker-top"></div>
+    <div class="marker-right"></div>
+    <div class="marker-bottom"></div>
+    <div class="marker-left"></div>
+    <div class="pointer-min"></div>
+    <div class="pointer-hour"></div>
+    <div class="pointer"></div>
+  </div>
+  <div class="guy">
+    <div class="hat">
+      <div class="hat-hair"></div>
+      <div class="hat-close"></div>
+    </div>
+    <div class="hair-left"></div>
+    <div class="hair-middle"></div>
+    <div class="hair-right"></div>
+    <div class="ear-left"></div>
+    <div class="ear-right"></div>
+    <div class="face">
+      <div class="eye"></div>
+      <div class="eye"></div>
+      <div class="nose"></div>
+      <div class="mouth"></div>
+    </div>
+    <div class="neck"></div>
+    <div class="body"></div>
+  </div>
+  <div class="book one"></div>
+  <div class="book two"></div>
+  <div class="book three"></div>
+</div>
+
+</div>
+
+
+
+    <div class="half-circle"></div>
+</section>
+

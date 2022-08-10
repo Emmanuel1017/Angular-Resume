@@ -1,0 +1,113 @@
+.skills {
+  position: absolute;
+  top: 150px;
+  left: 1205px;
+  z-index: 0;
+}
+.skills img.background {
+  width: 635px;
+}
+.skills .skill-icon {
+  position: absolute;
+  width: 50px;
+  animation-name: floating-icons;
+  -webkit-animation-name: floating-icons;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-duration: 4s;
+}
+.skills .skill-icon:nth-child(2n+3) {
+  animation-duration: 5s;
+}
+.skills .skill-icon.first {
+  top: 385px;
+  left: -35px;
+  width: 43px;
+  height: 43px;
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("/assets/template/welcome/icons/java.svg");
+}
+.skills .skill-icon.second {
+  top: 384px;
+  left: -105px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 39px;
+  height: 39px;
+  background-image: url("/assets/template/welcome/icons/android.svg");
+}
+.skills .skill-icon.third {
+  top: 385px;
+  left: -185px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 43px;
+  height: 43px;
+  background-image: url("/assets/template/welcome/icons/git.svg");
+}
+.skills .skill-icon.fourth {
+  top: 385px;
+  left: -255px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 43px;
+  height: 43px;
+  background-image: url("/assets/template/welcome/icons/html5.svg");
+}
+.skills .skill-icon.fifth {
+  top: 385px;
+  left: -315px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 43px;
+  height: 43px;
+  background-image: url("/assets/template/welcome/icons/sql.svg");
+}
+.skills .skill-icon.sixth {
+  top: 385px;
+  left: -390px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 43px;
+  height: 43px;
+  background-image: url("/assets/template/welcome/icons/php.svg");
+}
+.skills .skill-icon.seventh {
+  top: 385px;
+  left: -455px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: transparent;
+  width: 43px;
+  height: 43px;
+  background-image: url("/assets/template/welcome/icons/apple.svg");
+}
+
+@keyframes floating-icons {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  25% {
+    transform: translate(5%, 15%);
+  }
+  50% {
+    transform: translate(10%, 5%);
+  }
+  75% {
+    transform: translate(0%, 15%);
+  }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}

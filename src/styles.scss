@@ -1,0 +1,99 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$live-resume-primary: mat-palette($mat-indigo);
+$live-resume-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$live-resume-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$live-resume-theme: mat-light-theme($live-resume-primary, $live-resume-accent, $live-resume-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($live-resume-theme);
+
+//----------------------------------*\
+// Fonts
+//----------------------------------*/
+@import 'assets/scss/modules/_fonts.scss';
+
+// primary background and font
+$primary_font: "Montserrat", sans-serif;
+$primary_background:#abd699 35%, ;
+// font-weight
+$thin:100;
+$light:300;
+$regular:400;
+$semi-bold:600;
+$bold:700;
+$black:900;
+
+// Font size
+$font-xs:12px;
+$font-sm: 14px;
+$primary-fs: 16px;
+$font-md: 18px;
+$font-lg: 20px;
+
+html, body {
+    height: 100%;
+    background: $primary_background;
+   // background-repeat: no-repeat, repeat;
+    //background-size: cover;
+    font-family: $primary_font;
+    font-size: $primary-fs;
+    font-weight: $regular;
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+}
+
+section {
+    display: flex;
+}
+
+app-welcome, app-services, app-whatwedo, app-experience, app-about, app-posts, app-contact { display: block; }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+//scroll bar side styling
+body::-webkit-scrollbar-track {
+  background: rgba(1, 1, 199, 0);        /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right,   #47603c,  #abd699);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  //border: 3px solid rgb(141, 141, 141);  /* creates padding around scroll thumb */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera mobile only*/
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox mobile */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+//scrollbar side styling end

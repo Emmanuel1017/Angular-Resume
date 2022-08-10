@@ -1,0 +1,41 @@
+<section id="about" itemscope itemtype="https://schema.org/AboutPage">
+    <div class="about-container" itemscope itemtype="https://schema.org/Person">
+        <!-- structured data properties -->
+        <meta itemprop="jobTitle" content="Software Engineer" />
+        <meta itemprop="nationality" content="Kenyan" />
+        <meta itemprop="gender" content="Male" />
+        <meta itemprop="email" content="koriremmanuel@rocketmail.com" />
+        <meta itemprop="birthDate" content="1995-12-26" />
+        <meta itemprop="url" content="https://cariboudevs.com" />
+        <div class="first-column">
+            <h1 >About me</h1>
+            <h2><span itemprop="name">{{ name }}</span></h2>
+            <p class="years-old">
+                <span itemprop="yearsOld">{{ yearsOld }}</span>
+                &nbsp;<span >years old</span>
+            </p>
+            <p class="text">
+              I am a Bsc Computer science graduate majoring in the field of Software Engineering. I had an interest in programming at an early age and take pride in software development and
+              see it as an art form to design , code and deploy fully working softwares. I have a passion to learn new concepts and technological advancements and breakthroughs in the
+              IT field.I do full stack Android/IOS development ,Web development with SEO, Windows ERP,Programs of any kind or scale ,Software consultancy , Networking and computer system
+              Security analysis and venerability detection which  I learned a lot of programming languages over the years
+              with lots of programming hours on me . I also participate in lots of online tech forums and communities to try providing solutions to tech related queries and sharing
+              tech ideas and findings to further broaden my skills and knowledge base. I also engage my immediate community and help in solving tech related problems and provide viable practical solutions.
+              believe to have attained problem solving skills and resiliency to tackle any task thrown my way.
+            </p>
+            <p class="text" internationalization [data]="aboutData?.internationalizations" property='description' itemprop="summary">Loading...</p>
+            <div class="hobbies">
+                <h3>Hobbies</h3>
+                <fa-icon *ngFor="let hobby of aboutData?.hobbies" [icon]="['fas', hobby.icon]" class="icon" title="{{ hobby.title }}" itemprop="hobby"></fa-icon>
+            </div>
+        </div>
+        <div class="second-column">
+            <div class="profile-picture"></div>
+            <div class="social-media">
+                <a *ngFor="let media of aboutData?.medias" href="{{ media.http }}" target="_blank" itemprop="sameAs">
+                    <fa-icon [icon]="['fab', media.icon]" class="icon" title="{{ media.title }}"></fa-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
