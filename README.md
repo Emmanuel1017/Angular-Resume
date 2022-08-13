@@ -114,7 +114,7 @@ This project was developed using the following languges and apis:
 * [![Angular][Angular.io]][Angular-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-* [![JQuery][babel.io]][babel-url]   
+* [![babel][babeljs.io]][babeljs-url]   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
