@@ -147,8 +147,8 @@ _Below is an example of how you can instruct your audience on installing and set
    npm install
    ```
 4.  Run server over local-host`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   ```sh
+   ng serve --configuration=en
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
