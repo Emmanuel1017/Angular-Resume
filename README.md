@@ -85,12 +85,20 @@
 
 
 
-This is a aproject written in angular showcasing my resume in form of a webpage.
+This is a aproject written in angular showcasing my resume in form of a webpage. 
+                                  
+It has the following aspects:
+                                  
+* Written in angular
+* Reactive to different screen sizes     
+* Animations and transitions           
+* With google analytics
+* using js babel 
+* with bootstrap5  elements                
+* using data pipes and a hosted json to populate data
+* With Scss and css styling             
+* A custom javascript asset functions class            
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
