@@ -146,7 +146,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+4.  Run server over local-host`
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
@@ -181,7 +181,7 @@ See the [open issues](https://github.com/Emmanuel1017/Angular-Resume//issues) fo
 
 
 <!-- CONTRIBUTING -->
-## Contributors
+
 
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "issue".
@@ -201,7 +201,6 @@ Made with [contributors-img](https://contrib.rocks).
 
 cotributors:
 
-![Visitor Count](https://profile-counter.glitch.me/{Emmanuel1017}/count.svg)
 
 
 
