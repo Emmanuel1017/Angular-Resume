@@ -114,6 +114,7 @@ This project was developed using the following languges and apis:
 * [![Angular][Angular.io]][Angular-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
+*[![babel][babel.com]][babel-url]                   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -266,3 +267,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[babel.com]: [https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white](https://img.shields.io/badge/babel-babel-white)
+[babel-url]: [https://jquery.com ](https://babeljs.io/)  
