@@ -74,7 +74,6 @@
     <li><a href="#contribution">Contribution</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#😂 Here is a random joke that will make you laugh!"> 😂 A Random Joke</a></li>
   </ol>
 </details>
 
@@ -183,7 +182,7 @@ See the [open issues](https://github.com/Emmanuel1017/Angular-Resume//issues) fo
 <!-- CONTRIBUTING -->
 
 
-##contribution
+## contribution
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "issue".
 Don't forget to give the project a star! Thanks again!
 
