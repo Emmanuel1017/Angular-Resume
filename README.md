@@ -1,127 +1,274 @@
-<h1 align="center">
-  <br>
-  The Ultimate Personal Web Resume📃
-  <br>
-</h1>
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a name="readme-top"></a>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
+
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
 <div align="center">
-  
-[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://GitHub.com/guilhermeborgesbastos/live-resume/stargazers/) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6f04e1e3103a4af58e5398e23106bb93)](https://www.codacy.com/manual/guilhermeborgesbastos/live-resume?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guilhermeborgesbastos/live-resume&amp;utm_campaign=Badge_Grade)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fguilhermeborgesbastos%2Flive-resume.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fguilhermeborgesbastos%2Flive-resume?ref=badge_shield) [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://github.com/guilhermeborgesbastos/live-resume/wiki) [![GitHub tag](https://img.shields.io/github/tag/guilhermeborgesbastos/live-resume.svg)](https://github.com/guilhermeborgesbastos/live-resume/tags/)
+  <a href="https://github.com/Emmanuel1017/Angular-Resume/">
+    <img src="assets/template/welcome/dp.png" alt="Logo" width="80" height="80">
+  </a>
 
- [![Gitter](https://badges.gitter.im/live-resume/community.svg)](https://gitter.im/live-resume/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://opensource.org/licenses/MIT) [![GitHub forks](https://img.shields.io/github/forks/guilhermeborgesbastos/live-resume.svg?style=social&label=Fork&maxAge=259100)](https://GitHub.com/guilhermeborgesbastos/live-resume/network/) [![GitHub stars](https://img.shields.io/github/stars/guilhermeborgesbastos/live-resume.svg?style=social&label=Star&maxAge=259100)](https://GitHub.com/guilhermeborgesbastos/live-resume/stargazers/)
+  <h3 align="center">My Resume In Angular</h3>
 
+  <p align="center">
+   Check out my resume written in angular hosted on github pages with firebase db and analytics.!
+    <br />
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href=""https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
+    ·
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/issues">Request Feature</a>
+  </p>
 </div>
 
-<h4 align="center">
-:anchor: Stand out of the crowd by showing a professional website/resume.
-  <br>:necktie: :briefcase: Build fast :rocket: and easy the best Personal Web Application resume!
-</h4>
 
-<div align="center">
-<br>
 
-[![Watch the video](/markdown/LiveResumeGuilhermeBorgesBastos-v1.2.gif)](https://guilhermeborgesbastos.com/?source=github)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contribution">Contribution</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-</div>
 
-Get rid of your old and deprecated text resume by using the first **Open-source Web Application** _(100% free)_, which makes a professional personal website and portfolio easy and quick to build.
 
-## What is included❓
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-* A fully functional _Angular 9_ application with a customizable template and content;
-* Totally responsive for the mobile and desktop devices _(allow mobile gestures too... ;))_;
-* Internationalization for English and Portuguese _(easy for adding/removing new languages - in18 lib)_;
-* Mobile navigation sharing _(Share the resume with native apps like Whatsapp, LinkedIn, Facebook, etc...)_;
-* A complete [Wiki](https://github.com/guilhermeborgesbastos/live-resume/wiki) that provides support;
-* Integrated with Google Analytics;
-* Optimized for SEO  _( Crawler and Bots from Google, Bing, etc... )_;
-* Using the schemas for structured data (schema.org);
-* Firebase integration in the contact form;
-* Composed of 5 custom sections ([Welcome](https://guilhermeborgesbastos.com/), [About Me](https://guilhermeborgesbastos.com/about), [Experiences](https://guilhermeborgesbastos.com/experience), [Posts](https://guilhermeborgesbastos.com/posts), and [Contact](https://guilhermeborgesbastos.com/contact));
-* Router fragment friendly (e.g: https://guilhermeborgesbastos.com/posts );
-* Source code verified by static code analyzers _(safe and ready for production)_;
 
-## Changelog
-[Learn about the latest improvements.](https://github.com/guilhermeborgesbastos/live-resume/CHANGELOG.md)
 
-## 🗂 Wiki Documentation & 💬 Community Chat
+This is a aproject written in angular showcasing my resume in form of a webpage. 
+                                  
+It has the following aspects:
+                                  
+* Written in angular
+* Reactive to different screen sizes     
+* Animations and transitions           
+* With google analytics
+* using js babel 
+* with bootstrap5  elements                
+* using data pipes and a hosted json to populate data
+* With Scss and css styling             
+* A custom javascript asset functions class            
 
-To get more help on the setup, customization or any other aspect, accessing the following:
 
-* [Wiki on GitHub](https://github.com/guilhermeborgesbastos/live-resume/wiki) - A complete documentation, from _getting started_ until _deploy_.
-* [![Gitter](https://badges.gitter.im/live-resume/community.svg)](https://gitter.im/live-resume/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) - A _Community Chat_ for further discussions.
 
-## ⚓Prerequisite
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-> A video tutorial is also available [watch it](https://youtu.be/SmSCux_qx_Q).
+![Screenshot 2022-08-13 210443](https://user-images.githubusercontent.com/41972019/184505728-c9b1c4cc-9e2f-449e-bbdb-213bb05043f3.png)
 
-1. It is required to have Node.js with version _12.18.0_ or higher. To see what version of Node.js is installed on your machine type the following command in the terminal:
-```
-node -v
-```
 
-2. If you haven't installed Node.js in your machine then go to [this link](https://nodejs.org/en/download/) in order to install node.
+### Built With
 
-3. It is required to have NPM with version _6.14.0_ or higher. To see what version of NPM is installed on your machine type the following command in the terminal:
-```
-npm -v
-```
+This project was developed using the following languges and apis:
 
-4. If you haven't installed NPM in your machine then go to [this link](https://www.npmjs.com/get-npm) in order to install NPM.
 
-## 📥 Installing and Executing locally
+* [![Angular][Angular.io]][Angular-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![JQuery][JQuery.com]][JQuery-url]
+* [![babel][babel.com]][babel-url]                   
 
-> A video tutorial is also available [watch it](https://youtu.be/SmSCux_qx_Q).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-1. Fork this repository, by clicking the `Fork` button at the top-right on this page.
-[![Learn how to fork GitHub projects](/markdown/fork.png?cache=off)](https://guides.github.com/activities/forking/)
 
-2. Clone the forked repository from your GitHub account.
-```
-git clone https://github.com/[replace-with-your-github-username]/live-resume.git
-```
 
-3. Go to the cloned directory (e.g. `cd live-resume`).
+<!-- GETTING STARTED -->
+## Getting Started
 
-4. Run `npm install`.
+To fork this project use the following in vscode cli:
 
-5. Inner the folder of the cloned project, start the application:
-```
-ng serve --host 0.0.0.0 --configuration=en
-```
-**Note:** the optional parameters:
-* ` --host 0.0.0.0` is useful if you want to see how your application runs on a mobile or from some other laptop/computer/network. 
-* ` --configuration=en` in this example the application will be displayed in **en-US**, by replacing the `en`with `pt` => `--configuration=pt`, the application language would be **pt-BR**. 
+### Prerequisites
 
-6. After that, the command will start a server instance and listen on port `4200`. Open (http://localhost:4200/) in your browser. The **Live Resume** will be displayed.
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-> Please, feel free to make improvements, or any sort of changes and send it back via **pull request**. Your contribution is always welcome!
+### Installation
 
-## 🔨 How to customize?
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-In the [Wiki Doc.](https://github.com/guilhermeborgesbastos/live-resume/wiki/applying-customizations) there is a specific page supporting you on how to apply customizations to the layout and more... [See page](https://github.com/guilhermeborgesbastos/live-resume/wiki/applying-customizations)
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/Emmanuel1017/Angular-Resume.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4.  Run server over local-host`
+   ```sh
+   ng serve --configuration=en
+   ```
 
-## 🖋 Contribute
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Feel free to add new features, language supports, fix bugs, or improve the docs. Any kind of help is appreciated! If you make any kind of improvements, please, send them back as a **Pull Request**. Let's keep making it better and up-to-date.
 
-## Credits©️
 
-This project uses several open source packages:
+<!-- USAGE EXAMPLES -->
+## Usage
 
-- [Angular](https://github.com/angular)
-- [Angular CLI](https://cli.angular.io)
-- [Navigator Share](https://www.npmjs.com/package/ng-navigator-share)
-- [Font Awesome](https://fontawesome.com)
 
----
 
-> Site [www.guilhermeborgesbastos.com](https://www.guilhermeborgesbastos.com)<br>
-> LinkedIn [profile](https://www.linkedin.com/in/guilhermeborgesbastos)<br>
-> Facebook [profile](https://www.facebook.com/guilherme.borgesbastos)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 📝 License
 
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-[![Analytics](https://ga-beacon.appspot.com/UA-168686195-1/live-resume/home-page?pixel)](https://github.com/igrigorik/ga-beacon)
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Add Changelog
+- [x] Add mobile Admin panel                                       
+- [ ] Add php laravel admin panel
+- [ ] Add more angularcomponens
+- [ ] Add live chat api
+
+
+See the [open issues](https://github.com/Emmanuel1017/Angular-Resume//issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+
+
+## contribution
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "issue".
+Don't forget to give the project a star! Thanks again!
+
+
+Made with [contributors-img](https://contrib.rocks).
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+
+cotributors:
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=Emmanuel1017/Angular-Resume)
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Emmanuel_BE_Cool  - koriremmanuel@rocketmail.com
+
+Project Link: [https://github.com/Emmanuel1017/Angular-Resume/](https://github.com/Emmanuel1017/Angular-Resume)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 😂 Here is a random joke that will make you laugh!
+![Jokes Card](https://readme-jokes.vercel.app/api)
+<!-- ACKNOWLEDGMENTS 
+## Acknowledgments -->
+
+<!--Additionat cheat sheet links
+
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
+* [Malven's Grid Cheatsheet](https://grid.malven.co/)
+* [Img Shields](https://shields.io)
+* [GitHub Pages](https://pages.github.com)
+* [Font Awesome](https://fontawesome.com)
+* [React Icons](https://react-icons.github.io/react-icons/search)-->
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/Emmanuel1017/Angular-Resume/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/Emmanuel1017/Angular-Resume/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/Emmanuel1017/Angular-Resume/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/Emmanuel1017/Angular-Resume/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/Emmanuel1017/Angular-Resume/blob/master/LICENSE.txt
+[product-screenshot]: images/screenshot.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com 
+[babel.com]: https://img.shields.io/badge/babel-babel-white
+[babel-url]: https://babeljs.io  
