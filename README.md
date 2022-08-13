@@ -30,14 +30,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/Emmanuel1017/Angular-Resume/">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">My Resume In Angular</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+   Check out my resume written in angular hosted on github pages with firebase db and analytics.!
     <br />
     <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Explore the docs »</strong></a>
     <br />
