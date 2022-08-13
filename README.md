@@ -83,7 +83,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
 
 This is a aproject written in angular showcasing my resume in form of a webpage.
 
@@ -95,11 +95,12 @@ Here's why:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+![Screenshot 2022-08-13 210443](https://user-images.githubusercontent.com/41972019/184505728-c9b1c4cc-9e2f-449e-bbdb-213bb05043f3.png)
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This project was developed using the following languges and apis:
 
 
 * [![Angular][Angular.io]][Angular-url]
