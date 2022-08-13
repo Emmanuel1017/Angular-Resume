@@ -201,12 +201,7 @@ Made with [contributors-img](https://contrib.rocks).
 
 cotributors:
 
-
-<a href = "https://github.com/Emmanuel1017/Angular-Resume/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = Emmanuel1017/Angular-Resume"/>
-</a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+![Visitor Count](https://profile-counter.glitch.me/{username}/count.svg)
 
 
 
