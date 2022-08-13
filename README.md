@@ -222,8 +222,8 @@ Project Link: [https://github.com/Emmanuel1017/Angular-Resume/](https://github.c
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
+## 😂 Here is a random joke that'll make you laugh!
+![Jokes Card](https://readme-jokes.vercel.app/api)
 <!-- ACKNOWLEDGMENTS 
 ## Acknowledgments -->
 
