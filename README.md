@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Emmanuel1017/Angular-Resume/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/template/welcome/dp.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">My Resume In Angular</h3>
