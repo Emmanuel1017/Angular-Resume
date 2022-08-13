@@ -111,7 +111,7 @@ It has the following aspects:
 This project was developed using the following languges and apis:
 
 
-* [![Angular][Angular.io]][Anguhlar-url]
+* [![Angular][Angular.io]][Angular-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
