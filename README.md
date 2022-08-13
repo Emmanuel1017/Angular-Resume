@@ -201,7 +201,7 @@ Made with [contributors-img](https://contrib.rocks).
 
 cotributors:
 
-
+![GitHub Contributors Image](https://contrib.rocks/image?repo=Emmanuel1017/Angular-Resume)
 
 
 <!-- LICENSE -->
