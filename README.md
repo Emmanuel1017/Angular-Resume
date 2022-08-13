@@ -71,10 +71,10 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contribution">Contributing</a></li>
+    <li><a href="#contribution">Contribution</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#😂 Here is a random joke that'll make you laugh!">Acknowledgments</a></li>
+    <li><a href="#😂 Here is a random joke that will make you laugh!"> 😂 A Random Joke</a></li>
   </ol>
 </details>
 
@@ -222,7 +222,7 @@ Project Link: [https://github.com/Emmanuel1017/Angular-Resume/](https://github.c
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 😂 Here is a random joke that'll make you laugh!
+## 😂 Here is a random joke that will make you laugh!
 ![Jokes Card](https://readme-jokes.vercel.app/api)
 <!-- ACKNOWLEDGMENTS 
 ## Acknowledgments -->
