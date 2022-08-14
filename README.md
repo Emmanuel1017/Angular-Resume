@@ -151,7 +151,14 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    ng serve --configuration=en
    ```
-
+5.  To build in prod mode`
+   ```sh
+  ng build --prod --configuration=en
+   ```
+ 6.  Host on firebase `
+   ```sh
+   firebase deploy
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
