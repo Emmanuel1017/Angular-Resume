@@ -39,7 +39,9 @@
   <p align="center">
    Check out my resume written in angular hosted on github pages with firebase db and analytics.!
     <br />
-    <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Check the hosted page »</strong></a>
+    <br />
+     <a href=" https://emmanuel1017.github.io/Angular-Resume/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href=""https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
