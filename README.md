@@ -126,7 +126,7 @@ To fork this project use the following in vscode cli:
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You need npm to run the cli commands 
 * npm
   ```sh
   npm install npm@latest -g
@@ -135,7 +135,7 @@ This is an example of how to list things you need to use the software and how to
 ### Installation
 
 
-1. This project requiresb nodejs
+1. This project requires nodejs
 2. Clone the repo
    ```sh
    git clone https://github.com/Emmanuel1017/Angular-Resume.git
@@ -189,9 +189,9 @@ Don't forget to give the project a star! Thanks again!
 Made with [contributors-img](https://contrib.rocks).
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/Angular-Resume`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Push to the Branch (`git push origin feature/Angular-Resume`)
 5. Open a Pull Request
 
 
