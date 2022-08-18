@@ -45,6 +45,9 @@
 </div>
 
 
+Hosted Page: [https://github.com/Emmanuel1017/Angular-Resume/](https://github.com/Emmanuel1017/Angular-Resume)
+
+
 
 <!-- TABLE OF CONTENTS -->
 <details>
