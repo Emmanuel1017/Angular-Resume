@@ -19,8 +19,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-[![star this repo](http://githubbadges.com/star.svg?user=Emmanuel1017&repo=Angular-Resume)](http://github.com/Emmanuel1017/Angular-Resume)
-[![fork this repo](http://githubbadges.com/fork.svg?user=Emmanuel1017&repo=Angular-resume)](http://github.com/Emmanuel1017/Angular-Resume/fork)
+[![star this repo](https://githubbadges.com/star.svg?user=Emmanuel1017&repo= Angular-Resume&style=default)](https://github.com/Emmanuel1017/ Angular-Resume)
+[![fork this repo](https://githubbadges.com/fork.svg?user=Emmanuel1017&repo= Angular-Resume&style=default)](https://github.com/Emmanuel1017/ Angular-Resume/fork)
 
 
 
