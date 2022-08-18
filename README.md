@@ -19,11 +19,9 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![star this repo](http://githubbadges.com/star.svg?user=ddavison&repo=github-badges)](http://github.com/Emmanuel1017/Angular-Resume)
+[![fork this repo](http://githubbadges.com/fork.svg?user=ddavison&repo=github-badges)](http://github.com/Emmanuel1017/Angular-Resume/fork)
+
 
 
 
