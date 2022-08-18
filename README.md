@@ -36,7 +36,7 @@
     <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href=""https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
     ·
     <a href="https://github.com/Emmanuel1017/Angular-Resume/issues">Report Bug</a>
     ·
