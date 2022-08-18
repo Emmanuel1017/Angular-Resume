@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Emmanuel1017/Angular-Resume/">
-    <img src="src/assets/template/welcome/dp.png" alt="Logo" width="80" height="80">
+    <img src="assets/template/welcome/dp.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">My Resume In Angular</h3>
@@ -39,9 +39,7 @@
   <p align="center">
    Check out my resume written in angular hosted on github pages with firebase db and analytics.!
     <br />
-    <a href="https://emmanuel1017.github.io/Angular-Resume/"><strong>Check the hosted page »</strong></a>
-    <br />
-     <a href="https://emmanuel1017.github.io/Angular-Resume/"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Emmanuel1017/Angular-Resume/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href=""https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
@@ -128,7 +126,7 @@ To fork this project use the following in vscode cli:
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You need npm to run the cli commands 
 * npm
   ```sh
   npm install npm@latest -g
@@ -136,9 +134,8 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. This project requires nodejs
 2. Clone the repo
    ```sh
    git clone https://github.com/Emmanuel1017/Angular-Resume.git
@@ -151,14 +148,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    ng serve --configuration=en
    ```
-5.  To build in prod mode`
-   ```sh
-    ng build --prod --configuration=en
-   ```
- 6.  Host on firebase `
-   ```sh
-    firebase deploy
-   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -199,9 +189,9 @@ Don't forget to give the project a star! Thanks again!
 Made with [contributors-img](https://contrib.rocks).
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/Angular-Resume`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Push to the Branch (`git push origin feature/Angular-Resume`)
 5. Open a Pull Request
 
 
