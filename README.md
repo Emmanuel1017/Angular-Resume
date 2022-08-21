@@ -23,11 +23,10 @@
 
 <!-- PROJECT LOGO -->
 <br />
-![Screenshot 2022-08-13 210443](https://user-images.githubusercontent.com/41972019/184505728-c9b1c4cc-9e2f-449e-bbdb-213bb05043f3.png)
 <div align="center">
 
   <a href="https://github.com/Emmanuel1017/Angular-Resume/">
-    <img src="src/assets/template/welcome/dp.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/41972019/184505728-c9b1c4cc-9e2f-449e-bbdb-213bb05043f3.png" alt="Logo" >
   </a>
 
   <h3 align="center">My Resume In Angular</h3>
