@@ -38,6 +38,8 @@
     <br />
     <br />
     <a href="https://github.com/Emmanuel1017/Angular-Resume/">Repository</a>
+    .
+     <a href="https://emmanuel1017.github.io/Angular-Resume/">Check the website out</a>
     ·
     <a href="https://github.com/Emmanuel1017/Angular-Resume/issues">Report Bug</a>
     ·
