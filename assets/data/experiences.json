@@ -133,6 +133,67 @@
   {
     "id": 3,
     "position": 3,
+    "startAt": "01-01-2022",
+    "endAt": "31-10-2022",
+    "companyName": "Roam Tech",
+    "website": "https://www.roamtech.com/",
+    "logo": "https://www.roamtech.com/_nuxt/img/logoblue.1068fcc.png",
+    "internationalizations": [
+      {
+        "language": "en",
+        "city": "Nairobi",
+        "country": "Kenya",
+        "role": "Backend Developer",
+        "description": "<b>At MTRH  </b>fbackend developer .Collaboration in backend software solutions using laravel aand GOlang for fintech  . Agile methods and scrum. Backend with eloquent PHP and Go . MYSQL with MariaDB . Developing API endpoints for Restful Consummption whilst maintaining best practices with role based access and efficiency.Postman api collections with proper documentation . Integrations to external apis and microservices with documentation. "
+      }
+    ],
+    "technologies": [
+      "Laravel",
+      "GoLang",
+      "Eloquent PHP",
+      " Postman",
+      " REST",
+      "MARIADB",
+      "Vue",
+      "Bootstrap",
+      "Javascript",
+      "jQuery",
+      "MPESA Daraja API",
+      "Micro Services",
+      "SSH",
+      "SSL",
+      "Bash",
+      "Linux",
+      "MY SQL",
+      "SQ-LITE"
+    ],
+    "medias": [
+      {
+        "icon": "linkedin",
+        "title": "LinkedIn Emmanuel Korir",
+        "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+      },
+      {
+        "icon": "whatsapp",
+        "title": "Whatsapp Emmanuel",
+        "http": "https://wa.me/254745317920"
+      },
+      {
+        "icon": "instagram",
+        "title": "Instagram emmanuel_be_cool",
+        "http": "https://www.instagram.com/emmanuel_be_cool/"
+      },
+      {
+        "icon": "github",
+        "title": "Github Emmanuel1017",
+        "http": "https://github.com/Emmanuel1017/"
+      }
+    ],
+    "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
+  },
+  {
+    "id": 4,
+    "position": 4,
     "startAt": "01-11-2022",
     "endAt": "06-16-2024",
     "companyName": "Moi Teaching And Refferal Hospital",
