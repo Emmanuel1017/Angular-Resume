@@ -6,7 +6,7 @@
         "endAt": "12-15-2018",
         "companyName": "Kenya Urban Roads Authority",
         "website": "http://www.kura.go.ke/",
-        "logo": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/logo/kura.png",
+        "logo": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/logo/kura.png",
         "internationalizations": [
             {
                 "language": "en",
@@ -31,7 +31,7 @@
             "http": "https://drive.google.com/u/0/uc?id=1gJPtlfN37IUr6j5w0u_fUGLWuMtmif4n&export=download"
           }
         ],
-        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/lake.jpg"
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/lake.jpg"
     },
     {
         "id": 2,
@@ -76,6 +76,52 @@
                 "http": "https://github.com/Emmanuel1017/"
             }
         ],
-        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume/assets/template/experience/rotterdam.jpg"
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
+    },
+  {
+        "id": 3,
+        "position": 3,
+        "startAt": "01-01-2020",
+        "endAt": "06-16-2021",
+        "companyName": "Moi Teaching And Refferal Hospital",
+        "website": "https://github.com/Emmanuel1017/",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZNNDtpqv52JRn6Vo-d4QSN7MrQhWT8w4k9Men-Y5XGg&s",
+        "internationalizations": [
+
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "Full-stack Developer",
+                "description": "<b>At MTRH  </b>full-stack developer .Collaboration in development and maintainance of a web based enterprise resource planning (ERP)  . Agile methods and scrum. Backend with Frappe (python based ) with js and vue for frontend with REST . MYSQL with MariaDB . Server Architecture with web server optimization and high availabilty of database and resources optimization. Performance metrics monitoring and decision making for optimization. Data analytics and Reporting with superset.Payments Integration for payments solutions to the institution.Automation Of Processes using Crontab for periodic tasks.
+              Cyber operations with monitoring tools ie grafana and prometheus and network scanning . Linux with containerization with enviroment setup. "
+            }
+        ],
+        "technologies": [
+            "Python", "Frappe", " ERP NEXT"," VUE 2"," JAVASCRIPT","MARIADB","GALERA","Grafana AND PROMETHEUS","METASPLOIT","","Visual Basic","Angular","Vue","Bootstrap","Bootstrap","CISCO", "HTML", "CSS", "CSS3", "SCSS","Babel", "Javascript", "jQuery", "MPESA Daraja API","Micro Services", "SSH", "SSL","Bash", "Linux" ,  "Firebase", "MY SQL", "SQ-LITE"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "whatsapp",
+                "title": "Whatsapp Emmanuel",
+                "http": "https://wa.me/254745317920"
+            },
+            {
+              "icon": "instagram",
+              "title": "Instagram emmanuel_be_cool",
+              "http": "https://www.instagram.com/emmanuel_be_cool/"
+          },
+            {
+                "icon": "github",
+                "title": "Github Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
     }
 ]
