@@ -35,13 +35,8 @@ Experience the interactive animations and seamless transitions that bring this r
 
 <div style="text-align: center;">
   
-  <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/l4KrnkHHdug?autoplay=1&loop=1&playlist=l4KrnkHHdug" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-  </iframe>
+  [Watch on YouTube (Looped)](https://www.youtube.com/watch?v=l4KrnkHHdug&loop=1&playlist=l4KrnkHHdug)
+
 
 </div>
 
