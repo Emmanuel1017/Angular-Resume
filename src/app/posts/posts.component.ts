@@ -4,6 +4,8 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IPost } from './posts-interfaces';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { AbstractSwipeSection } from '../core/shared/abstract.swipe.section';
+import { environment } from 'src/environments/environment.prod';
+import { env } from 'process';
 
 @Component({
   selector: 'app-posts',
@@ -15,6 +17,7 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
   currentPage: number = 1;
   resultsPerPage: number;
   posts: IPost[] = [];
+  author: string = environment.author;
 
   faChevronLeft: IconDefinition;
   faChevronRight: IconDefinition;
@@ -31,6 +34,10 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
     this.dataService.getPosts()
       .subscribe((posts: IPost[]) => {
         this.posts = posts;
+        this.posts.forEach(post => {
+          post['thumbnail'] = post.thumbnail.replace('base_url',environment.baseUrl)
+          //console.log(post)
+        });
       });
   }
 
