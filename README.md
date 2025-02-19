@@ -40,9 +40,6 @@ Experience the interactive animations and seamless transitions that bring this r
 
 </div>
 
-<p style="text-align: center; font-size: 0.9em;">
-*Note: This is a sample animation demonstrating smooth transitions and interactive elements built into the project.*
-</p>
 
 ---
 
