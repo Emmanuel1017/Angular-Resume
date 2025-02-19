@@ -35,7 +35,10 @@ Experience the interactive animations and seamless transitions that bring this r
 
 <div style="text-align: center;">
   
-  [Watch on YouTube (Looped)](https://www.youtube.com/watch?v=l4KrnkHHdug&loop=1&playlist=l4KrnkHHdug)
+
+
+Uploading Screen Recording 2025-02-19 at 11.12.19.mov…
+
 
 
 </div>
