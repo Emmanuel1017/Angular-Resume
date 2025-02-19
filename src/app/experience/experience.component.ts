@@ -56,6 +56,7 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
           this.updateMobileNavigationView();
           this.preloadBounderyImages(experiences.map(xp => xp.backgroundUrl));
         });
+      
   }
 
   public disablePreviousNavigation(): boolean {

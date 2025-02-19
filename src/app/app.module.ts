@@ -15,7 +15,7 @@ import localeEn from '@angular/common/locales/en';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import * as Hammer from 'hammerjs';

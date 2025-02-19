@@ -7,11 +7,12 @@ import { catchError } from 'rxjs/operators';
 import { IExperience } from '../experience/experience-interfaces';
 import { IAbout } from '../about/about-interfaces';
 import { IPost } from '../posts/posts-interfaces';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class DataService {
 
-    baseUrl: string = 'https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/data/';
+    baseUrl: string = `${environment.baseUrl}/assets/data/`;
 
     constructor(private http: HttpClient) { }
 

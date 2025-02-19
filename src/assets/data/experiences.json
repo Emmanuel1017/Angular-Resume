@@ -38,7 +38,7 @@
         "position": 2,
         "startAt": "01-01-2020",
         "endAt": "06-16-2021",
-        "companyName": "Freelancing",
+        "companyName": "Caribou Developers",
         "website": "https://github.com/Emmanuel1017/",
         "logo": "https://cdn.pixabay.com/photo/2019/02/18/19/59/graphic-4005286_960_720.png",
         "internationalizations": [
@@ -48,8 +48,7 @@
                 "city": "Eldoret",
                 "country": "Kenya",
                 "role": "Full-stack Developer",
-                "description": "<b>Freelancing  </b>as a full-stack developer . Mobile development with java , kotlin and flutter, web development and .Net windows form and xamarian . Google apis and database management . Scripting with python and linux and cli ."
-            }
+                "description": "<b>Caribou Devs</b> is a full-stack developer proficient in mobile development using Java, Kotlin, and Flutter, as well as web development with .NET using C#. I have extensive experience integrating Google APIs and managing databases, and I excel in scripting with Python on Linux and command-line interfaces (CLI)."            }
         ],
         "technologies": [
             "Python", "Kotlin", " Java"," Go"," Dart"," Flutter"," C Sharp ","C","C++","React-Native","Visual Basic","Angular","Vue","Bootstrap","React JS","Unity/Visual programming","Dart","Open Cv/ML","MatLab","PHP","Zend Framework","CISCO", "HTML", "CSS", "CSS3", "SCSS","Babel", "Javascript", "jQuery", "MPESA Daraja API", "Wordpress", "Payment Services", "SSH", "SSL","SHELL", "Linux" , "Adobe Xd","Adobe Illustrator","Adobe After Effects", "Firebase", "MY SQL", "SQ-LITE", "C-Panel"
@@ -78,11 +77,170 @@
         ],
         "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
     },
-  {
+    {
         "id": 3,
         "position": 3,
-        "startAt": "01-01-2020",
-        "endAt": "06-16-2021",
+        "startAt": "01-01-2021",
+        "endAt": "12-16-2022",
+        "companyName": "ROAM Tech",
+        "website": "https://github.com/Emmanuel1017/",
+        "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGHhO8voieY1g/company-logo_200_200/company-logo_200_200/0/1631339968771?e=1747872000&v=beta&t=rapBuMlHEYiemABy8xvxJnD-HvqudpwXFB5rHDQPq3E",
+        "internationalizations": [
+          {
+            "language": "en",
+            "city": "Eldoret",
+            "country": "Kenya",
+            "role": "Back-End Developer",
+            "description": "<b>At Roam Tech</b> as a Back-End Developer at ROAM Tech. I design and develop robust backend systems using Go and Laravel, with a strong focus on crafting RESTful APIs and integrating with diverse payment applications, including Paykit. My role involves creating scalable, secure environments, optimizing database interactions, and ensuring seamless system integrations to support complex enterprise solutions. Additionally, my technical expertise extends to front-end development using modern frameworks like Vue, enabling me to build dynamic, responsive, and fully integrated full-stack solutions."
+          }
+        ],
+        "technologies": [
+          "Python",
+          "Kotlin",
+          "Java",
+          "Go",
+          "Dart",
+          "Flutter",
+          "C Sharp",
+          "C",
+          "C++",
+          "React-Native",
+          "Visual Basic",
+          "Angular",
+          "Vue",
+    
+          "HTML",
+          "CSS",
+          "CSS3",
+          "SCSS",
+          "Babel",
+          "Javascript",
+          "jQuery",
+          "MPESA Daraja API",
+          "Payment Services",
+          "SSH",
+          "SSL",
+          "SHELL",
+          "Linux",
+          "MY SQL",
+          "SQ-LITE"
+        
+        ],
+        "medias": [
+          {
+            "icon": "linkedin",
+            "title": "LinkedIn Emmanuel Korir",
+            "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+          },
+          {
+            "icon": "whatsapp",
+            "title": "Whatsapp Emmanuel",
+            "http": "https://wa.me/254745317920"
+          },
+          {
+            "icon": "instagram",
+            "title": "Instagram emmanuel_be_cool",
+            "http": "https://www.instagram.com/emmanuel_be_cool/"
+          },
+          {
+            "icon": "github",
+            "title": "Github Emmanuel1017",
+            "http": "https://github.com/Emmanuel1017/"
+          }
+        ],
+        "backgroundUrl": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/template/experience/rotterdam.jpg"
+    },    
+    {
+        "id": 4,
+        "position": 4,
+        "startAt": "03-01-2024",
+        "endAt": "12-31-2024",
+        "companyName": "Dunia Tech Startup",
+        "website": "https://duniatech.com",
+        "logo": "https://via.placeholder.com/150",
+        "internationalizations": [
+          {
+            "language": "en",
+            "city": "Nairobi",
+            "country": "Kenya",
+            "role": "Full Stack Machine Learning Engineer",
+            "description": "<b>Rubani AI Startup</b> – As a Full Stack Machine Learning Engineer, I led the design and development of end-to-end machine learning solutions integrated within large-scale enterprise environments. My role involved architecting and deploying state-of-the-art AI models, building robust training pipelines, and implementing context-aware learning strategies. I developed and maintained CI/CD pipelines to ensure continuous integration, delivery, and optimization of production-grade models. Additionally, I integrated machine learning systems with various enterprise platforms, including payment gateways and healthcare interfaces, to deliver real-time analytics and automated decision-making solutions. This comprehensive approach combined full-stack development with advanced AI, ensuring scalable, secure, and innovative solutions across the technology stack."
+          }
+        ],
+        "technologies": [
+          "Python",
+          "TensorFlow",
+          "PyTorch",
+          "Docker",
+          "Kubernetes",
+          "AWS",
+          "CI/CD",
+          "MLflow",
+          "Transformers",
+          "Vue",
+          "Ollama",
+          "Django",
+          "Redis",
+          "Gunicorn",
+          "Celery"
+        ],
+        "medias": [
+          {
+            "icon": "linkedin",
+            "title": "LinkedIn Dunia Tech",
+            "http": "https://www.linkedin.com/company/duniatech/"
+          }
+        ],
+        "backgroundUrl": "https://via.placeholder.com/800x400"
+    },      
+    {
+        "id": 5,
+        "position": 5,
+        "startAt": "06-01-2024",
+        "endAt": "",
+        "companyName": "Selstan",
+        "website": "https://www.selstan.com",
+        "logo": "https://static.wixstatic.com/media/b9e3e6_8d84fb05e5134865aa13c4e4f1e6cc2c~mv2.png/v1/fill/w_138,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Selstan%20Logo%20-%20Color%20Icon%20White%20Text.png",
+        "internationalizations": [
+          {
+            "language": "en",
+            "city": "Waterloo",
+            "country": "USA",
+            "role": "Full-Stack Engineer - Cyber Security",
+            "description": "At Selstan Waterloo, I served as a Full-Stack Engineer specializing in Cyber Security. I designed and implemented secure vault solutions aimed at minimizing the exposure of Personally Identifiable Information (PII) and sensitive data, ensuring compliance with GDPR, HIPAA, and other regulatory standards. In addition, I developed a robust web extension that leverages advanced algorithms and AI models to enhance data protection and privacy, seamlessly integrating with enterprise systems. My role encompassed end-to-end development, from designing intuitive user interfaces to architecting scalable back-end services, while also managing deployment, scaling, and optimization in dynamic production environments."
+          }
+        ],
+        "technologies": [
+          "JavaScript",
+          "Node.js",
+          "React",
+          "Python",
+          "Django",
+          "AI/ML",
+          "Cybersecurity",
+          "Vault Solutions",
+          "GDPR",
+          "HIPAA",
+          "Web Extensions",
+          "Algorithms",
+          "CI/CD",
+          "DevOps"
+        ],
+        "medias": [
+          {
+            "icon": "linkedin",
+            "title": "LinkedIn Selstan Waterloo",
+            "http": "https://www.linkedin.com/company/selstan-waterloo/"
+          }
+        ],
+        "backgroundUrl": "https://via.placeholder.com/800x400"
+      },
+        
+    {
+        "id": 6,
+        "position": 6,
+        "startAt": "01-01-2022",
+        "endAt": "",
         "companyName": "Moi Teaching And Refferal Hospital",
         "website": "https://github.com/Emmanuel1017/",
         "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZNNDtpqv52JRn6Vo-d4QSN7MrQhWT8w4k9Men-Y5XGg&s",
@@ -93,12 +251,11 @@
                 "city": "Eldoret",
                 "country": "Kenya",
                 "role": "Full-stack Developer",
-                "description": "<b>At MTRH  </b>full-stack developer .Collaboration in development and maintainance of a web based enterprise resource planning (ERP)  . Agile methods and scrum. Backend with Frappe (python based ) with js and vue for frontend with REST . MYSQL with MariaDB . Server Architecture with web server optimization and high availabilty of database and resources optimization. Performance metrics monitoring and decision making for optimization. Data analytics and Reporting with superset.Payments Integration for payments solutions to the institution.Automation Of Processes using Crontab for periodic tasks.
-              Cyber operations with monitoring tools ie grafana and prometheus and network scanning . Linux with containerization with enviroment setup. "
+                "description": "<b>At MTRH  </b>full-stack developer .Collaboration in development and maintainance of a web based enterprise resource planning (ERP)  . Agile methods and scrum. Backend with Frappe (python based ) with js and vue for frontend with REST . MYSQL with MariaDB . Server Architecture with web server optimization and high availabilty of database and resources optimization. Performance metrics monitoring and decision making for optimization. Data analytics and Reporting with superset.Payments Integration for payments solutions to the institution.Automation Of Processes using Crontab for periodic tasks.Cyber operations with monitoring tools ie grafana and prometheus and network scanning . Linux with containerization with enviroment setup. "
             }
         ],
         "technologies": [
-            "Python", "Frappe", " ERP NEXT"," VUE 2"," JAVASCRIPT","MARIADB","GALERA","Grafana AND PROMETHEUS","METASPLOIT","","Visual Basic","Angular","Vue","Bootstrap","Bootstrap","CISCO", "HTML", "CSS", "CSS3", "SCSS","Babel", "Javascript", "jQuery", "MPESA Daraja API","Micro Services", "SSH", "SSL","Bash", "Linux" ,  "Firebase", "MY SQL", "SQ-LITE"
+            "Python", "Frappe", " ERP NEXT"," VUE 2","LIMS","HL-7","PACS"," JAVASCRIPT","MARIADB","GALERA","Grafana AND PROMETHEUS","Visual Basic","Angular","Vue","Bootstrap","Bootstrap", "HTML-5", "CSS3", "SCSS","Babel", "Javascript", "jQuery", "MPESA Daraja API","Micro Services", "SSH", "SSL","Bash", "Linux" ,  "Firebase", "MY SQL", "SQ-LITE"
         ],
         "medias": [
             {

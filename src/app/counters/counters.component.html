@@ -1,38 +1,47 @@
-<section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-    <div class="container">
-        <div class="row">
-            <!-- counter -->
-            <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section wow fadeInUp sm-margin-bottom-ten animated" data-wow-duration="300ms" style="visibility: visible; animation-duration: 300ms; animation-name: fadeInUp;">
-              <mat-icon>code</mat-icon>
-                <span id="anim-number-pizza" class="counter-number"></span>
-                <span class="timer counter alt-font appear" data-to="10000" data-speed="17000">{{HoursCoding * 365 * 5 * 10}}</span>
-                <p class="counter-title">Hours Of Coding</p>
-            </div>
-            <!-- end counter -->
-            <!-- counter -->
-            <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section wow fadeInUp sm-margin-bottom-ten animated" data-wow-duration="600ms" style="visibility: visible; animation-duration: 600ms; animation-name: fadeInUp;">
-              <mat-icon>done_outline</mat-icon>
-                  <span class="timer counter alt-font appear" data-to="55" data-speed="70000">55</span>
-                <span class="counter-title">Projects Done</span>
-            </div>
-            <!-- end counter -->
-            <!-- counter -->
-            <div class="col-md-3 col-sm-6 bottom-margin-small text-center counter-section wow fadeInUp xs-margin-bottom-ten animated" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-name: fadeInUp;">
-              <mat-icon>computer</mat-icon>
-                  <span class="timer counter alt-font appear" data-to="10" data-speed="700000">10</span>
-                <span class="counter-title">Languages Proficiency</span>
-            </div>
-            <!-- end counter -->
-
-                      <!-- counter -->
-                      <div class="col-md-3 col-sm-6 bottom-margin-small text-center counter-section wow fadeInUp xs-margin-bottom-ten animated" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-name: fadeInUp;">
-                        <mat-icon>watch</mat-icon>
-                            <span class="timer counter alt-font appear" data-to=&quot;3&quot; data-speed="7000000">{{ yearsExperience }}</span>
-                          <span class="counter-title"> years Experience</span>
-                      </div>
-                      <!-- end counter -->
-
+<section class="wow fadeIn animated counter-section-container" style="visibility: visible; animation-name: fadeIn;">
+  <div class="container">
+    <div class="row">
+      <!-- Counter Card: Hours of Coding -->
+      <div class="col-md-3 col-sm-6 text-center counter-card wow slideInUp" data-wow-duration="300ms">
+        <div class="card">
+          <mat-icon class="medium-icon">code</mat-icon>
+          <span id="anim-number-pizza" class="counter-number"></span>
+          <span class="timer counter alt-font appear" data-to="10000" data-speed="17000">
+            {{HoursCoding * 365 * 5 * 10}}
+          </span>
+          <p class="counter-title">Hours Of Coding</p>
         </div>
+      </div>
+      <!-- Counter Card: Projects Done -->
+      <div class="col-md-3 col-sm-6 text-center counter-card wow slideInUp" data-wow-duration="600ms">
+        <div class="card">
+          <mat-icon class="medium-icon">done_outline</mat-icon>
+          <span class="timer counter alt-font appear" data-to="55" data-speed="70000">
+            {{projects_done}}
+          </span>
+          <p class="counter-title">Projects Done</p>
+        </div>
+      </div>
+      <!-- Counter Card: Languages Proficiency -->
+      <div class="col-md-3 col-sm-6 text-center counter-card wow slideInUp" data-wow-duration="900ms">
+        <div class="card">
+          <mat-icon class="medium-icon">computer</mat-icon>
+          <span class="timer counter alt-font appear" data-to="10" data-speed="700000">
+            {{language_proficiency}}
+          </span>
+          <p class="counter-title">Languages Proficiency</p>
+        </div>
+      </div>
+      <!-- Counter Card: Years Experience -->
+      <div class="col-md-3 col-sm-6 text-center counter-card wow slideInUp" data-wow-duration="900ms">
+        <div class="card">
+          <mat-icon class="medium-icon">watch</mat-icon>
+          <span class="timer counter alt-font appear" data-to="3" data-speed="7000000">
+            {{ yearsExperience }}
+          </span>
+          <p class="counter-title">Years Experience</p>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
-

@@ -10,12 +10,16 @@ export class CountersComponent implements OnInit {
 
   yearsExperience: number;
   HoursCoding: number;
+  projects_done: number;
+  language_proficiency: number;
 
   constructor() { }
 
   ngOnInit(): void {
     this.yearsExperience = this.calcAge('2019-1-26'); // Sets here, your date birthday
+    this.projects_done  = this.yearsExperience *3;
     this.HoursCoding = this.calcAge('2020-1-26');
+    this.language_proficiency = this.yearsExperience * 1.5;
     new counters();
   }
 

@@ -1,6 +1,6 @@
 [
   {
-    "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/graduation.png",
+    "thumbnail": "base_url/assets/posts/graduation.png",
     "http": "https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Korir%20K%20Emmanuel%20My%20CV.pdf?alt=media&token=0b1abffb-f31b-41dc-b9c0-3890585223d9",
     "date": "02-16-2022",
     "internationalizations": [
@@ -12,7 +12,7 @@
     ]
     },
     {
-    "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/android.jpg",
+    "thumbnail": "base_url/assets/posts/android.jpg",
     "http": "https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Emmanuel%20Resume.apk?alt=media&token=4ccce073-462b-4d77-866c-ed849d2b271b",
     "date": "02-16-2022",
     "internationalizations": [
@@ -24,7 +24,7 @@
     ]
     },
     {
-        "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/opencv.png",
+        "thumbnail": "base_url/assets/posts/opencv.png",
         "http": "https://opencv.org/",
         "date": "06-03-2021",
         "internationalizations": [
@@ -36,7 +36,7 @@
         ]
     },
     {
-        "thumbnail": "https://emmanuel1017.github.io/Angular-Resume-Portfolio/assets/posts/bitcoin.jpg",
+        "thumbnail": "base_url/assets/posts/bitcoin.jpg",
         "http": "https://www.brookings.edu/opinions/the-brutal-truth-about-bitcoin/",
         "date": "07-24-2021",
         "internationalizations": [
@@ -46,6 +46,211 @@
                 "description": "Bitcoin, the original cryptocurrency, has been on a wild ride since its creation in 2009.As of today the total market value of all cryptocurrencies now exceeds $1.5 trillion, a staggering amount for virtual objects that are nothing more than computer code.Bitcoin was created (by a person or group that remains unidentified to this day) as a way to conduct transactions without the intervention of a trusted third party, such as a central bank or financial institution. Its emergence amid the global financial crisis, which shook trust in banks and even governments, was perfectly timed. Bitcoin enabled transactions using only digital identities, granting users some degree of anonymity. This made Bitcoin the preferred currency for illicit activities, including recent ransomware attacks. It powered the shadowy darknet of illegal online commerce much like PayPal helped the rise of eBay by making payments easier."
             }
         ]
-    }
+    },
+    {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://medium.com/sage-ai/demystify-transformers-a-comprehensive-guide-to-scaling-laws-attention-mechanism-fine-tuning-fffb62fc2552",
+        "date": "2024-05-10",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Comprehensive Guide",
+            "description": "Explore the intricacies of transformer models, including scaling laws, attention mechanisms, and fine-tuning techniques. This guide provides a deep dive into deploying and optimizing transformers for various applications."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.rapidinnovation.io/post/how-to-build-your-own-gpt-model-a-step-by-step-tech-guide",
+        "date": "2024-07-22",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "How to Build Your Own GPT Model: A Step-by-Step Tech Guide",
+            "description": "Master GPT model creation with this comprehensive guide. Learn essential skills, data preparation techniques, and deployment strategies to build and fine-tune your own GPT models effectively."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://resources.nvidia.com/en-us-new-llm-product/large-language-models-overview-web-page",
+        "date": "2024-06-30",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Overview of Large Language Models",
+            "description": "Gain insights into large language models (LLMs) and their applications. This overview by NVIDIA discusses the architecture, training, and deployment of LLMs in modern AI systems."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://pub.towardsai.net/demystifying-transformers-a-visual-journey-1e0758067b82",
+        "date": "2024-09-26",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Visual Journey",
+            "description": "A practical guide for better understanding embeddings, positional encoding, and attention mechanisms in transformer models."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://pub.aimind.so/demystifying-transformers-a-practical-guide-with-tensorflow-code-3aeb6feaea24",
+        "date": "2024-05-10",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Practical Guide with TensorFlow Code",
+            "description": "This article provides a deep dive into transformers, explaining their key components and offering hands-on code examples using TensorFlow."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.fullestop.com/blog/how-to-create-a-gpt-model-a-step-by-step-guide",
+        "date": "2024-09-15",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "How to Create a GPT Model? A Step-by-Step Guide",
+            "description": "This blog post explains everything you need to know about building custom GPT models, their advantages, and how to choose the right GPT models that fit your needs."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.strandbooks.com/demystifying-large-language-models-unraveling-the-mysteries-of-language-transformer-models-build-from-ground-up-pre-train-fine-tune-and-deployment-9781738908486.html",
+        "date": "2024-08-01",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Unraveling the Mysteries of Language Transformer Models",
+            "description": "This book is a comprehensive guide aiming to demystify the world of transformers—the architecture that powers Large Language Models (LLMs) like GPT and BERT."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.growthmentor.com/blog/how-to-build-a-custom-gpt-step-by-step-guide/",
+        "date": "2024-08-08",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Step-by-Step Guide: How To Build A Custom GPT Model",
+            "description": "Learn how to build a custom GPT with AI expert Tim Cakir and get better results from AI than an off-the-shelf model could ever generate."
+          }
+        ]
+      }
+      ,
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://medium.com/crayon-ai/demystifying-the-transformer-architecture-a-comprehensive-guide-162c310a2984",
+        "date": "2023-05-10",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying the Transformer Architecture: A Comprehensive Guide",
+            "description": "Explore the intricacies of transformer models, including scaling laws, attention mechanisms, and fine-tuning techniques. This guide provides a deep dive into deploying and optimizing transformers for various applications."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.rapidinnovation.io/post/how-to-build-your-own-gpt-model-a-step-by-step-tech-guide",
+        "date": "2023-07-22",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "How to Build Your Own GPT Model: A Step-by-Step Tech Guide",
+            "description": "Master GPT model creation with this comprehensive guide. Learn essential skills, data preparation techniques, and deployment strategies to build and fine-tune your own GPT models effectively."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://resources.nvidia.com/en-us-new-llm-product/large-language-models-overview-web-page",
+        "date": "2023-06-30",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Overview of Large Language Models",
+            "description": "Gain insights into large language models (LLMs) and their applications. This overview by NVIDIA discusses the architecture, training, and deployment of LLMs in modern AI systems."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://pub.towardsai.net/demystifying-transformers-a-visual-journey-1e0758067b82",
+        "date": "2023-09-26",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Visual Journey",
+            "description": "A practical guide for better understanding embeddings, positional encoding, and attention mechanisms in transformer models."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://pub.aimind.so/demystifying-transformers-a-practical-guide-with-tensorflow-code-3aeb6feaea24",
+        "date": "2023-05-10",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Practical Guide with TensorFlow Code",
+            "description": "This article provides a deep dive into transformers, explaining their key components and offering hands-on code examples using TensorFlow."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.fullestop.com/blog/how-to-create-a-gpt-model-a-step-by-step-guide",
+        "date": "2023-09-15",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "How to Create a GPT Model? A Step-by-Step Guide",
+            "description": "This blog post explains everything you need to know about building custom GPT models, their advantages, and how to choose the right GPT models that fit your needs."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.strandbooks.com/demystifying-large-language-models-unraveling-the-mysteries-of-language-transformer-models-build-from-ground-up-pre-train-fine-tune-and-deployment-9781738908486.html",
+        "date": "2023-08-01",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Unraveling the Mysteries of Language Transformer Models",
+            "description": "This book is a comprehensive guide aiming to demystify the world of transformers—the architecture that powers Large Language Models (LLMs) like GPT and BERT."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://www.growthmentor.com/blog/how-to-build-a-custom-gpt-step-by-step-guide/",
+        "date": "2023-08-08",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Step-by-Step Guide: How To Build A Custom GPT Model",
+            "description": "Learn how to build a custom GPT with AI expert Tim Cakir and get better results from AI than an off-the-shelf model could ever generate."
+          }
+        ]
+      },
+      {
+        "thumbnail": "base_url/assets/posts/ai.jpg",
+        "http": "https://pub.aimind.so/demystifying-transformers-a-practical-guide-with-tensorflow-code-3aeb6feaea24",
+        "date": "2023-05-10",
+        "internationalizations": [
+          {
+            "language": "en",
+            "title": "Demystifying Transformers: A Practical Guide with TensorFlow Code",
+            "description": "In this article, we'll take a deep dive into Transformers, explain their key components, and provide hands-on code examples using TensorFlow."
+          }
+        ]
+      }
 
 ]
