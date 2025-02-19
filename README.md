@@ -27,14 +27,14 @@ This Angular-based resume is designed to impress by combining state-of-the-art t
 
 ---
 
-## <span style="color:#27ae60;">Animated Demo</span>
+## <span style="color:#27ae60;"> Demo</span>
 
 <p style="color: #333; font-size: 1.1em;">
 Experience the interactive animations and seamless transitions that bring this resume to life. Watch the demo below:
 </p>
 
 <div style="text-align: center;">
-  <img src="https://media.giphy.com/media/l0HlQ7LRalwbdHD4c/giphy.gif" alt="Angular Animations Demo" style="border: 3px solid #ccc; border-radius: 10px; max-width: 90%;">
+  https://youtu.be/l4KrnkHHdug
 </div>
 
 <p style="text-align: center; font-size: 0.9em;">
