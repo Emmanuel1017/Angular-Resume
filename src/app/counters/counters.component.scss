@@ -1,27 +1,89 @@
-.counter-section i { display:block; margin:0 0 10px}
-.counter-section span.counter { font-size:40px; color:#000; line-height:60px; display:block; font-family: "Oswald",sans-serif; letter-spacing: 2px}
-.counter-title{ font-size:12px; letter-spacing:2px; text-transform: uppercase}
-.counter-icon {top:25px; position:relative}
-.counter-style2 .counter-title {letter-spacing: 0.55px; float: left;}
-.counter-style2 span.counter {letter-spacing: 0.55px; float: left; margin-right: 10px;}
-.counter-style2 i {float: right; line-height: 26px; margin: 0 10px 0 0}
-.counter-subheadline span {float: right;}  
-
-.medium-icon {
-    font-size: 40px !important;
-    margin-bottom: 15px !important;
-} 
-
-.container{
-    margin-top:200px;
-}
-
-.wow
-{
+/* Container adjustments with padding below */
+.container {
+    margin-top: 200px;
+    padding-bottom: 50px; /* Extra padding below the section */
+  }
+  
+  /* Section adjustments */
+  .counter-section-container {
     top: -5em;
     bottom: 3em;
     position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: fit-content;
-}
+  }
+  
+  /* Card styling with modern look and shimmer effect */
+  .counter-card .card {
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .counter-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Shimmer effect overlay */
+  .counter-card .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150px;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    animation: shimmer 1.5s infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  /* Shimmer keyframes */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+  
+  /* Icon and counter styling */
+  .counter-section i {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  span.counter {
+    font-size: 40px;
+    color: #000;
+    line-height: 60px;
+    display: block;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 2px;
+  }
+  
+  .counter-title {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .medium-icon {
+    font-size: 40px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Optional: Override slideInUp if needed */
+  .wow.slideInUp {
+    animation-name: slideInUp;
+  }
+  
