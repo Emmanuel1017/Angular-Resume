@@ -1,4 +1,4 @@
-<!--README -->
+![Screenshot 2025-02-19 at 12 35 46](https://github.com/user-attachments/assets/19943770-b502-466c-8cea-24f0f7e77646)<!--README -->
 
 <h1 style="text-align: center; font-size: 3em; background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff); -webkit-background-clip: text; color: transparent;">
 My Resume In Angular
@@ -11,6 +11,8 @@ My Resume In Angular
 
 ---
 ![Screenshot 2025-02-19 at 10 22 26](https://github.com/user-attachments/assets/fa4aa207-97f2-4a7e-b911-8d8a043ddd12)
+![Screenshot 2025-02-19 at 12 35 46](https://github.com/user-attachments/assets/a88371ad-1ec6-485c-81a3-a2f5761b5940)
+![Screenshot 2025-02-19 at 12 35 54](https://github.com/user-attachments/assets/0d67a1c2-c3cd-4b42-986a-a757cb1e11dd)
 
 ## <span style="color:#2c3e50;">Overview</span>
 
