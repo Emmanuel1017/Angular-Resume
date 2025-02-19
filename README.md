@@ -4,11 +4,13 @@
 My Resume In Angular
 </h1>
 
+
 <p style="text-align: center; font-style: italic; font-size: 1.2em;">
   Dynamic. Responsive. Interactive.
 </p>
 
 ---
+![Screenshot 2025-02-19 at 10 22 26](https://github.com/user-attachments/assets/fa4aa207-97f2-4a7e-b911-8d8a043ddd12)
 
 ## <span style="color:#2c3e50;">Overview</span>
 
