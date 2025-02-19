@@ -37,15 +37,13 @@ Experience the interactive animations and seamless transitions that bring this r
   
 
 
-Uploading Screen Recording 2025-02-19 at 11.12.19.mov…
+https://github.com/user-attachments/assets/15c1251d-62f2-4e2d-a532-bfb04f860cab
 
 
 
 </div>
 
-<p style="text-align: center; font-size: 0.9em;">
-*Note: This is a sample animation demonstrating smooth transitions and interactive elements built into the project.*
-</p>
+
 
 ---
 
