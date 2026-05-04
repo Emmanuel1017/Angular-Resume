@@ -1,5 +1,5 @@
 let environment = {
-  production: false,
+  production: true,
   firebaseConfig: {
     apiKey: 'AIzaSyD5hd4ptb2ger4nQtmIGvO71z7AJ9cDwEA',
     authDomain: 'emmanuelkorircv.firebaseapp.com',
@@ -15,7 +15,7 @@ let environment = {
 };
 
 environment.baseUrl = environment.production  
-  ? 'https://emmanuel1017.github.io/Angular-Resume-Portfolio'  
+  ? 'https://emmanuel1017.github.io/Angular-Resume'
   : 'http://localhost:4200';
 
 export { environment };
