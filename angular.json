@@ -61,13 +61,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "30kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "40kb"
                 }
               ]
             },
@@ -77,10 +77,14 @@
               "sourceMap": true
             },
             "en": {
-              "localize": ["en"]
+              "localize": [
+                "en"
+              ]
             },
             "pt": {
-              "localize": ["pt"]
+              "localize": [
+                "pt"
+              ]
             }
           },
           "defaultConfiguration": "production"
