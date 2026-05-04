@@ -45,3 +45,12 @@ testem.log
 .DS_Store
 Thumbs.db
 src/environments/environment.ts
+
+# Angular CLI cache
+.angular/
+
+# Claude Code session file
+CLAUDE.md
+
+# npm lock (project uses yarn)
+package-lock.json

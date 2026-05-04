@@ -3,6 +3,7 @@ import { faBars, faShareAlt, faCloudDownloadAlt,  IconDefinition } from '@fortaw
 import { NgNavigatorShareService } from 'ng-navigator-share';
 declare var headerjs: any;
 @Component({
+  standalone: false,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss', './header.component.responsivity.scss']

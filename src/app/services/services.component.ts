@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 declare var services: any;
 @Component({
+  standalone: false,
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']

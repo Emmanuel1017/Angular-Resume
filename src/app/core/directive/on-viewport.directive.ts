@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 @Directive({
+  standalone: false,
   selector: '[in-viewport]'
 })
 

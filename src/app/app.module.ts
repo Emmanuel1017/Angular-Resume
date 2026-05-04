@@ -12,20 +12,17 @@ import { CoreModule } from './core/core.module';
 import localeEn from '@angular/common/locales/en';
 
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { environment } from '../environments/environment.prod';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { environment } from '../environments/environment';
 
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import * as Hammer from 'hammerjs';
 
 import { NotifierModule } from 'angular-notifier';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ResponsiveModule } from 'ngx-responsive';
-
-
 
 
 
@@ -35,21 +32,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         swipe: { direction: Hammer.DIRECTION_ALL },
     } as any;
 }
-
-/*
-*export lottie animation web
-*/
-
-const config = {
-  breakPoints: {
-      xs: {max: 600},
-      sm: {min: 601, max: 959},
-      md: {min: 960, max: 1279},
-      lg: {min: 1280, max: 1919},
-      xl: {min: 1920}
-  },
-  debounceTime: 100
-};
 
 registerLocaleData(localeEn, 'en');
 
@@ -66,10 +48,10 @@ registerLocaleData(localeEn, 'en');
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAnalyticsModule,
+    AngularFirestoreModule,
     HammerModule,
     NotifierModule,
-    BrowserAnimationsModule,
-    ResponsiveModule.forRoot(config)
+    BrowserAnimationsModule
   ],
   declarations: [ AppComponent],
   bootstrap: [ AppComponent ],

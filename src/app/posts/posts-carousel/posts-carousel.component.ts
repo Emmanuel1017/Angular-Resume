@@ -9,6 +9,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { debounce } from '../../core/utils';
 
 @Component({
+  standalone: false,
     selector: 'app-posts-carousel',
     templateUrl: './posts-carousel.component.html',
     styleUrls: ['./posts-carousel.component.scss', './posts-carousel.component.responsivity.scss'],

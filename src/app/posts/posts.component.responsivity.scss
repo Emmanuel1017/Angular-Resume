@@ -1,102 +1,13 @@
-@media screen and (max-width: 670px) {
-
-    .container {
-
-        h1 {
-            font-size: 38px;
-        }
-    
-        p.synopsis {
-            font-size: 16px;
-        }
-
-        .top-container {
-    
-            .navigation {
-                font-size: 28px;
-            }
-        }
-    }
+@media (max-width: 768px) {
+  #posts { padding: 3.2em 0 4em; }
+  .section-header h1       { font-size: 34px; }
+  .section-header .synopsis { font-size: 16px; }
+  .pg-btn                  { min-width: 34px; height: 34px; font-size: 13px; }
+  .pg-ellipsis             { min-width: 24px; }
 }
 
-@media screen and (max-width: 550px) {
-
-    .container {
-
-        h1 {
-            font-size: 34px;
-        }
-    
-        p.synopsis {
-            font-size: 14px;
-        }
-
-        .top-container {
-    
-            .navigation {
-                font-size: 24px;
-
-                span {
-                    margin: 5px;
-                }
-            }
-        }
-
-        .middle-container {
-            touch-action: pan-y !important;
-            padding-bottom: 1em;
-        }
-    }
-}
-
-@media screen and (max-width: 450px) {
-
-    .container {
-
-        h1 {
-            margin: 0.65em 0;
-        }
-    
-        p.synopsis {
-            margin-top: 1em;
-        }
-
-        .top-container {
-    
-            .navigation {
-                font-size: 24px;
-
-                span {
-                    margin: 5px;
-                }
-
-                .divider {
-                    display: none;
-                }
-                
-                .molding {
-                    border: 3px solid #414c73;
-                    display: inline-block;
-                    padding: 0 5px 5px 5px;
-                    border-radius: 10px;
-                    
-                    .icon {
-                        font-size: 16px;
-                    }
-                
-                    span {
-                        margin: 5px;
-                        font-size: 18px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 360px) {
-
-    .container p.synopsis {
-        display: none;
-    }
+@media (max-width: 480px) {
+  .section-header h1 { font-size: 28px; }
+  .pagination        { gap: .25em; }
+  .pg-btn            { min-width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
 }

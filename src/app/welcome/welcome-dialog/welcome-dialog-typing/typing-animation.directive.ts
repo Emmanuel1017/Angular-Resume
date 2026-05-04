@@ -10,6 +10,7 @@ interface IPhrase {
 }
 
 @Directive({
+  standalone: false,
     selector: '[typingAnimation]'
 })
 

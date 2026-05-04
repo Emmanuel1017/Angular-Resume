@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 declare var what_we_do: any;
 @Component({
+  standalone: false,
   selector: 'app-whatwedo',
   templateUrl: './whatwedo.component.html',
   styleUrls: ['./whatwedo.component.scss']
@@ -20,7 +21,7 @@ export class WhatwedoComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onWindowResize() {
+  onWindowResize(_event?: Event) {
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
   }

@@ -1,31 +1,45 @@
 <section id="posts">
-    <div class="container">
-        <div class="top-container">
-            <div class="title">
-                <h1 >Posts</h1>
-            </div>
-            <div class="navigation">
-                <a href="javascript:void(0)" class="previous" (click)="onClickPrevious()" [ngClass]="{'disabled': disablePreviousNavigation()}">
-                    <div class="molding">
-                        <fa-icon [icon]="faChevronLeft" class="icon"  title="Previous"></fa-icon>
-                        <span >Previous</span>
-                    </div>
-                </a>
-                <div class="divider">|</div>
-                <a href="javascript:void(0)" class="next" (click)="onClickNext()" [ngClass]="{'disabled': disableNextNavigation()}">
-                    <div class="molding">
-                        <span >Next</span>
-                        <fa-icon [icon]="faChevronRight" class="icon"  title="Next"></fa-icon>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <p class="synopsis" >My posts update:</p>
-        <div class="middle-container" (swipe)="onSwipe($event)">
-            <app-posts-carousel
-                [posts]="posts"
-                [currentPage]="currentPage"
-                (onResultsPerPageChanged)="updateNavigation($event)"></app-posts-carousel>
-        </div>
+  <div class="container">
+
+    <div class="section-header">
+      <h1>Latest Posts</h1>
+      <p class="synopsis">Thoughts, tutorials &amp; dev journals from my journey</p>
     </div>
+
+    <div class="posts-stage" (swipe)="onSwipe($event)">
+      <app-posts-carousel
+          [posts]="posts"
+          [currentPage]="currentPage"
+          (onResultsPerPageChanged)="updateNavigation($event)">
+      </app-posts-carousel>
+    </div>
+
+    <nav class="pagination" aria-label="Blog pages">
+      <button class="pg-btn pg-arrow"
+              (click)="onClickPrevious()"
+              [disabled]="disablePreviousNavigation()"
+              aria-label="Previous page">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+      </button>
+
+      <ng-container *ngFor="let p of pageNumbers">
+        <span *ngIf="p === '...'" class="pg-ellipsis">…</span>
+        <button *ngIf="p !== '...'"
+                class="pg-btn pg-num"
+                [class.active]="p === currentPage"
+                (click)="goToPage(+p)"
+                [attr.aria-current]="p === currentPage ? 'page' : null">
+          {{ p }}
+        </button>
+      </ng-container>
+
+      <button class="pg-btn pg-arrow"
+              (click)="onClickNext()"
+              [disabled]="disableNextNavigation()"
+              aria-label="Next page">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
+    </nav>
+
+  </div>
 </section>

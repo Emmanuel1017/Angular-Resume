@@ -2,9 +2,10 @@ import { CanonicalService } from './resume/canonical.service';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -12,7 +13,7 @@ import * as moment from 'moment';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Emmanuel Korir';
+  title = 'Korir Emmanuel';
   myDate ;
 
 
