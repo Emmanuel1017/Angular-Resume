@@ -1,149 +1,178 @@
+// ─── Design tokens ────────────────────────────────────────────────────────────
+$navy:    #222f5c;
+$green-l: #abd699;
+$green-d: #47603c;
+$muted:   #5e6788;
+$white:   #fff;
+
+// ─── Host: sticky at top ──────────────────────────────────────────────────────
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+// ─── Header shell ─────────────────────────────────────────────────────────────
 header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 2.5em;
+  height: 66px;
+  background: rgba($white, .82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba($green-l, .22);
+  box-shadow: 0 1px 24px rgba($navy, .06);
+  box-sizing: border-box;
+  border-radius: 0;
+  transition: background .3s ease, box-shadow .3s ease;
+
+  ul {
     display: flex;
-    background: transparent;
-    flex-flow: row wrap;
-    max-width: 1400px;
-    border-radius: 25px;
-    width: 100vw;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  // ─── Logo ──────────────────────────────────────────────────────────────────
+  .child.logo-container {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.4px;
+      background: linear-gradient(130deg, $navy 30%, $green-d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: none;
+      width: auto;
+      transition: opacity .2s;
+
+      &:hover { opacity: .7; }
+    }
+  }
+
+  // ─── Nav ───────────────────────────────────────────────────────────────────
+  .child.nav-container {
+    flex-grow: 5;
+    transition: .3s;
 
     ul {
-        display: flex;
-        flex-flow: row wrap;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+      justify-content: flex-end;
+      gap: .15em;
+      height: 66px;
     }
 
-    .child.logo-container {
-        align-items: left;
-        flex-grow: 2;
-        text-align: left;
-        
+    li {
+      margin-right: 0;
 
-        a {
-            width: 125px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 35px;
-            font-weight: 700;
-            color: #47603c;
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: .3em;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: $muted;
+        padding: .45em 1em;
+        border-radius: 8px;
+        text-transform: none;
+        position: relative;
+        transition: color .22s ease, background .22s ease;
+
+        mat-icon {
+          font-size: 17px !important;
+          width: 17px !important;
+          height: 17px !important;
+          line-height: 17px !important;
         }
-    }
 
-    .child.nav-container {
-        flex-grow: 5;
-        transition: 0.3s;
-
-        ul {
-            justify-content: flex-end;
-            align-items: center;
-            height: 52px;
-
-            li {
-                text-align: center;
-                margin-right: 1em;
-
-                a {
-                    text-transform: capitalize;
-                    text-decoration: none;
-                    font-size: 20px;
-                    font-weight: 600;
-                    color: #47603c;
-                    padding: 14px;
-                    border-radius: 15px;
-                    transition: 0.3s;
-
-                    &:not(.active):hover {
-                        background-color: #fff;
-                        -webkit-box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-                        box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-                    }
-                }
-
-                .active {
-                    background-color: #47603c;
-                    color: #fff;
-                    font-weight: 600;
-                }
-            }
+        // Animated underline
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 5px; left: 50%;
+          width: 0; height: 2px;
+          background: $green-d;
+          border-radius: 2px;
+          transform: translateX(-50%);
+          transition: width .25s ease;
         }
-    }
 
-    .child.language-container {
+        &:hover {
+          color: $navy;
+          background: rgba($green-l, .14);
 
-        .frame {
-            background-color: #fff;
-            display: inline-block;
-            border-radius: 15px;
-            -webkit-box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-            box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-
-            ul {
-                height: 52px;
-                text-align: center;
-
-                li {
-                    flex-grow: 1;
-                    display: inline-block;
-                    height: 25px;
-                    margin: 14px 0 0 0;
-                    border-right: 2px solid #bfbfbf3b;
-
-                    a {
-                        display: inline-block;
-                        margin: 0 15px;
-                        text-decoration: none;
-                        text-transform: uppercase;
-                        font-size: 20px;
-                        font-weight: 600;
-                        color: #222f5c59;
-                        transition: 0.3s;
-
-                        &:hover {
-                            color: #47603c;
-                        }
-                    }
-
-                    .active {
-                        color: #47603c;
-                    }
-
-                    &:last-of-type {
-                        border-right: none;
-                    }
-                }
-
-                &:before {
-                    content: "\202f\202d";
-                }
-            }
+          &::after { width: 55%; }
         }
-    }
 
-    .child.navbar-toggle {
-        flex-grow: 1;
-        display: none;
-        justify-content: center;
-        cursor: pointer;
-    }
+        &.active {
+          color: $white;
+          background: linear-gradient(135deg, $green-l, $green-d);
+          box-shadow: 0 4px 14px rgba($green-d, .28);
 
-    .child.share-container {
-        // visible only for mobile browsers that accept share intent.
-        display: none;
-        margin-left: 10px;
-        background-color: #fff;
-        padding: 11px;
-        border-radius: 15px;
-        box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-        cursor: pointer;
-
-        .icon {
-            font-size: 25px;
-            color: #4e5562;
-
-            &:hover {
-                color: #47603c;
-            }
+          &::after { display: none; }
         }
+
+        &:not(.active):hover { box-shadow: none; }
+      }
     }
+  }
+
+  // ─── Language container (keep compatible) ──────────────────────────────────
+  .child.language-container { display: none; }
+
+  // ─── Hamburger (hidden on desktop) ─────────────────────────────────────────
+  .child.navbar-toggle {
+    flex-grow: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: .35em .55em;
+    border-radius: 8px;
+    border: 1.5px solid rgba($navy, .12);
+    transition: background .2s, border-color .2s;
+
+    &:hover {
+      background: rgba($green-l, .15);
+      border-color: $green-l;
+    }
+
+    .bar-icon {
+      font-size: 17px;
+      color: $navy;
+    }
+  }
+
+  // ─── Share button ──────────────────────────────────────────────────────────
+  .child.share-container {
+    display: none;
+    margin-left: .75em;
+    background: $white;
+    padding: .5em .65em;
+    border-radius: 10px;
+    border: 1.5px solid rgba($navy, .10);
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+
+    &:hover {
+      border-color: $green-l;
+      box-shadow: 0 2px 10px rgba($green-d, .15);
+    }
+
+    .icon {
+      font-size: 17px;
+      color: $muted;
+      &:hover { color: $green-d; }
+    }
+  }
 }

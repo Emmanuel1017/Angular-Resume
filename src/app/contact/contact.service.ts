@@ -1,13 +1,13 @@
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Injectable, inject } from '@angular/core';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { Contact } from '../model/contact.model';
-import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ContactService {
 
-    constructor(private database: AngularFirestore) { }
+    private firestore = inject(Firestore);
 
     createContact(contact: Contact): Promise<any> {
-        return this.database.collection<Contact>('contacts').add(contact);
+        return addDoc(collection(this.firestore, 'contacts'), contact as any);
     }
 }

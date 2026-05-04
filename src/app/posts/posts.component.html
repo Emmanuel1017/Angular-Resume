@@ -10,7 +10,8 @@
       <app-posts-carousel
           [posts]="posts"
           [currentPage]="currentPage"
-          (onResultsPerPageChanged)="updateNavigation($event)">
+          (onResultsPerPageChanged)="updateNavigation($event)"
+          (postOpened)="openReader($event)">
       </app-posts-carousel>
     </div>
 
@@ -43,3 +44,9 @@
 
   </div>
 </section>
+
+<!-- Post reader overlay -->
+<app-post-reader
+  [post]="activePost"
+  (closed)="closeReader()">
+</app-post-reader>

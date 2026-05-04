@@ -1,0 +1,51 @@
+<div class="reader-backdrop" [class.visible]="visible" (click)="close()"></div>
+
+<div class="reader-panel" [class.visible]="visible" #scrollPane (scroll)="onScroll($event)">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" [style.width.%]="progress"></div>
+
+  <!-- Close button -->
+  <button class="close-btn" (click)="close()" aria-label="Close article">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <line x1="18" y1="6"  x2="6"  y2="18"/>
+      <line x1="6"  y1="6"  x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <article class="reader-article" *ngIf="post">
+
+    <!-- Hero image -->
+    <div class="hero-image" [style.backgroundImage]="'url(' + post.thumbnail + ')'">
+      <div class="hero-overlay"></div>
+      <div class="hero-meta">
+        <span class="hero-date">{{ post.date | safariDateFormatter | localizedDate:'dd MMM yyyy' }}</span>
+        <span class="reading-time">{{ readingTime }} min read</span>
+      </div>
+    </div>
+
+    <!-- Article header -->
+    <header class="article-header">
+      <h1 class="article-title"
+          internationalization
+          [data]="post.internationalizations"
+          property="title">Loading…</h1>
+      <p class="article-lead"
+         internationalization
+         [data]="post.internationalizations"
+         property="description">Loading…</p>
+    </header>
+
+    <!-- Article body -->
+    <div class="article-body" [innerHTML]="i18n?.content"></div>
+
+    <!-- Footer CTA -->
+    <footer class="article-footer">
+      <a *ngIf="post.http" [href]="post.http" target="_blank" rel="nofollow" class="source-link">
+        View original source →
+      </a>
+      <button class="back-btn" (click)="close()">← Back to posts</button>
+    </footer>
+
+  </article>
+</div>

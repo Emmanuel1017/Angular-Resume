@@ -38,7 +38,7 @@
             <div class="middle-container" (swipe)="onSwipe($event)">
                 <div class="events-content">
                     <ol #orderedList>
-                        <li *ngFor="let exp of experiencesOrdered; let i = index" [ngClass]="{'selected': i == 0}" data-id="{{ exp.id }}">
+                        <li *ngFor="let exp of experiencesOrdered; let i = index" [ngClass]="{'selected': i == 0}" [attr.id]="exp.id">
                             <div class="header-block">
                                 <div class="logo-block">
                                     <a href="{{ exp.website }}" target="_blank"><img src="{{ exp.logo }}" alt="{{ exp.companyName }}"></a>

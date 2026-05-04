@@ -5,36 +5,55 @@
   <!-- Float wrapper: CSS keyframe floats this layer -->
   <div class="avatar-float">
 
-    <!-- Tilt wrapper: JS writes transform here (no CSS animation conflict) -->
+    <!-- Tilt wrapper: JS writes transform here -->
     <div class="avatar-tilt" #tiltEl>
-
       <div class="avatar-object">
-
-        <!-- Ambient glow behind avatar -->
         <div class="avatar-glow"></div>
-
-        <!-- The actual portrait -->
         <div class="picture"></div>
-
-        <!-- Ring 1 — tight tilted halo -->
-        <div class="ring ring-1">
-          <div class="ring-dot dot-1"></div>
-        </div>
-
-        <!-- Ring 2 — wide slow reverse orbit -->
-        <div class="ring ring-2">
-          <div class="ring-dot dot-2"></div>
-        </div>
-
-        <!-- Ring 3 — medium cross orbit -->
-        <div class="ring ring-3">
-          <div class="ring-dot dot-3"></div>
-        </div>
-
-        <!-- Specular sheen on the avatar face -->
+        <div class="ring ring-1"><div class="ring-dot dot-1"></div></div>
+        <div class="ring ring-2"><div class="ring-dot dot-2"></div></div>
+        <div class="ring ring-3"><div class="ring-dot dot-3"></div></div>
         <div class="avatar-sheen"></div>
-
       </div>
     </div>
+  </div>
+
+  <!-- ── Planet orbits — centered on scene, outside float/tilt ── -->
+  <div class="planet-orbits">
+
+    <!-- Orbit A: inner, clockwise, 14s, 4 icons evenly at 90° steps -->
+    <div class="po po-a">
+      <div class="pi" style="background-image:url('/assets/template/welcome/icons/html5.svg')"></div>
+    </div>
+    <div class="po po-a" style="animation-delay:-3.5s">
+      <div class="pi" style="animation-delay:-3.5s;background-image:url('/assets/template/welcome/icons/css3.svg')"></div>
+    </div>
+    <div class="po po-a" style="animation-delay:-7s">
+      <div class="pi" style="animation-delay:-7s;background-image:url('/assets/template/welcome/icons/java.svg')"></div>
+    </div>
+    <div class="po po-a" style="animation-delay:-10.5s">
+      <div class="pi" style="animation-delay:-10.5s;background-image:url('/assets/template/welcome/icons/sql.svg')"></div>
+    </div>
+
+    <!-- Orbit B: outer, counter-clockwise, 22s, 6 icons evenly at 60° steps -->
+    <div class="po po-b">
+      <div class="pi" style="background-image:url('/assets/template/welcome/icons/android.svg')"></div>
+    </div>
+    <div class="po po-b" style="animation-delay:-3.67s">
+      <div class="pi" style="animation-delay:-3.67s;background-image:url('/assets/template/welcome/icons/apple.svg')"></div>
+    </div>
+    <div class="po po-b" style="animation-delay:-7.33s">
+      <div class="pi" style="animation-delay:-7.33s;background-image:url('/assets/template/welcome/icons/docker.svg')"></div>
+    </div>
+    <div class="po po-b" style="animation-delay:-11s">
+      <div class="pi" style="animation-delay:-11s;background-image:url('/assets/template/welcome/icons/git.svg')"></div>
+    </div>
+    <div class="po po-b" style="animation-delay:-14.67s">
+      <div class="pi" style="animation-delay:-14.67s;background-image:url('/assets/template/welcome/icons/php.svg')"></div>
+    </div>
+    <div class="po po-b" style="animation-delay:-18.33s">
+      <div class="pi" style="animation-delay:-18.33s;background-image:url('/assets/template/welcome/icons/bitbucket.svg')"></div>
+    </div>
+
   </div>
 </div>

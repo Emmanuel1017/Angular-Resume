@@ -1,0 +1,290 @@
+$green-l:  #d4f7b8;
+$green-m:  #a8e87a;
+$green-d:  #5a8c3e;
+$navy:     #0d1b2a;
+$navy-mid: #1b2e45;
+$text:     #1e2d3d;
+$muted:    #6b7c8d;
+$white:    #ffffff;
+$radius:   16px;
+
+// ── Backdrop ──────────────────────────────────────────────────────────────────
+.reader-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba($navy, .72);
+  backdrop-filter: blur(6px);
+  z-index: 1900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+// ── Sliding panel ─────────────────────────────────────────────────────────────
+.reader-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(780px, 100vw);
+  background: $white;
+  z-index: 2000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: translateX(100%);
+  transition: transform .32s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: -8px 0 40px rgba($navy, .25);
+
+  &.visible {
+    transform: translateX(0);
+  }
+
+  // smooth scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: rgba($green-m, .5) transparent;
+  &::-webkit-scrollbar       { width: 5px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba($green-m, .5); border-radius: 4px; }
+}
+
+// ── Progress bar ──────────────────────────────────────────────────────────────
+.progress-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, $green-m, $green-d);
+  transition: width .1s linear;
+  z-index: 10;
+  border-radius: 0 2px 2px 0;
+}
+
+// ── Close button ──────────────────────────────────────────────────────────────
+.close-btn {
+  position: sticky;
+  top: 12px;
+  float: right;
+  margin: -4px 16px 0 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba($navy, .08);
+  color: $navy-mid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .2s;
+  z-index: 11;
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: rgba($green-d, .12);
+    color: $green-d;
+    transform: scale(1.1);
+  }
+}
+
+// ── Article layout ────────────────────────────────────────────────────────────
+.reader-article {
+  padding-bottom: 3rem;
+}
+
+// ── Hero image ────────────────────────────────────────────────────────────────
+.hero-image {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba($navy, .65) 0%, transparent 60%);
+}
+
+.hero-meta {
+  position: absolute;
+  bottom: 16px;
+  left: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.hero-date,
+.reading-time {
+  font-size: 13px;
+  color: rgba($white, .88);
+  font-weight: 500;
+}
+
+.reading-time {
+  background: rgba($green-m, .22);
+  border: 1px solid rgba($green-m, .4);
+  padding: 2px 10px;
+  border-radius: 20px;
+  color: $green-l;
+}
+
+// ── Article header ────────────────────────────────────────────────────────────
+.article-header {
+  padding: 28px 32px 0;
+}
+
+.article-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: $navy;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+.article-lead {
+  font-size: 1.05rem;
+  color: $muted;
+  line-height: 1.65;
+  margin: 0 0 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba($navy, .08);
+}
+
+// ── Article body ──────────────────────────────────────────────────────────────
+.article-body {
+  padding: 8px 32px 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: $text;
+
+  ::ng-deep {
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: $navy;
+      margin: 2rem 0 .75rem;
+      padding-left: 14px;
+      border-left: 3px solid $green-m;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $navy-mid;
+      margin: 1.5rem 0 .5rem;
+    }
+
+    p { margin: 0 0 1.1rem; }
+
+    ul, ol {
+      margin: 0 0 1.1rem 1.4rem;
+      padding: 0;
+      li { margin-bottom: .4rem; }
+    }
+
+    strong { color: $navy; font-weight: 700; }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: .88em;
+      background: rgba($green-d, .08);
+      color: $green-d;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: $navy;
+      color: $green-l;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: .88rem;
+      line-height: 1.6;
+      margin: 0 0 1.2rem;
+
+      code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        border-radius: 0;
+      }
+    }
+
+    blockquote {
+      margin: 1.2rem 0;
+      padding: 12px 20px;
+      border-left: 4px solid $green-m;
+      background: rgba($green-m, .07);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: $navy-mid;
+    }
+
+    a {
+      color: $green-d;
+      text-decoration: underline;
+      &:hover { color: darken($green-d, 10%); }
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba($navy, .1);
+      margin: 2rem 0;
+    }
+  }
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.article-footer {
+  padding: 2rem 32px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba($navy, .08);
+  margin-top: 2rem;
+}
+
+.source-link {
+  font-size: .9rem;
+  color: $green-d;
+  text-decoration: none;
+  font-weight: 600;
+  &:hover { text-decoration: underline; }
+}
+
+.back-btn {
+  margin-left: auto;
+  border: 1px solid rgba($navy, .18);
+  background: transparent;
+  color: $navy-mid;
+  font-size: .9rem;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+
+  &:hover {
+    background: $navy;
+    color: $white;
+  }
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .article-header { padding: 20px 18px 0; }
+  .article-body   { padding: 8px 18px 0; }
+  .article-footer { padding: 1.5rem 18px 0; }
+  .article-title  { font-size: 1.45rem; }
+  .hero-image     { height: 200px; }
+}

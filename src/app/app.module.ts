@@ -11,11 +11,9 @@ import { CoreModule } from './core/core.module';
 
 import localeEn from '@angular/common/locales/en';
 
-
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
 import { environment } from '../environments/environment';
 
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -23,8 +21,6 @@ import * as Hammer from 'hammerjs';
 
 import { NotifierModule } from 'angular-notifier';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -35,8 +31,6 @@ export class MyHammerConfig extends HammerGestureConfig {
 
 registerLocaleData(localeEn, 'en');
 
-
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -45,21 +39,20 @@ registerLocaleData(localeEn, 'en');
     ResumeModule,
     PageNotFoundModule,
     PageNotFoundRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAnalyticsModule,
-    AngularFirestoreModule,
     HammerModule,
     NotifierModule,
     BrowserAnimationsModule
   ],
-  declarations: [ AppComponent],
+  declarations: [ AppComponent ],
   bootstrap: [ AppComponent ],
   providers: [
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
     },
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics()),
   ]
 })
 

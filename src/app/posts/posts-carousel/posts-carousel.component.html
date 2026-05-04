@@ -1,41 +1,31 @@
 <div class="posts-list" itemscope itemtype="https://schema.org/Article">
-  <meta itemprop="publisher" content="Caribou developers" />
+  <meta itemprop="publisher" content="Emmanuel Korir" />
   <meta itemprop="author" content="Korir K Emmanuel" />
 
   <div class="cards-row">
-    <a *ngFor="let post of _posts; let i = index"
-       href="{{ post.http }}" target="_blank" rel="nofollow"
-       class="post-card"
-       [style.--delay]="(i * 110) + 'ms'"
-       itemprop="url">
+    <ng-container *ngFor="let post of _posts; let i = index">
 
-      <!-- Thumbnail -->
-      <div class="card-thumb">
-        <div class="thumb-bg" [style.backgroundImage]="'url(' + post.thumbnail + ')'"></div>
-        <div class="thumb-overlay"></div>
-        <div class="card-date">
-          <span class="d-day">{{ post.date | safariDateFormatter | localizedDate:'dd' }}</span>
-          <span class="d-mon">{{ post.date | safariDateFormatter | localizedDate:'MMM' }}</span>
-          <span class="d-yr">{{ post.date | safariDateFormatter | localizedDate:'yyyy' }}</span>
-        </div>
+      <!-- Posts WITH full content → open reader -->
+      <div *ngIf="hasContent(post)"
+           class="post-card"
+           [style.--delay]="(i * 110) + 'ms'"
+           (click)="openPost(post)"
+           role="button" tabindex="0"
+           (keydown.enter)="openPost(post)"
+           itemprop="url">
+        <ng-container *ngTemplateOutlet="cardInner; context: { post: post, local: true }"></ng-container>
       </div>
 
-      <!-- Card body -->
-      <div class="card-body">
-        <div class="card-accent"></div>
-        <h2 class="card-title"
-            internationalization [data]="post.internationalizations" property="title"
-            itemprop="name headline">Loading…</h2>
-        <p class="card-desc"
-           internationalization [data]="post.internationalizations" property="description" ellipsis="160"
-           itemprop="description">Loading…</p>
-        <span class="card-cta">
-          Read Article
-          <span class="cta-arrow">→</span>
-        </span>
-      </div>
+      <!-- Posts WITHOUT content → external link -->
+      <a *ngIf="!hasContent(post)"
+         href="{{ post.http }}" target="_blank" rel="nofollow"
+         class="post-card"
+         [style.--delay]="(i * 110) + 'ms'"
+         itemprop="url">
+        <ng-container *ngTemplateOutlet="cardInner; context: { post: post, local: false }"></ng-container>
+      </a>
 
-    </a>
+    </ng-container>
   </div>
 
   <p class="paginator">
@@ -43,3 +33,30 @@
     <span class="out-of">of {{ _originalPosts?.length }} posts</span>
   </p>
 </div>
+
+<!-- Shared card template -->
+<ng-template #cardInner let-post="post" let-local="local">
+  <div class="card-thumb">
+    <div class="thumb-bg" [style.backgroundImage]="'url(' + post.thumbnail + ')'"></div>
+    <div class="thumb-overlay"></div>
+    <div class="card-date">
+      <span class="d-day">{{ post.date | safariDateFormatter | localizedDate:'dd' }}</span>
+      <span class="d-mon">{{ post.date | safariDateFormatter | localizedDate:'MMM' }}</span>
+      <span class="d-yr">{{ post.date | safariDateFormatter | localizedDate:'yyyy' }}</span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-accent"></div>
+    <h2 class="card-title"
+        internationalization [data]="post.internationalizations" property="title"
+        itemprop="name headline">Loading…</h2>
+    <p class="card-desc"
+       internationalization [data]="post.internationalizations" property="description" ellipsis="160"
+       itemprop="description">Loading…</p>
+    <span class="card-cta">
+      {{ local ? 'Read Article' : 'View Post' }}
+      <span class="cta-arrow">→</span>
+    </span>
+  </div>
+</ng-template>

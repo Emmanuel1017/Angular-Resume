@@ -1,7 +1,7 @@
 @media screen and (max-width: 1400px) {
   .avatar-scene {
-    margin-left: -3em;
-    margin-right: 3em;
+    margin-left: -2em;
+    margin-right: 2em;
   }
 }
 
@@ -9,8 +9,8 @@
   .avatar-scene {
     transform: scale(.80);
     transform-origin: center center;
-    margin-left: -5em;
-    margin-right: 2em;
+    margin-left: -4em;
+    margin-right: 1em;
   }
   .ring-2 { display: none; }
 }
@@ -18,17 +18,21 @@
 @media screen and (max-width: 1100px) {
   .avatar-scene {
     transform: scale(.68);
-    margin-left: -6em;
+    margin-left: -5em;
   }
   .ring-2, .ring-3 { display: none; }
+  // hide outer planet orbit on tight screens
+  .po-b { display: none; }
 }
 
 @media screen and (max-width: 900px) {
   .avatar-scene {
-    transform: scale(.60);
-    margin: 0 auto -4em;
+    transform: scale(.58);
+    margin: 0 auto -2em;
   }
   .ring-1, .ring-2, .ring-3 { display: none; }
+  .po-b { display: none; }
+  .po-a { display: none; }
 }
 
 @media screen and (max-width: 600px) {

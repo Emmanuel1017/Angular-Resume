@@ -1,227 +1,82 @@
-@media screen and (max-width: 1420px) {
-
-    header {
-
-       border-radius: 25px;
-        .child.language-container {
-            margin-right: 10px;
-        }
-
-        .child.logo-container {
-            text-align: center;
-        }
-
-        .child.share-container {
-            margin-right: 1em;
-        }
-    }
-}
-
+// ─── Tablet / mobile breakpoint ───────────────────────────────────────────────
 @media screen and (max-width: 1024px) {
 
-    header {
-        background: #fff;
-        border-radius: 0 0 15px 15px;
-        -webkit-box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-        box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-        padding: 10px;
+  header {
+    background: rgba(255, 255, 255, 0.96);
+    padding: .6em 1.2em;
+    height: auto;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 16px rgba(34, 47, 92, 0.10);
 
-        .child.logo-container {
-            flex-grow: 4;
-        }
-
-        .child.nav-container {
-            order: 5;
-            border-top: 2px solid #bfbfbf1a;
-            padding-top: 1em;
-            flex-basis: 100%;
-
-            ul {
-                flex-flow: column;
-                height: inherit;
-                align-items: flex-start;
-                line-height: 35px;
-                padding-left: 1em;
-
-                li {
-
-                    a {
-                        font-size: 20px;
-                        color: #abd699;
-                        padding-left: 25px;
-
-                        &:hover {
-                            color: #47603c;
-                            -webkit-box-shadow: none;
-                            -moz-box-shadow: none;
-                            box-shadow: none;
-                        }
-
-                        &.active {
-                            background-color: #fff;
-                            color: #47603c;
-                        }
-
-                        &:not(.active):hover {
-                            box-shadow: none;
-                        }
-                    }
-
-                    &:before {
-                        content: '\2022';
-                        font-size: 50px;
-                        position: absolute;
-                        color: #abd699;
-                        margin-top: -4px;
-                    }
-                    &:hover::before {
-                        color: #47603c;
-                    }
-                }
-            }
-        }
-
-        .child.language-container {
-            margin-right: 0;
-            flex-grow: initial;
-
-            .frame {
-                background-color: transparent;
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-            }
-        }
-
-        .child.navbar-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            .bar-icon {
-                font-size: 30px;
-            }
-        }
+    .child.logo-container {
+      flex-grow: 4;
+      a { font-size: 19px; }
     }
+
+    .child.navbar-toggle {
+      display: flex;
+    }
+
+    .child.nav-container {
+      order: 5;
+      flex-basis: 100%;
+      border-top: 1px solid rgba(171, 214, 153, 0.22);
+      padding: .6em 0 .8em;
+
+      ul {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+        gap: .1em;
+        padding-left: .5em;
+      }
+
+      li {
+        width: 100%;
+
+        a {
+          width: 100%;
+          font-size: 15px;
+          padding: .6em 1em;
+          color: #5e6788;
+          border-radius: 10px;
+
+          &.active {
+            background: linear-gradient(135deg, #abd699, #47603c);
+            color: #fff;
+          }
+
+          &:hover:not(.active) {
+            background: rgba(171, 214, 153, 0.16);
+            color: #222f5c;
+          }
+
+          &::after { display: none; }
+        }
+      }
+    }
+
+    .child.share-container {
+      margin-right: .5em;
+    }
+  }
 }
 
+// ─── Mobile ────────────────────────────────────────────────────────────────────
 @media screen and (max-width: 500px) {
 
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+  header {
+    padding: .5em 1em;
 
-        .child.navbar-toggle .bar-icon {
-            font-size: 20px;
-            border: 1px solid #b3b7c61f;
-            padding: 5px 10px 5px 10px;
-        }
+    .child.logo-container a { font-size: 17px; }
 
-        .child.language-container {
-
-            .frame ul li {
-                height: 21px;
-                margin: 15px 0 0 0;
-                border-right: 2px solid #bfbfbf3b;
-
-                a {
-                    font-size: 18px;
-                    margin: 0 10px;
-                }
-            }
-        }
-
-        .child.share-container {
-            padding: 8px;
-            border-radius: 10px;
-
-            .icon {
-                font-size: 21px;
-            }
-
-        }
-    }
-}
-
-@media screen and (max-width: 460px) {
-
-    header {
-
-        .child.navbar-toggle .bar-icon {
-            font-size: 15px;
-            border: 1px solid #b3b7c61f;
-            padding: 5px 10px 5px 10px;
-        }
-
-        .child.logo-container a {
-            font-size: 28px;
-        }
-
-        .child.nav-container ul li a {
-            font-size: 18px;
-        }
-
-        .child.language-container .frame ul {
-            height: 35px;
-
-            li {
-                height: 20px;
-                margin: 8px 0 0 0;
-                border-right: 2px solid #bfbfbf3b;
-
-                a {
-                    font-size: 15px;
-                    margin: 0 8px;
-                }
-            }
-        }
+    .child.navbar-toggle .bar-icon {
+      font-size: 16px;
     }
 
-}
-
-@media screen and (max-width: 380px) {
-
-    header {
-
-        .child.navbar-toggle .bar-icon {
-            font-size: 15px;
-            border: 1px solid #b3b7c61f;
-            padding: 5px 10px 5px 10px;
-        }
-
-        .child.logo-container a {
-            font-size: 24px;
-        }
-
-        .child.nav-container ul li a {
-            font-size: 18px;
-        }
-
-        .child.language-container .frame ul {
-            height: 35px;
-
-            li {
-                height: 20px;
-                margin: 8px 0 0 0;
-                border-right: 2px solid #bfbfbf3b;
-
-                a {
-                    font-size: 15px;
-                    margin: 0 8px;
-                }
-            }
-        }
-
-        .child.share-container {
-            padding: 0;
-            border-radius: 0;
-            margin-right: 5px;
-            box-shadow: none;
-
-            .icon {
-                font-size: 20px;
-            }
-        }
+    .child.share-container {
+      padding: .4em .55em;
+      .icon { font-size: 16px; }
     }
+  }
 }

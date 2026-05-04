@@ -1,22 +1,24 @@
 // ─── Design tokens ───────────────────────────────────────────────────────────
-$gl: #abd699;
-$gm: #6b9e58;
-$gd: #47603c;
+$gl: #d4f7b8;   // bright mint — was #abd699
+$gm: #a8e87a;   // vivid lime — was #6b9e58
+$gd: #5a8c3e;   // rich green — was #47603c
 $sz: 290px;       // avatar diameter
 
 // ─── Outer perspective stage ─────────────────────────────────────────────────
 .avatar-scene {
   perspective: 900px;
   perspective-origin: 50% 45%;
-  width:  ($sz + 110px);
-  height: ($sz + 110px);
+  // wide enough that outer orbit (R=272px) is fully visible
+  width:  ($sz + 110px + 330px);
+  height: ($sz + 110px + 330px);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-left: -5em;
-  margin-right: 5em;
+  margin-left: -2em;
+  margin-right: 2em;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 // ─── Float layer — pure CSS animation, JS never touches this ─────────────────
@@ -114,8 +116,8 @@ $sz: 290px;       // avatar diameter
   $r: $sz + 60px;
   width: $r; height: $r;
   top:  -(30px); left: -(30px);
-  border: 2.5px solid rgba($gl, .55);
-  box-shadow: 0 0 12px rgba($gl, .25);
+  border: 2px solid rgba($gl, .85);
+  box-shadow: 0 0 18px rgba($gl, .55), 0 0 40px rgba($gl, .18);
   animation: orbit1 9s linear infinite;
 }
 
@@ -130,7 +132,8 @@ $sz: 290px;       // avatar diameter
   $r: $sz + 90px;
   width: $r; height: $r;
   top:  -(45px); left: -(45px);
-  border: 1.5px dashed rgba($gm, .40);
+  border: 1.5px dashed rgba($gm, .72);
+  box-shadow: 0 0 14px rgba($gm, .30);
   animation: orbit2 18s linear infinite reverse;
 }
 
@@ -145,7 +148,8 @@ $sz: 290px;       // avatar diameter
   $r: $sz + 38px;
   width: $r; height: $r;
   top:  -(19px); left: -(19px);
-  border: 2px solid rgba($gd, .35);
+  border: 2px solid rgba($gm, .65);
+  box-shadow: 0 0 12px rgba($gm, .28);
   animation: orbit3 13s linear infinite;
 }
 
@@ -182,3 +186,86 @@ $sz: 290px;       // avatar diameter
   background: lighten($gd, 15%);
   box-shadow: 0 0 9px 2px rgba($gd, .60);
 }
+
+// ─── Planet orbits ────────────────────────────────────────────────────────────
+// Centered anchor at the exact middle of the scene
+.planet-orbits {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0; height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+// Orbit ring — sized and positioned per class
+.po {
+  position: absolute;
+  border-radius: 50%;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+$ra: 205px;   // inner orbit radius
+$rb: 272px;   // outer orbit radius
+$pi-sz: 44px; // icon size
+
+// Orbit A — clockwise, 14 s
+.po-a {
+  width: $ra * 2; height: $ra * 2;
+  top: -$ra; left: -$ra;
+  animation-name: po-cw;
+  animation-duration: 14s;
+
+  .pi {
+    animation-name: pi-ccw;
+    animation-duration: 14s;
+  }
+}
+
+// Orbit B — counter-clockwise, 22 s
+.po-b {
+  width: $rb * 2; height: $rb * 2;
+  top: -$rb; left: -$rb;
+  animation-name: po-ccw;
+  animation-duration: 22s;
+
+  .pi {
+    animation-name: pi-cw;
+    animation-duration: 22s;
+  }
+}
+
+// Planet icon — floats at the top of its orbit ring, counter-rotates to stay upright
+.pi {
+  position: absolute;
+  top: -($pi-sz * 0.5);
+  left: 50%;
+  margin-left: -($pi-sz * 0.5);
+  width: $pi-sz; height: $pi-sz;
+  background-size: 68%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, .22),
+    0 0  10px rgba($gl, .18);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transition: box-shadow .3s;
+
+  &:hover {
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, .30),
+      0 0  16px rgba($gl, .45);
+  }
+}
+
+@keyframes po-cw  { to { transform: rotateZ( 360deg); } }
+@keyframes po-ccw { to { transform: rotateZ(-360deg); } }
+@keyframes pi-ccw { to { transform: rotateZ(-360deg); } }
+@keyframes pi-cw  { to { transform: rotateZ( 360deg); } }
