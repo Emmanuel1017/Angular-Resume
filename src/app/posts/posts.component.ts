@@ -17,6 +17,7 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
   currentPage: number = 1;
   resultsPerPage: number;
   posts: IPost[] = [];
+  activePost: IPost | null = null;
   author: string = environment.author;
 
   faChevronLeft: IconDefinition;
@@ -40,6 +41,9 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
         });
       });
   }
+
+  public openReader(post: IPost): void  { this.activePost = post; }
+  public closeReader(): void            { this.activePost = null; }
 
   public onClickPrevious(): void {
     this.currentPage--;

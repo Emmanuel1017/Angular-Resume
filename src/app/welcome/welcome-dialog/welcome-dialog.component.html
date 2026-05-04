@@ -1,31 +1,37 @@
 <div class="dialog-container">
-    <img loading="lazy" src="./assets/template/welcome/bubble-frame.png" alt="Welcome Speech Bobble"/>
-    <div class="console">
-        <p class="hello changing-text" > Hello! </p>
+  <div class="console">
 
-        <span
-            class="txt-rotate"
-            typingAnimation
-            [phrasePeriod]="2000"
-            [startDelay]="1500"
-            [typeSpeed]="190"
-            [data]='[
-                {
-                    "language": "en",
-                    "phrases": [
-                        "My name is Emmanuel.",
-                        "Experienced Enterprise Web Developer.",
-                    
-                        "Experience In AI models.",
-                        "Experience With LIMS and HL7.",
-                        " DevOps And Enviroment Setup.",
-                        "Secure systems with cybersecurity."
-                    ]
-
-                }
-            ]'></span>
+    <div class="console-bar">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
+
+    <p class="hello">Hello!</p>
+
+    <div class="typing-wrap">
+      <span class="prompt">&gt;&nbsp;</span>
+      <span
+        class="txt-rotate"
+        typingAnimation
+        [phrasePeriod]="2000"
+        [startDelay]="1500"
+        [typeSpeed]="70"
+        [data]='[
+          {
+            "language": "en",
+            "phrases": [
+              "Senior Software Engineer.",
+              "6+ yrs building production systems.",
+              "Angular · Node.js · .NET · Cloud.",
+              "Architecting scalable microservices.",
+              "Healthcare: LIMS &amp; HL7 integrations.",
+              "DevSecOps &amp; CI/CD pipelines.",
+              "Turning complexity into clean code."
+            ]
+          }
+        ]'></span>
+    </div>
+
+  </div>
 </div>
-
-
-

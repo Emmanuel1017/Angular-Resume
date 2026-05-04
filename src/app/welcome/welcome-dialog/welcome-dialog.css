@@ -1,59 +1,93 @@
-
-/* Dialog container */
+/* ─── Floating card ──────────────────────────────────────────────────────────*/
 .dialog-container {
-	z-index: 2;
-	margin-top: 5em;
-  margin-left: 100px;
-	animation: float-dialog 6s ease-in-out infinite;
+  z-index: 2;
+  margin: 0;
+  animation: float-dialog 6s ease-in-out infinite;
+  will-change: transform;
 }
 
-.dialog-container img {
-    width: 590px;
-    margin-left: -7em;
+.console {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 1.4em 1.8em 1.9em;
+  border: 1px solid rgba(171, 214, 153, 0.35);
+  box-shadow:
+    0 10px 40px rgba(34, 47, 92, 0.12),
+    0  2px  8px rgba(34, 47, 92, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
 }
 
-.dialog-container .console {
-	position: absolute;
-    top: 1em;
-    left: -5px;
-    width: 380px;
-	text-align: center;
+/* Top gradient bar */
+.console::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #abd699, #47603c, #abd699);
+  border-radius: 20px 20px 0 0;
 }
 
-
-
-.dialog-container .console p {
-	margin: 0;
-    padding: 0;
-    text-align: center;
+/* ─── macOS traffic-light dots ──────────────────────────────────────────────*/
+.console-bar {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 1.2em;
 }
 
-.dialog-container .console .hello {
-	font-size: 60px;
-    font-weight: 600;
-    color: #222f5c;
-	
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.dot:nth-child(1) { background: #ff5f56; }
+.dot:nth-child(2) { background: #ffbd2e; }
+.dot:nth-child(3) { background: #27c93f; }
+
+/* ─── Hello heading ─────────────────────────────────────────────────────────*/
+.hello {
+  font-size: 50px;
+  font-weight: 700;
+  color: #222f5c;
+  margin: 0 0 .35em;
+  letter-spacing: -2.5px;
+  line-height: 1;
+  padding: 0;
+  text-align: left;
 }
 
-.dialog-container .console .txt-rotate {
-	font-size: 40px;
-    color: #576183;
-	font-weight: 600;
-	margin-top: 10px;
+/* ─── Typing line ────────────────────────────────────────────────────────────*/
+.typing-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: .25em;
+  min-height: 1.6em;
 }
 
-/* Dialog container animation */
+.prompt {
+  color: #abd699;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Courier New', Courier, monospace;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.txt-rotate {
+  font-size: 16px;
+  font-weight: 600;
+  color: #47603c;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+}
+
+/* ─── Float animation ────────────────────────────────────────────────────────*/
 @keyframes float-dialog {
-	0% {
-		transform: translatey(0px);
-	}
-	50% {
-		transform: translatey(-20px);
-	}
-	100% {
-		transform: translatey(0px);
-	}
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-16px); }
+  100% { transform: translateY(0px); }
 }
-
-
-  
