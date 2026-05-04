@@ -1,97 +1,153 @@
+// ─── Design tokens ────────────────────────────────────────────────────────────
+$navy:    #222f5c;
+$green-l: #abd699;
+$green-d: #47603c;
+$bg:      #fbfafa;
+$muted:   #5e6788;
+$white:   #fff;
+
+// ─── Section ─────────────────────────────────────────────────────────────────
 #posts {
-    top: -4em;
-    position: relative;
-    justify-content: center;
-    background-color: #fbfafa;
+  background: $bg;
+  padding: 4.5em 0 5.5em;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  &::before {
+    width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba($green-l, .09) 0%, transparent 65%);
+    top: -200px; left: -180px;
+  }
+  &::after {
+    width: 440px; height: 440px;
+    background: radial-gradient(circle, rgba($navy, .04) 0%, transparent 65%);
+    bottom: -120px; right: -130px;
+  }
 }
 
+// ─── Container ───────────────────────────────────────────────────────────────
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 85vw;
-    max-width: 1400px;
+  width: 85vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
 
-    h1 {
-        font-size: 42px;
-        font-weight: 600;
-        color: #222f5c;
+// ─── Header ──────────────────────────────────────────────────────────────────
+.section-header {
+  margin-bottom: 2.4em;
+
+  h1 {
+    font-size: 42px;
+    font-weight: 600;
+    color: $navy;
+    margin: 0 0 .3em;
+    display: inline-block;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 48px; height: 4px;
+      background: linear-gradient(90deg, $green-l, $green-d);
+      border-radius: 2px;
+      transition: width .4s ease;
     }
 
-    p.synopsis {
-        font-size: 18px;
-        font-weight: 500;
-        color: #5e6788;
-        text-align: left;
-        margin-top: 0;
-    }
-    
-    .top-container {
-        display: flex;
-        color: #fff;
-        flex-wrap: wrap;
+    &:hover::after { width: 100%; }
+  }
 
-        .title {
-            flex-grow: 4;
-        }
+  .synopsis {
+    font-size: 18px;
+    font-weight: 500;
+    color: $muted;
+    margin: .7em 0 0;
+  }
+}
 
-        .navigation {
-            display: flex;
-            flex-grow: 1;
-            font-size: 30px;
-            font-weight: 500;
-            align-items: center;
-            text-align: center;
-            color: #222f5c;
+// ─── Stage ───────────────────────────────────────────────────────────────────
+.posts-stage {
+  width: 100%;
+  margin-bottom: 2.8em;
 
-            a {
-                text-decoration: none;
-                color: #222f5c;
-            }
+  app-posts-carousel {
+    display: block;
+    width: 100%;
+  }
+}
 
-            .previous {
-                flex-grow: 2;
-                cursor: pointer;
-                text-align: left;
-                transition: text-shadow 0.3s linear;  
-                
-                &.disabled {
-                    cursor: no-drop;
-                    opacity: 0.6;
-                    pointer-events: none;
-                }
-            }
+// ─── Pagination ──────────────────────────────────────────────────────────────
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4em;
+  flex-wrap: wrap;
+}
 
-            .divider {
-                flex-grow: 1;
-            }
+.pg-btn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 .5em;
+  border-radius: 10px;
+  border: 1.5px solid rgba($navy, .14);
+  background: $white;
+  color: $navy;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    color .2s ease,
+    transform .18s ease,
+    box-shadow .2s ease;
 
-            .next {
-                flex-grow: 2;
-                cursor: pointer;
-                text-align: right;
-                
-                &.disabled {
-                    cursor: no-drop;
-                    opacity: 0.6;
-                    pointer-events: none;
-                }
-                &:hover {
-                    text-shadow: 0 0 15px white;
-                }
-            }
+  &:hover:not(:disabled):not(.active) {
+    background: rgba($green-l, .18);
+    border-color: $green-l;
+    color: $green-d;
+    transform: translateY(-2px);
+  }
 
-            span {
-                margin: 10px;
-            }
-        }
-    }
+  &.active {
+    background: linear-gradient(135deg, $green-l, $green-d);
+    border-color: transparent;
+    color: $white;
+    box-shadow: 0 4px 14px rgba($green-d, .30);
+    transform: translateY(-1px);
+    cursor: default;
+  }
 
-    .middle-container {
-        padding-bottom: 2em;  
-        display: flex;
+  &:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+  }
 
-        app-posts-carousel {
-            width: 100%;
-        }
-    }
+  &.pg-arrow { border-radius: 10px; }
+}
+
+.pg-ellipsis {
+  min-width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $muted;
+  font-size: 16px;
+  letter-spacing: 1px;
+  user-select: none;
 }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { IExperience } from '../experience/experience-interfaces';
 import { IAbout } from '../about/about-interfaces';
 import { IPost } from '../posts/posts-interfaces';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class DataService {
@@ -41,10 +41,8 @@ export class DataService {
       console.error('server error:', error);
       if (error.error instanceof Error) {
           const errMessage = error.error.message;
-          return Observable.throw(errMessage);
-          // Use the following instead if using lite-server
-          // return Observable.throw(err.text() || 'backend server error');
+          return throwError(() => new Error(errMessage));
       }
-      return Observable.throw(error || 'Node.js server error');
+      return throwError(() => error || new Error('Node.js server error'));
     }
 }

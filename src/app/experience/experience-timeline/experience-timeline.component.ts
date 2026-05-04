@@ -11,6 +11,7 @@ import { SafariDateFormatterPipe } from '../../core/pipe/safari-date-formatter.p
 import { LocalizedDatePipe } from '../../core/pipe/localized-date.pipe';
 
 @Component({
+  standalone: false,
   selector: 'app-experience-timeline',
   templateUrl: './experience-timeline.component.html',
   styleUrls: [ './experience-timeline.component.scss' , 'experience-timeline.component.reponsivity.scss']

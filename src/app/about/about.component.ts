@@ -7,6 +7,7 @@ import { fab  } from '@fortawesome/free-brands-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss', './about.component.responsivity.scss']

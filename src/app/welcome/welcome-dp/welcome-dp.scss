@@ -1,13 +1,184 @@
+// ─── Design tokens ───────────────────────────────────────────────────────────
+$gl: #abd699;
+$gm: #6b9e58;
+$gd: #47603c;
+$sz: 290px;       // avatar diameter
+
+// ─── Outer perspective stage ─────────────────────────────────────────────────
+.avatar-scene {
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+  width:  ($sz + 110px);
+  height: ($sz + 110px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: -5em;
+  margin-right: 5em;
+  flex-shrink: 0;
+}
+
+// ─── Float layer — pure CSS animation, JS never touches this ─────────────────
+.avatar-float {
+  transform-style: preserve-3d;
+  animation: float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  30%  { transform: translateY(-18px); }
+  60%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+// ─── Tilt layer — JS writes rotateX/Y here every frame ───────────────────────
+.avatar-tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+  // default: identity; JS overwrites each frame
+}
+
+// ─── 3-D object root ─────────────────────────────────────────────────────────
+.avatar-object {
+  width: $sz;
+  height: $sz;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+// ─── Ambient green glow behind the face ──────────────────────────────────────
+.avatar-glow {
+  position: absolute;
+  width: $sz;
+  height: $sz;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba($gl, .55) 0%,
+    rgba($gm, .25) 45%,
+    transparent   70%);
+  filter: blur(28px);
+  transform: translateZ(-30px) scale(1.3);
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: .65; transform: translateZ(-30px) scale(1.30); }
+  50%       { opacity: 1;   transform: translateZ(-30px) scale(1.48); }
+}
+
+// ─── Portrait circle ─────────────────────────────────────────────────────────
 .picture {
-    display: block;
-    width: 610px;
-    height: 610px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border-radius: 99em;
-    background-image: url('../../../assets/template/welcome/dp.png');
-    border: 0px solid #cde0c5;
-    margin-left: -6em;
-    margin-right: 6em;
+  width:  $sz;
+  height: $sz;
+  position: absolute;
+  top: 0; left: 0;
+  border-radius: 50%;
+  background: url('../../../assets/template/welcome/dp.png') center/cover no-repeat;
+  transform: translateZ(18px);
+  box-shadow:
+    0 28px 60px rgba(0,0,0,.30),
+    0  0   0  7px rgba($gl, .38),
+    0  0   0 14px rgba($gl, .14),
+    inset 0 2px 5px rgba(255,255,255,.20);
+  will-change: transform;
+}
+
+// ─── Specular sheen (soft highlight at top-left) ─────────────────────────────
+.avatar-sheen {
+  position: absolute;
+  top: 10px; left: 10px;
+  width: ($sz * .5);
+  height: ($sz * .5);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,.25) 0%,
+    transparent 65%);
+  transform: translateZ(22px);
+  pointer-events: none;
+}
+
+// ─── Ring mixin ──────────────────────────────────────────────────────────────
+%ring-base {
+  position: absolute;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+// ─── Ring 1 — tight halo, fast ───────────────────────────────────────────────
+.ring-1 {
+  @extend %ring-base;
+  $r: $sz + 60px;
+  width: $r; height: $r;
+  top:  -(30px); left: -(30px);
+  border: 2.5px solid rgba($gl, .55);
+  box-shadow: 0 0 12px rgba($gl, .25);
+  animation: orbit1 9s linear infinite;
+}
+
+@keyframes orbit1 {
+  from { transform: rotateX(72deg) rotateZ(0deg); }
+  to   { transform: rotateX(72deg) rotateZ(360deg); }
+}
+
+// ─── Ring 2 — wide outer ring, slow reverse ───────────────────────────────────
+.ring-2 {
+  @extend %ring-base;
+  $r: $sz + 90px;
+  width: $r; height: $r;
+  top:  -(45px); left: -(45px);
+  border: 1.5px dashed rgba($gm, .40);
+  animation: orbit2 18s linear infinite reverse;
+}
+
+@keyframes orbit2 {
+  from { transform: rotateX(58deg) rotateY(35deg) rotateZ(0deg); }
+  to   { transform: rotateX(58deg) rotateY(35deg) rotateZ(360deg); }
+}
+
+// ─── Ring 3 — tilted cross orbit, medium speed ───────────────────────────────
+.ring-3 {
+  @extend %ring-base;
+  $r: $sz + 38px;
+  width: $r; height: $r;
+  top:  -(19px); left: -(19px);
+  border: 2px solid rgba($gd, .35);
+  animation: orbit3 13s linear infinite;
+}
+
+@keyframes orbit3 {
+  from { transform: rotateX(82deg) rotateY(-28deg) rotateZ(0deg); }
+  to   { transform: rotateX(82deg) rotateY(-28deg) rotateZ(360deg); }
+}
+
+// ─── Orbiting dot (glowing sphere on each ring) ──────────────────────────────
+.ring-dot {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.dot-1 {
+  width: 11px; height: 11px;
+  top: -5.5px; left: 50%;
+  transform: translateX(-50%);
+  background: $gl;
+  box-shadow: 0 0 10px 3px rgba($gl, .70);
+}
+
+.dot-2 {
+  width:  8px; height: 8px;
+  bottom: -4px; left: 28%;
+  background: $gm;
+  box-shadow: 0 0 8px 2px rgba($gm, .65);
+}
+
+.dot-3 {
+  width:  9px; height: 9px;
+  top: 50%; right: -4.5px;
+  transform: translateY(-50%);
+  background: lighten($gd, 15%);
+  box-shadow: 0 0 9px 2px rgba($gd, .60);
 }

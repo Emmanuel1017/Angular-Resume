@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CanonicalService } from '../resume/canonical.service';
 
 declare var page_not_found_game: any;
 @Component({
+  standalone: false,
     selector: 'app-page-not-found',
     templateUrl: './page-not-found.html',
     styleUrls: ['./page-not-found.component.scss', './page-not-found.component.responsivity.scss']

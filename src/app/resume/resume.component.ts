@@ -2,8 +2,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { debounce } from '../core/utils';
 import { CanonicalService } from './canonical.service';
-import * as moment from 'moment';
+import moment from 'moment';
 @Component({
+  standalone: false,
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css', './resume.component.responsivity.css']

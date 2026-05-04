@@ -1,1 +1,40 @@
-<div class="picture"></div>
+<div class="avatar-scene"
+     (mousemove)="onMouseMove($event)"
+     (mouseleave)="onMouseLeave()">
+
+  <!-- Float wrapper: CSS keyframe floats this layer -->
+  <div class="avatar-float">
+
+    <!-- Tilt wrapper: JS writes transform here (no CSS animation conflict) -->
+    <div class="avatar-tilt" #tiltEl>
+
+      <div class="avatar-object">
+
+        <!-- Ambient glow behind avatar -->
+        <div class="avatar-glow"></div>
+
+        <!-- The actual portrait -->
+        <div class="picture"></div>
+
+        <!-- Ring 1 — tight tilted halo -->
+        <div class="ring ring-1">
+          <div class="ring-dot dot-1"></div>
+        </div>
+
+        <!-- Ring 2 — wide slow reverse orbit -->
+        <div class="ring ring-2">
+          <div class="ring-dot dot-2"></div>
+        </div>
+
+        <!-- Ring 3 — medium cross orbit -->
+        <div class="ring ring-3">
+          <div class="ring-dot dot-3"></div>
+        </div>
+
+        <!-- Specular sheen on the avatar face -->
+        <div class="avatar-sheen"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

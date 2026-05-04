@@ -6,12 +6,13 @@ import {
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ContactService } from './contact.service';
 import { Contact } from '../model/contact.model';
-import * as moment from 'moment';
+import moment from 'moment';
 import { NotifierService } from 'angular-notifier';
 declare var contact_js: any;
 
 
 @Component({
+  standalone: false,
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss', './contact.component.responsivity.scss']

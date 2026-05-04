@@ -17,19 +17,6 @@ import { NotifierModule } from 'angular-notifier';
 import { WhatwedoComponent } from '../whatwedo/whatwedo.component';
 import { CountersComponent } from '../counters/counters.component';
 import {MatIconModule} from '@angular/material/icon';
-import { ResponsiveModule } from 'ngx-responsive';
-
-
-const config = {
-  breakPoints: {
-      xs: {max: 600},
-      sm: {min: 601, max: 959},
-      md: {min: 960, max: 1279},
-      lg: {min: 1280, max: 1919},
-      xl: {min: 1920}
-  },
-  debounceTime: 100
-};
 
 @NgModule({
   imports: [
@@ -37,12 +24,11 @@ const config = {
     CommonModule,
     CoreModule,
     FontAwesomeModule,
-    WelcomeModule ,
+    WelcomeModule,
     ExperienceModule,
     PostsModule,
     NotifierModule,
-    MatIconModule,
-    ResponsiveModule.forRoot(config)
+    MatIconModule
   ],
   declarations: [
     ResumeComponent,

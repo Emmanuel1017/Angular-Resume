@@ -3,7 +3,8 @@ import { LOCALE_ID, Inject } from '@angular/core';
 import { EllipsisPipe } from '../pipe/ellipsis.pipe';
 
 // tslint:disable-next-line:directive-selector
-@Directive({ selector: '[internationalization]' })
+@Directive({
+  standalone: false, selector: '[internationalization]' })
 export class InternationalizationDirective implements OnInit{
 
     // tslint:disable-next-line:variable-name

@@ -4,7 +4,8 @@
 */
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'safariDateFormatter' })
+@Pipe({
+  standalone: false, name: 'safariDateFormatter' })
 export class SafariDateFormatterPipe implements PipeTransform {
     transform(value: any) {
         if (value) {
