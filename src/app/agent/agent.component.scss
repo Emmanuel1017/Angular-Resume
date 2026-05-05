@@ -1,13 +1,12 @@
-$orange:    #F7B267;
-$orange-d:  #E8956D;
-$pink:      #FFB3C6;
-$navy:      #0d1b2a;
-$navy-m:    #1b2e45;
-$white:     #ffffff;
-$green-a:   #a8e87a;
-$green-d:   #5a8c3e;
-$bubble-bg: rgba(255, 255, 255, 0.97);
-$radius:    16px;
+// ── App-themed palette ────────────────────────────────────────────────────────
+$navy:     #222f5c;   // app navy
+$navy-m:   #2d4070;
+$green-l:  #abd699;   // app sage green (also cat body)
+$green-m:  #7aad67;   // mid green
+$green-d:  #47603c;   // app forest green
+$pink:     #ffd6e0;   // inner ear / blush accent
+$white:    #ffffff;
+$radius:   16px;
 
 // ── Host — fixed, transitions between wander positions ─────────────────────
 :host {
@@ -26,21 +25,22 @@ $radius:    16px;
   width: 90px;
 }
 
-// ── Speech bubble ────────────────────────────────────────────────────────────
+// ── Speech bubble — vivid green-tinted, themed ───────────────────────────────
 .bubble {
   position: absolute;
   bottom: 122px;
-  width: 244px;
-  background: $bubble-bg;
+  width: 248px;
+  background: linear-gradient(145deg, #f3faf0 0%, #e4f5db 100%);
+  border: 2px solid rgba($green-l, .75);
   border-radius: $radius;
   padding: 13px 15px 12px;
   box-shadow:
-    0 8px 32px rgba($navy, .16),
-    0 2px 8px  rgba($navy, .10),
-    0 0 0 1.5px rgba($green-a, .25);
+    0 0 0 1px rgba($green-d, .1),
+    0 0 22px rgba($green-l, .38),
+    0 10px 36px rgba($navy,  .18),
+    0 2px  8px  rgba($navy,  .08);
   font-family: 'Montserrat', sans-serif;
 
-  // triangle pointer
   &::after {
     content: '';
     position: absolute;
@@ -50,32 +50,41 @@ $radius:    16px;
     border: 11px solid transparent;
   }
 
-  // --- alignment classes ---
   &.align-left {
     left: 0;
-    animation: bubbleInLeft .26s cubic-bezier(.34, 1.56, .64, 1) both;
-    &::after { left: 18px; border-top-color: $bubble-bg; }
+    animation: bubbleInLeft .28s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { left: 18px; border-top-color: #e4f5db; }
   }
   &.align-right {
     right: 0;
-    animation: bubbleInRight .26s cubic-bezier(.34, 1.56, .64, 1) both;
-    &::after { right: 18px; border-top-color: $bubble-bg; }
+    animation: bubbleInRight .28s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { right: 18px; border-top-color: #e4f5db; }
   }
   &.align-center {
     left: 50%;
     transform: translateX(-50%);
-    animation: bubbleInCenter .26s cubic-bezier(.34, 1.56, .64, 1) both;
-    &::after { left: calc(50% - 11px); border-top-color: $bubble-bg; }
+    animation: bubbleInCenter .28s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { left: calc(50% - 11px); border-top-color: #e4f5db; }
   }
 }
 
-@keyframes bubbleInLeft   { from { opacity: 0; transform: scale(.82) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes bubbleInRight  { from { opacity: 0; transform: scale(.82) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes bubbleInCenter { from { opacity: 0; transform: translateX(-50%) scale(.82) translateY(10px); } to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); } }
+@keyframes bubbleInLeft   {
+  from { opacity: 0; transform: scale(.78) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+@keyframes bubbleInRight  {
+  from { opacity: 0; transform: scale(.78) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+@keyframes bubbleInCenter {
+  from { opacity: 0; transform: translateX(-50%) scale(.78) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1)   translateY(0);    }
+}
 
 // ── Bubble text ───────────────────────────────────────────────────────────────
 .bubble-text {
   font-size: 12.5px;
+  font-weight: 600;
   line-height: 1.55;
   color: $navy;
   margin: 0;
@@ -99,14 +108,53 @@ $radius:    16px;
 
 @keyframes dotPulse {
   0%, 100% { opacity: .28; transform: scale(.75); }
-  50%      { opacity: 1;   transform: scale(1.2); }
+  50%      { opacity: 1;   transform: scale(1.2);  }
+}
+
+// ── TF status text (replaces thinking dots during model download) ─────────────
+.tf-status-text {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: $green-d;
+  margin: 4px 0;
+  text-align: center;
+  animation: statusPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: .65; }
+  50%       { opacity: 1;   }
+}
+
+// ── Listening indicator ───────────────────────────────────────────────────────
+.listening-hint {
+  font-size: 11px;
+  color: rgba($navy, .55);
+  margin: 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rec-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #e63946;
+  animation: recPulse .9s ease-in-out infinite;
+}
+
+@keyframes recPulse {
+  0%, 100% { transform: scale(1);   opacity: 1;   }
+  50%      { transform: scale(1.4); opacity: .55; }
 }
 
 // ── Chat input ────────────────────────────────────────────────────────────────
 .chat-input-row {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   margin-top: 10px;
+  align-items: center;
 
   input {
     flex: 1;
@@ -117,7 +165,7 @@ $radius:    16px;
     font-size: 12px;
     outline: none;
     color: $navy;
-    background: rgba($navy, .03);
+    background: rgba($green-l, .08);
     font-family: 'Montserrat', sans-serif;
     transition: border-color .2s;
 
@@ -125,12 +173,34 @@ $radius:    16px;
     &::placeholder { color: rgba($navy, .38); }
   }
 
+  .mic-btn {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border: 1.5px solid rgba($green-d, .35);
+    border-radius: 50%;
+    background: rgba($green-l, .15);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, background .2s, box-shadow .2s;
+    line-height: 1;
+
+    &:hover { background: rgba($green-l, .3); transform: scale(1.08); }
+
+    &.listening {
+      background: rgba(230, 57, 70, .15);
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, .2);
+      animation: micPulse 1.1s ease-in-out infinite;
+    }
+  }
+
   .send-btn {
     flex-shrink: 0;
     width: 30px; height: 30px;
     border: none;
     border-radius: 50%;
-    background: linear-gradient(135deg, $green-a, $green-d);
+    background: linear-gradient(135deg, $green-l, $green-d);
     color: $white;
     font-size: 14px;
     cursor: pointer;
@@ -142,6 +212,11 @@ $radius:    16px;
   }
 }
 
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(230, 57, 70, .2); }
+  50%      { box-shadow: 0 0 0 6px rgba(230, 57, 70, .08); }
+}
+
 // ── Settings panel ────────────────────────────────────────────────────────────
 .settings-title {
   font-size: 13px;
@@ -150,15 +225,13 @@ $radius:    16px;
   margin: 0 0 11px;
 }
 
-.setting-row {
-  margin-bottom: 8px;
-}
+.setting-row { margin-bottom: 8px; }
 
 .setting-label {
   display: block;
   font-size: 10px;
   font-weight: 700;
-  color: rgba($navy, .45);
+  color: rgba($navy, .5);
   text-transform: uppercase;
   letter-spacing: .55px;
   margin-bottom: 4px;
@@ -188,12 +261,39 @@ $radius:    16px;
   font-family: 'Montserrat', monospace;
 }
 
+.tf-info {
+  background: rgba($green-l, .14);
+  border: 1px solid rgba($green-d, .2);
+  border-radius: 8px;
+  padding: 7px 9px;
+
+  .setting-note {
+    color: rgba($navy, .6);
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    margin-top: 4px;
+  }
+}
+
+.tf-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: $green-d;
+  background: rgba($green-l, .35);
+  border-radius: 20px;
+  padding: 2px 8px;
+  letter-spacing: .3px;
+}
+
 .provider-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
 
   button {
-    flex: 1;
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
     padding: 5px 3px;
     font-size: 11px;
     font-weight: 600;
@@ -206,12 +306,12 @@ $radius:    16px;
     transition: all .15s;
 
     &.active {
-      background: linear-gradient(135deg, $green-a, $green-d);
+      background: linear-gradient(135deg, $green-l, $green-d);
       color: $white;
       border-color: transparent;
     }
     &:not(.active):hover {
-      background: rgba($green-a, .18);
+      background: rgba($green-l, .18);
       border-color: $green-d;
       color: $green-d;
     }
@@ -228,7 +328,7 @@ $radius:    16px;
     padding: 7px;
     border: none;
     border-radius: 20px;
-    background: linear-gradient(135deg, $green-a, $green-d);
+    background: linear-gradient(135deg, $green-l, $green-d);
     color: $white;
     font-size: 12px;
     font-weight: 700;
@@ -260,7 +360,7 @@ $radius:    16px;
   width: 26px; height: 26px;
   border: none;
   border-radius: 50%;
-  background: $white;
+  background: linear-gradient(135deg, #f3faf0, #d4edca);
   box-shadow: 0 2px 8px rgba($navy, .22);
   font-size: 13px;
   cursor: pointer;
@@ -270,7 +370,7 @@ $radius:    16px;
 
   &:hover {
     transform: rotate(55deg);
-    box-shadow: 0 4px 14px rgba($navy, .32);
+    box-shadow: 0 4px 14px rgba($green-d, .42);
   }
 }
 
@@ -285,21 +385,31 @@ $radius:    16px;
   &.flipped { transform: scaleX(-1); }
 
   &:hover {
-    filter: drop-shadow(0 6px 18px rgba($orange-d, .55));
+    filter: drop-shadow(0 6px 20px rgba($green-d, .52));
   }
-  &:hover .cat-bounce {
+  // only pause float — not running
+  &:hover .cat-bounce:not(.running) {
     animation-play-state: paused;
   }
 }
 
-// ── Float layer ───────────────────────────────────────────────────────────────
+// ── Float / Run layer ─────────────────────────────────────────────────────────
 .cat-bounce {
   animation: catFloat 2.8s ease-in-out infinite;
+
+  &.running {
+    animation: catRunBob 0.42s ease-in-out infinite;
+  }
 }
 
 @keyframes catFloat {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-8px); }
+}
+
+@keyframes catRunBob {
+  0%, 100% { transform: translateY(0px)  rotate(-1deg); }
+  50%      { transform: translateY(-5px) rotate(1deg);  }
 }
 
 // ── SVG internals ─────────────────────────────────────────────────────────────
@@ -308,11 +418,12 @@ $radius:    16px;
   height: auto;
   display: block;
 
-  .tail {
+  .tail, .tail-tip {
     transform-box: fill-box;
     transform-origin: 68px 90px;
-    animation: tailSway 2.4s ease-in-out infinite;
   }
+  .tail     { animation: tailSway 2.4s ease-in-out infinite; }
+  .tail-tip { animation: tailSway 2.4s ease-in-out infinite; }
 
   .blink-l {
     transform-box: fill-box;
@@ -325,16 +436,56 @@ $radius:    16px;
     animation: eyeBlink 4.8s ease-in-out infinite .12s;
   }
 
+  .ear-l, .ear-r {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+
+  .paw-l-group, .paw-r-group {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+
+  // ── Thinking ───────────────────────────────────────────────────────────────
   &.thinking {
     .blink-l, .blink-r { animation: eyeHalf .75s ease-in-out infinite; }
-    .tail              { animation: tailSway .6s ease-in-out infinite; }
+    .tail, .tail-tip   { animation: tailSway .6s ease-in-out infinite; }
+  }
+
+  // ── Idle: lick paw ─────────────────────────────────────────────────────────
+  &.lick .paw-l-group {
+    animation: pawLick .8s ease-in-out 3 forwards;
+  }
+
+  // ── Idle: purr ─────────────────────────────────────────────────────────────
+  &.purr {
+    animation: catPurr .15s ease-in-out 20;
+  }
+
+  // ── Idle: ear twitch ───────────────────────────────────────────────────────
+  &.ear-twitch .ear-r {
+    animation: earTwitch .4s ease-in-out 3;
   }
 }
 
+// ── Running: paws and tail driven by parent .cat-bounce.running ───────────────
+.cat-bounce.running .cat-svg {
+  .tail, .tail-tip { animation: tailRun .42s ease-in-out infinite; }
+  .paw-l-group     { animation: pawRunL .42s ease-in-out infinite; }
+  .paw-r-group     { animation: pawRunR .42s ease-in-out infinite; }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────────────────────
+
 @keyframes tailSway {
-  0%, 100% { transform: rotate(0deg); }
+  0%, 100% { transform: rotate(0deg);   }
   30%      { transform: rotate(-16deg); }
-  70%      { transform: rotate(11deg); }
+  70%      { transform: rotate(11deg);  }
+}
+
+@keyframes tailRun {
+  0%, 100% { transform: rotate(-10deg); }
+  50%      { transform: rotate(10deg);  }
 }
 
 @keyframes eyeBlink {
@@ -344,10 +495,51 @@ $radius:    16px;
 
 @keyframes eyeHalf {
   0%, 100% { transform: scaleY(.55); }
-  50%      { transform: scaleY(.8); }
+  50%      { transform: scaleY(.8);  }
+}
+
+// Alternating paws — left leads, right is 180° offset
+@keyframes pawRunL {
+  0%   { transform: translate(0,    0)    rotate(0deg);   }
+  25%  { transform: translate(-4px, -12px) rotate(-28deg); }
+  50%  { transform: translate(0,    0)    rotate(0deg);   }
+  75%  { transform: translate(3px,  3px)  rotate(14deg);  }
+  100% { transform: translate(0,    0)    rotate(0deg);   }
+}
+@keyframes pawRunR {
+  0%   { transform: translate(0,    0)    rotate(0deg);   }
+  25%  { transform: translate(3px,  3px)  rotate(14deg);  }
+  50%  { transform: translate(0,    0)    rotate(0deg);   }
+  75%  { transform: translate(-4px, -12px) rotate(-28deg); }
+  100% { transform: translate(0,    0)    rotate(0deg);   }
+}
+
+// Lick: raise left paw to face, hold, lower
+@keyframes pawLick {
+  0%   { transform: translate(0,   0)     rotate(0deg);   }
+  20%  { transform: translate(6px, -26px) rotate(-42deg); }
+  50%  { transform: translate(7px, -28px) rotate(-45deg); }
+  80%  { transform: translate(6px, -26px) rotate(-42deg); }
+  100% { transform: translate(0,   0)     rotate(0deg);   }
+}
+
+// Purr: gentle whole-body vibration
+@keyframes catPurr {
+  0%, 100% { transform: translateX(0px)    translateY(0px);   }
+  25%      { transform: translateX(1.5px)  translateY(0.4px); }
+  75%      { transform: translateX(-1.5px) translateY(-0.4px); }
+}
+
+// Ear twitch: quick flick then settle
+@keyframes earTwitch {
+  0%, 100% { transform: rotate(0deg);   }
+  20%      { transform: rotate(-14deg); }
+  40%      { transform: rotate(9deg);   }
+  60%      { transform: rotate(-10deg); }
+  80%      { transform: rotate(5deg);   }
 }
 
 // ── Mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 480px) {
-  .bubble { width: 210px; }
+  .bubble { width: 212px; }
 }
