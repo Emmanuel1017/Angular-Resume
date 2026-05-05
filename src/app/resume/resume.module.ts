@@ -17,6 +17,7 @@ import { NotifierModule } from 'angular-notifier';
 import { WhatwedoComponent } from '../whatwedo/whatwedo.component';
 import { CountersComponent } from '../counters/counters.component';
 import {MatIconModule} from '@angular/material/icon';
+import { AgentModule } from '../agent/agent.module';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {MatIconModule} from '@angular/material/icon';
     ExperienceModule,
     PostsModule,
     NotifierModule,
-    MatIconModule
+    MatIconModule,
+    AgentModule
   ],
   declarations: [
     ResumeComponent,

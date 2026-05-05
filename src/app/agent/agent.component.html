@@ -1,0 +1,148 @@
+<!-- Root — clicks here stop propagation so document:click doesn't close panel -->
+<div class="agent-root">
+
+  <!-- ── Speech bubble ──────────────────────────────────────────────────── -->
+  <div class="bubble" [ngClass]="bubbleAlign" *ngIf="bubbleVisible">
+
+    <!-- Settings mode -->
+    <ng-container *ngIf="isSettingsOpen">
+      <p class="settings-title">⚙️ AI Settings</p>
+
+      <div class="setting-row">
+        <span class="setting-label">Provider</span>
+        <div class="provider-tabs">
+          <button [class.active]="settings.provider === 'openai'"
+                  (click)="settings.provider = 'openai'">OpenAI</button>
+          <button [class.active]="settings.provider === 'claude'"
+                  (click)="settings.provider = 'claude'">Claude</button>
+          <button [class.active]="settings.provider === 'ollama'"
+                  (click)="settings.provider = 'ollama'">Ollama</button>
+        </div>
+      </div>
+
+      <div class="setting-row" *ngIf="settings.provider !== 'ollama'">
+        <span class="setting-label">API Key</span>
+        <input type="password" [(ngModel)]="currentApiKey" placeholder="Paste key here…">
+      </div>
+
+      <div class="setting-row" *ngIf="settings.provider === 'ollama'">
+        <span class="setting-label">Ollama URL</span>
+        <input type="text" [(ngModel)]="settings.ollamaUrl" placeholder="http://localhost:11434">
+        <span class="setting-note">Run: OLLAMA_ORIGINS=* ollama serve</span>
+      </div>
+
+      <div class="setting-row">
+        <span class="setting-label">Model</span>
+        <input type="text" [(ngModel)]="currentModel" [placeholder]="modelPlaceholder">
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn-save" (click)="saveSettings()">Save</button>
+        <button class="btn-cancel" (click)="isSettingsOpen = false">Cancel</button>
+      </div>
+    </ng-container>
+
+    <!-- Chat mode -->
+    <ng-container *ngIf="!isSettingsOpen">
+      <div class="thinking-dots" *ngIf="isThinking">
+        <span></span><span></span><span></span>
+      </div>
+
+      <p class="bubble-text" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
+
+      <div class="chat-input-row" *ngIf="isChatOpen && !isThinking">
+        <input #chatInput
+               type="text"
+               [(ngModel)]="inputMessage"
+               (keydown.enter)="sendMessage()"
+               placeholder="Ask about Emmanuel…"
+               maxlength="200">
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!inputMessage.trim()">→</button>
+      </div>
+    </ng-container>
+
+  </div><!-- /bubble -->
+
+  <!-- ── Cat ────────────────────────────────────────────────────────────── -->
+  <div class="cat-wrap" [class.flipped]="!facingRight" (click)="onCatClick($event)">
+    <div class="cat-bounce">
+      <svg class="cat-svg" [class.thinking]="isThinking"
+           viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"
+           aria-label="Kori the cat assistant">
+
+        <!-- tail (behind body) -->
+        <path class="tail"
+              d="M68 90 Q92 76 88 55 Q84 40 70 52"
+              stroke="#F7B267" stroke-width="9" fill="none" stroke-linecap="round"/>
+
+        <!-- body -->
+        <ellipse cx="50" cy="88" rx="26" ry="20" fill="#F7B267"/>
+        <!-- belly -->
+        <ellipse cx="50" cy="90" rx="14" ry="12" fill="#FDDDB0"/>
+
+        <!-- head -->
+        <circle cx="50" cy="48" r="26" fill="#F7B267"/>
+
+        <!-- forehead stripe -->
+        <path d="M37 31 Q50 27 63 31" stroke="#E8956D" stroke-width="2.2"
+              fill="none" opacity="0.38" stroke-linecap="round"/>
+
+        <!-- left ear -->
+        <polygon points="24,27 29,4 42,22" fill="#F7B267"/>
+        <polygon points="27,25 30,9 40,22" fill="#FFB3C6"/>
+        <!-- right ear -->
+        <polygon points="58,22 71,4 76,27" fill="#F7B267"/>
+        <polygon points="60,22 70,9 73,25" fill="#FFB3C6"/>
+
+        <!-- eyes — white -->
+        <ellipse cx="38" cy="46" rx="8"   ry="9"   fill="white"/>
+        <ellipse cx="62" cy="46" rx="8"   ry="9"   fill="white"/>
+        <!-- iris (green) -->
+        <ellipse cx="38" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
+        <ellipse cx="62" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
+        <!-- pupils -->
+        <ellipse cx="38" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
+        <ellipse cx="62" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
+        <!-- eye shine -->
+        <circle  cx="40" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
+        <circle  cx="64" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
+
+        <!-- blink overlays (same colour as fur) -->
+        <ellipse class="blink-l" cx="38" cy="46" rx="8" ry="9" fill="#F7B267"/>
+        <ellipse class="blink-r" cx="62" cy="46" rx="8" ry="9" fill="#F7B267"/>
+
+        <!-- cheek blush -->
+        <ellipse cx="27" cy="56" rx="6" ry="4" fill="#FFB3C6" opacity="0.38"/>
+        <ellipse cx="73" cy="56" rx="6" ry="4" fill="#FFB3C6" opacity="0.38"/>
+
+        <!-- nose -->
+        <polygon points="50,57 46.5,60.5 53.5,60.5" fill="#FF8FAB"/>
+        <!-- mouth -->
+        <path d="M46.5,61.5 Q48,64.5 50,63.5 Q52,64.5 53.5,61.5"
+              stroke="#FF8FAB" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+        <!-- whiskers left -->
+        <line x1="44" y1="58.5" x2="14" y2="53" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="61"   x2="14" y2="61" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="63.5" x2="14" y2="69" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <!-- whiskers right -->
+        <line x1="56" y1="58.5" x2="86" y2="53" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="61"   x2="86" y2="61" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="63.5" x2="86" y2="69" stroke="#8B7355" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+
+        <!-- front paws -->
+        <ellipse cx="34" cy="105" rx="12" ry="7" fill="#F7B267"/>
+        <ellipse cx="66" cy="105" rx="12" ry="7" fill="#F7B267"/>
+        <!-- toe lines -->
+        <path d="M27,107 Q28,103.5 30,107" stroke="#E8956D" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M33,108 Q34,104 36,108"   stroke="#E8956D" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M60,108 Q61,104 63,108"   stroke="#E8956D" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M66,107 Q67,103.5 69,107" stroke="#E8956D" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── Gear button ─────────────────────────────────────────────────────── -->
+  <button class="gear-btn" (click)="toggleSettings($event)" title="AI Settings">⚙</button>
+
+</div>

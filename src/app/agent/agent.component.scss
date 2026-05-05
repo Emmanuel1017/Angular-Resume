@@ -1,0 +1,353 @@
+$orange:    #F7B267;
+$orange-d:  #E8956D;
+$pink:      #FFB3C6;
+$navy:      #0d1b2a;
+$navy-m:    #1b2e45;
+$white:     #ffffff;
+$green-a:   #a8e87a;
+$green-d:   #5a8c3e;
+$bubble-bg: rgba(255, 255, 255, 0.97);
+$radius:    16px;
+
+// ── Host — fixed, transitions between wander positions ─────────────────────
+:host {
+  display: block;
+  position: fixed;
+  width: 90px;
+  z-index: 9999;
+  transition:
+    left   2.8s cubic-bezier(.4, 0, .2, 1),
+    bottom 2.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+// ── Root wrapper ────────────────────────────────────────────────────────────
+.agent-root {
+  position: relative;
+  width: 90px;
+}
+
+// ── Speech bubble ────────────────────────────────────────────────────────────
+.bubble {
+  position: absolute;
+  bottom: 122px;
+  width: 244px;
+  background: $bubble-bg;
+  border-radius: $radius;
+  padding: 13px 15px 12px;
+  box-shadow:
+    0 8px 32px rgba($navy, .16),
+    0 2px 8px  rgba($navy, .10),
+    0 0 0 1.5px rgba($green-a, .25);
+  font-family: 'Montserrat', sans-serif;
+
+  // triangle pointer
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border: 11px solid transparent;
+  }
+
+  // --- alignment classes ---
+  &.align-left {
+    left: 0;
+    animation: bubbleInLeft .26s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { left: 18px; border-top-color: $bubble-bg; }
+  }
+  &.align-right {
+    right: 0;
+    animation: bubbleInRight .26s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { right: 18px; border-top-color: $bubble-bg; }
+  }
+  &.align-center {
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bubbleInCenter .26s cubic-bezier(.34, 1.56, .64, 1) both;
+    &::after { left: calc(50% - 11px); border-top-color: $bubble-bg; }
+  }
+}
+
+@keyframes bubbleInLeft   { from { opacity: 0; transform: scale(.82) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes bubbleInRight  { from { opacity: 0; transform: scale(.82) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes bubbleInCenter { from { opacity: 0; transform: translateX(-50%) scale(.82) translateY(10px); } to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); } }
+
+// ── Bubble text ───────────────────────────────────────────────────────────────
+.bubble-text {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: $navy;
+  margin: 0;
+}
+
+// ── Thinking dots ─────────────────────────────────────────────────────────────
+.thinking-dots {
+  display: flex;
+  gap: 5px;
+  padding: 5px 2px 3px;
+
+  span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: $green-d;
+    animation: dotPulse 1.1s ease-in-out infinite;
+    &:nth-child(2) { animation-delay: .18s; }
+    &:nth-child(3) { animation-delay: .36s; }
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: .28; transform: scale(.75); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+
+// ── Chat input ────────────────────────────────────────────────────────────────
+.chat-input-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 1.5px solid rgba($navy, .14);
+    border-radius: 20px;
+    padding: 6px 11px;
+    font-size: 12px;
+    outline: none;
+    color: $navy;
+    background: rgba($navy, .03);
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color .2s;
+
+    &:focus { border-color: $green-d; background: $white; }
+    &::placeholder { color: rgba($navy, .38); }
+  }
+
+  .send-btn {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $green-a, $green-d);
+    color: $white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, opacity .15s;
+
+    &:hover:not(:disabled) { transform: scale(1.12); }
+    &:disabled { opacity: .4; cursor: default; }
+  }
+}
+
+// ── Settings panel ────────────────────────────────────────────────────────────
+.settings-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: $navy;
+  margin: 0 0 11px;
+}
+
+.setting-row {
+  margin-bottom: 8px;
+}
+
+.setting-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba($navy, .45);
+  text-transform: uppercase;
+  letter-spacing: .55px;
+  margin-bottom: 4px;
+}
+
+.setting-row input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1.5px solid rgba($navy, .14);
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 12px;
+  outline: none;
+  color: $navy;
+  font-family: 'Montserrat', sans-serif;
+  transition: border-color .2s;
+
+  &:focus { border-color: $green-d; }
+  &::placeholder { color: rgba($navy, .3); }
+}
+
+.setting-note {
+  font-size: 10px;
+  color: rgba($navy, .38);
+  margin-top: 4px;
+  line-height: 1.4;
+  font-family: 'Montserrat', monospace;
+}
+
+.provider-tabs {
+  display: flex;
+  gap: 4px;
+
+  button {
+    flex: 1;
+    padding: 5px 3px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1.5px solid rgba($navy, .18);
+    border-radius: 8px;
+    background: transparent;
+    color: rgba($navy, .55);
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: all .15s;
+
+    &.active {
+      background: linear-gradient(135deg, $green-a, $green-d);
+      color: $white;
+      border-color: transparent;
+    }
+    &:not(.active):hover {
+      background: rgba($green-a, .18);
+      border-color: $green-d;
+      color: $green-d;
+    }
+  }
+}
+
+.settings-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+
+  .btn-save {
+    flex: 1;
+    padding: 7px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, $green-a, $green-d);
+    color: $white;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: transform .15s;
+    &:hover { transform: scale(1.03); }
+  }
+
+  .btn-cancel {
+    padding: 7px 12px;
+    border: 1.5px solid rgba($navy, .18);
+    border-radius: 20px;
+    background: transparent;
+    color: rgba($navy, .55);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: background .15s;
+    &:hover { background: rgba($navy, .05); }
+  }
+}
+
+// ── Gear button ───────────────────────────────────────────────────────────────
+.gear-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 26px; height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: $white;
+  box-shadow: 0 2px 8px rgba($navy, .22);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .22s, box-shadow .22s;
+  z-index: 2;
+
+  &:hover {
+    transform: rotate(55deg);
+    box-shadow: 0 4px 14px rgba($navy, .32);
+  }
+}
+
+// ── Cat flip wrapper ──────────────────────────────────────────────────────────
+.cat-wrap {
+  width: 90px;
+  cursor: pointer;
+  transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+  position: relative;
+  z-index: 1;
+
+  &.flipped { transform: scaleX(-1); }
+
+  &:hover {
+    filter: drop-shadow(0 6px 18px rgba($orange-d, .55));
+  }
+  &:hover .cat-bounce {
+    animation-play-state: paused;
+  }
+}
+
+// ── Float layer ───────────────────────────────────────────────────────────────
+.cat-bounce {
+  animation: catFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes catFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+// ── SVG internals ─────────────────────────────────────────────────────────────
+.cat-svg {
+  width: 90px;
+  height: auto;
+  display: block;
+
+  .tail {
+    transform-box: fill-box;
+    transform-origin: 68px 90px;
+    animation: tailSway 2.4s ease-in-out infinite;
+  }
+
+  .blink-l {
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation: eyeBlink 4.8s ease-in-out infinite;
+  }
+  .blink-r {
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation: eyeBlink 4.8s ease-in-out infinite .12s;
+  }
+
+  &.thinking {
+    .blink-l, .blink-r { animation: eyeHalf .75s ease-in-out infinite; }
+    .tail              { animation: tailSway .6s ease-in-out infinite; }
+  }
+}
+
+@keyframes tailSway {
+  0%, 100% { transform: rotate(0deg); }
+  30%      { transform: rotate(-16deg); }
+  70%      { transform: rotate(11deg); }
+}
+
+@keyframes eyeBlink {
+  0%, 88%, 100% { transform: scaleY(0); }
+  92%, 96%      { transform: scaleY(1); }
+}
+
+@keyframes eyeHalf {
+  0%, 100% { transform: scaleY(.55); }
+  50%      { transform: scaleY(.8); }
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .bubble { width: 210px; }
+}
