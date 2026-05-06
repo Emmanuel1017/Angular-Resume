@@ -1,16 +1,32 @@
-// ─── Tablet / mobile breakpoint ───────────────────────────────────────────────
+// ─── Design tokens (match main SCSS) ─────────────────────────────────────────
+$navy:    #222f5c;
+$green-l: #abd699;
+$green-d: #47603c;
+$muted:   #5e6788;
+$white:   #fff;
+
+// ─── Tablet / mobile ──────────────────────────────────────────────────────────
 @media screen and (max-width: 1024px) {
 
+  :host { padding: 0 12px; }
+
   header {
-    background: rgba(255, 255, 255, 0.96);
-    padding: .6em 1.2em;
     height: auto;
+    padding: .62em 1em;
     flex-wrap: wrap;
-    box-shadow: 0 2px 16px rgba(34, 47, 92, 0.10);
+    border-radius: 28px;
+    background: rgba($white, 0.96);
+
+    &.menu-open {
+      border-radius: 22px;
+      box-shadow:
+        0 12px 40px rgba($navy, .14),
+        0 2px 8px  rgba($navy, .06);
+    }
 
     .child.logo-container {
-      flex-grow: 4;
-      a { font-size: 19px; }
+      flex: 1 1 auto;
+      a { font-size: 16.5px; }
     }
 
     .child.navbar-toggle {
@@ -20,15 +36,15 @@
     .child.nav-container {
       order: 5;
       flex-basis: 100%;
-      border-top: 1px solid rgba(171, 214, 153, 0.22);
-      padding: .6em 0 .8em;
+      border-top: 1px solid rgba($green-l, .28);
+      padding: .5em 0 .55em;
 
       ul {
         flex-direction: column;
         height: auto;
         align-items: flex-start;
-        gap: .1em;
-        padding-left: .5em;
+        gap: 2px;
+        padding: 0;
       }
 
       li {
@@ -36,47 +52,46 @@
 
         a {
           width: 100%;
-          font-size: 15px;
-          padding: .6em 1em;
-          color: #5e6788;
-          border-radius: 10px;
+          font-size: 14.5px;
+          padding: .58em 1em;
+          border-radius: 14px;
+          color: $muted;
+          transform: none !important;
 
           &.active {
-            background: linear-gradient(135deg, #abd699, #47603c);
-            color: #fff;
+            background: linear-gradient(135deg, $green-l, $green-d);
+            color: $white;
+            box-shadow: 0 3px 12px rgba($green-d, .28);
           }
 
           &:hover:not(.active) {
-            background: rgba(171, 214, 153, 0.16);
-            color: #222f5c;
+            background: rgba($green-l, .18);
+            color: $navy;
           }
-
-          &::after { display: none; }
         }
       }
     }
 
     .child.share-container {
-      margin-right: .5em;
+      margin-right: 4px;
     }
   }
 }
 
-// ─── Mobile ────────────────────────────────────────────────────────────────────
+// ─── Small mobile ─────────────────────────────────────────────────────────────
 @media screen and (max-width: 500px) {
 
+  :host { top: 10px; padding: 0 8px; }
+
   header {
-    padding: .5em 1em;
+    padding: .52em .85em;
+    border-radius: 24px;
 
-    .child.logo-container a { font-size: 17px; }
+    .child.logo-container a { font-size: 15px; }
 
-    .child.navbar-toggle .bar-icon {
-      font-size: 16px;
-    }
-
-    .child.share-container {
-      padding: .4em .55em;
-      .icon { font-size: 16px; }
+    .child.navbar-toggle {
+      width: 34px; height: 34px;
+      .bar-icon { font-size: 15px; }
     }
   }
 }

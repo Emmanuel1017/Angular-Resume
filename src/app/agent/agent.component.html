@@ -4,9 +4,29 @@
   <!-- ── Speech bubble ──────────────────────────────────────────────────── -->
   <div class="bubble" [ngClass]="bubbleAlign" *ngIf="bubbleVisible">
 
+    <!-- Download mode -->
+    <ng-container *ngIf="showDownloadModal && !isSettingsOpen && !isChatOpen">
+      <div class="dl-bubble">
+        <div class="dl-bubble-header">
+          <svg class="dl-paw" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="20" cy="26" rx="10" ry="8" fill="#abd699"/>
+            <ellipse cx="11" cy="17" rx="4.5" ry="5.5" fill="#abd699"/>
+            <ellipse cx="20" cy="14" rx="4.5" ry="5.5" fill="#abd699"/>
+            <ellipse cx="29" cy="17" rx="4.5" ry="5.5" fill="#abd699"/>
+          </svg>
+          <span class="dl-title">{{ downloadDone ? '✅ Ready!' : downloadLabel }}</span>
+          <span class="dl-pct">{{ downloadDone ? '' : (downloadPercent + '%') }}</span>
+        </div>
+        <p class="dl-file">{{ downloadFile || 'Fetching files…' }}</p>
+        <div class="dl-bar-track">
+          <div class="dl-bar-fill" [style.width.%]="downloadPercent"></div>
+        </div>
+      </div>
+    </ng-container>
+
     <!-- Settings mode -->
     <ng-container *ngIf="isSettingsOpen">
-      <p class="settings-title">⚙️ AI Settings</p>
+      <p class="settings-title">AI Settings</p>
 
       <div class="setting-row">
         <span class="setting-label">Provider</span>
@@ -22,31 +42,24 @@
         </div>
       </div>
 
-      <!-- API key — not needed for Ollama or Transformers -->
-      <div class="setting-row"
-           *ngIf="settings.provider !== 'ollama' && settings.provider !== 'transformers'">
+      <div class="setting-row" *ngIf="settings.provider !== 'ollama' && settings.provider !== 'transformers'">
         <span class="setting-label">API Key</span>
         <input type="password" [(ngModel)]="currentApiKey" placeholder="Paste key here…">
       </div>
 
-      <!-- Ollama URL -->
       <div class="setting-row" *ngIf="settings.provider === 'ollama'">
         <span class="setting-label">Ollama URL</span>
         <input type="text" [(ngModel)]="settings.ollamaUrl" placeholder="http://localhost:11434">
         <span class="setting-note">Run: OLLAMA_ORIGINS=* ollama serve</span>
       </div>
 
-      <!-- Transformers.js info -->
-      <div class="setting-row tf-info" *ngIf="settings.provider === 'transformers'">
-        <span class="tf-badge">🦙 Fully offline</span>
-        <span class="setting-note">
-          Runs entirely in your browser — no API key or server needed.<br>
-          Chat model ≈ 200 MB · Voice (Whisper) ≈ 80 MB.<br>
-          Both download once and cache in your browser.
-        </span>
+      <div class="setting-row" *ngIf="settings.provider === 'transformers'">
+        <div class="tf-info">
+          <span class="tf-badge">🧠 Runs in your browser</span>
+          <span class="setting-note">No API key needed — downloads model on first use then runs offline!</span>
+        </div>
       </div>
 
-      <!-- Model -->
       <div class="setting-row">
         <span class="setting-label">Model</span>
         <input type="text" [(ngModel)]="currentModel" [placeholder]="modelPlaceholder">
@@ -59,19 +72,13 @@
     </ng-container>
 
     <!-- Chat mode -->
-    <ng-container *ngIf="!isSettingsOpen">
-
-      <!-- Thinking: show TF progress text OR animated dots -->
-      <ng-container *ngIf="isThinking">
-        <p class="tf-status-text" *ngIf="tfStatus">{{ tfStatus }}</p>
-        <div class="thinking-dots" *ngIf="!tfStatus">
-          <span></span><span></span><span></span>
-        </div>
-      </ng-container>
+    <ng-container *ngIf="!isSettingsOpen && !showDownloadModal">
+      <div class="thinking-dots" *ngIf="isThinking">
+        <span></span><span></span><span></span>
+      </div>
 
       <p class="bubble-text" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
 
-      <!-- Input row — shown when chat is open and not thinking -->
       <div class="chat-input-row" *ngIf="isChatOpen && !isThinking">
         <input #chatInput
                type="text"
@@ -79,28 +86,26 @@
                (keydown.enter)="sendMessage()"
                placeholder="Ask about Emmanuel…"
                maxlength="200">
-        <!-- Mic button — uses Whisper, works with any AI provider -->
         <button class="mic-btn"
                 *ngIf="isMicAvailable"
                 [class.listening]="isListening"
                 (click)="toggleMic($event)"
-                [title]="isListening ? 'Stop recording' : 'Speak (Whisper)'">
-          🎤
-        </button>
+                [title]="isListening ? 'Stop recording' : 'Voice input'">{{ isListening ? '⏹' : '🎤' }}</button>
         <button class="send-btn" (click)="sendMessage()" [disabled]="!inputMessage.trim()">→</button>
       </div>
 
-      <!-- Listening indicator -->
-      <p class="listening-hint" *ngIf="isListening">
-        <span class="rec-dot"></span> Listening… click mic to stop
-      </p>
-
+      <div class="listening-hint" *ngIf="isListening">
+        <span class="rec-dot"></span> Listening…
+      </div>
     </ng-container>
 
   </div><!-- /bubble -->
 
   <!-- ── Cat ────────────────────────────────────────────────────────────── -->
-  <div class="cat-wrap" [class.flipped]="!facingRight" (click)="onCatClick($event)">
+  <div class="cat-wrap" [class.flipped]="!facingRight"
+       (click)="onCatClick($event)"
+       (mousedown)="onCatPointerDown($event)"
+       (touchstart)="onCatPointerDown($event)">
     <div class="cat-bounce" [class.running]="isRunning">
       <svg class="cat-svg"
            [class.thinking]="isThinking"
@@ -114,58 +119,50 @@
         <path class="tail"
               d="M68 90 Q92 76 88 55 Q84 40 70 52"
               stroke="#abd699" stroke-width="9" fill="none" stroke-linecap="round"/>
-        <path class="tail-tip"
-              d="M70 52 Q67 46 69 42"
-              stroke="#47603c" stroke-width="6.5" fill="none" stroke-linecap="round"/>
 
         <!-- body -->
         <ellipse cx="50" cy="88" rx="26" ry="20" fill="#abd699"/>
         <!-- belly -->
-        <ellipse cx="50" cy="90" rx="14" ry="12" fill="#c8e8b5"/>
-        <!-- subtle body stripe -->
-        <path d="M38 80 Q50 76 62 80" stroke="#7aad67" stroke-width="1.8"
-              fill="none" opacity="0.4" stroke-linecap="round"/>
+        <ellipse cx="50" cy="90" rx="14" ry="12" fill="#d4edca"/>
 
         <!-- head -->
         <circle cx="50" cy="48" r="26" fill="#abd699"/>
 
-        <!-- forehead stripes -->
+        <!-- forehead stripe -->
         <path d="M37 31 Q50 27 63 31" stroke="#47603c" stroke-width="2.2"
-              fill="none" opacity="0.42" stroke-linecap="round"/>
-        <path d="M42 25 Q50 22 58 25" stroke="#47603c" stroke-width="1.5"
-              fill="none" opacity="0.28" stroke-linecap="round"/>
+              fill="none" opacity="0.38" stroke-linecap="round"/>
 
         <!-- left ear -->
         <g class="ear-l">
           <polygon points="24,27 29,4 42,22" fill="#abd699"/>
-          <polygon points="27,25 30,9 40,22" fill="#ffd6e0"/>
+          <polygon points="27,25 30,9 40,22" fill="#FFB3C6"/>
         </g>
         <!-- right ear -->
         <g class="ear-r">
           <polygon points="58,22 71,4 76,27" fill="#abd699"/>
-          <polygon points="60,22 70,9 73,25" fill="#ffd6e0"/>
+          <polygon points="60,22 70,9 73,25" fill="#FFB3C6"/>
         </g>
 
         <!-- eyes — white -->
         <ellipse cx="38" cy="46" rx="8"   ry="9"   fill="white"/>
         <ellipse cx="62" cy="46" rx="8"   ry="9"   fill="white"/>
-        <!-- iris (navy — matches app palette) -->
-        <ellipse cx="38" cy="47" rx="5"   ry="6.5" fill="#222f5c"/>
-        <ellipse cx="62" cy="47" rx="5"   ry="6.5" fill="#222f5c"/>
+        <!-- iris (green) -->
+        <ellipse cx="38" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
+        <ellipse cx="62" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
         <!-- pupils -->
-        <ellipse cx="38" cy="47" rx="2.8" ry="5"   fill="#0a0a1a"/>
-        <ellipse cx="62" cy="47" rx="2.8" ry="5"   fill="#0a0a1a"/>
+        <ellipse cx="38" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
+        <ellipse cx="62" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
         <!-- eye shine -->
-        <circle  cx="40" cy="43.5" r="1.8" fill="white" opacity="0.92"/>
-        <circle  cx="64" cy="43.5" r="1.8" fill="white" opacity="0.92"/>
+        <circle  cx="40" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
+        <circle  cx="64" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
 
-        <!-- blink overlays (match fur) -->
+        <!-- blink overlays (same colour as fur) -->
         <ellipse class="blink-l" cx="38" cy="46" rx="8" ry="9" fill="#abd699"/>
         <ellipse class="blink-r" cx="62" cy="46" rx="8" ry="9" fill="#abd699"/>
 
         <!-- cheek blush -->
-        <ellipse cx="27" cy="56" rx="6" ry="4" fill="#ffd6e0" opacity="0.5"/>
-        <ellipse cx="73" cy="56" rx="6" ry="4" fill="#ffd6e0" opacity="0.5"/>
+        <ellipse cx="27" cy="56" rx="6" ry="4" fill="#FFB3C6" opacity="0.38"/>
+        <ellipse cx="73" cy="56" rx="6" ry="4" fill="#FFB3C6" opacity="0.38"/>
 
         <!-- nose -->
         <polygon points="50,57 46.5,60.5 53.5,60.5" fill="#FF8FAB"/>
@@ -174,21 +171,21 @@
               stroke="#FF8FAB" stroke-width="1.5" fill="none" stroke-linecap="round"/>
 
         <!-- whiskers left -->
-        <line x1="44" y1="58.5" x2="14" y2="53" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
-        <line x1="44" y1="61"   x2="14" y2="61" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
-        <line x1="44" y1="63.5" x2="14" y2="69" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+        <line x1="44" y1="58.5" x2="14" y2="53" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="61"   x2="14" y2="61" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="63.5" x2="14" y2="69" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
         <!-- whiskers right -->
-        <line x1="56" y1="58.5" x2="86" y2="53" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
-        <line x1="56" y1="61"   x2="86" y2="61" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
-        <line x1="56" y1="63.5" x2="86" y2="69" stroke="#47603c" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+        <line x1="56" y1="58.5" x2="86" y2="53" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="61"   x2="86" y2="61" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="63.5" x2="86" y2="69" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
 
-        <!-- front paws — grouped so animations move toe lines with paw -->
-        <g class="paw-group paw-l-group">
+        <!-- front paws -->
+        <g class="paw-l-group">
           <ellipse cx="34" cy="105" rx="12" ry="7" fill="#abd699"/>
           <path d="M27,107 Q28,103.5 30,107" stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
           <path d="M33,108 Q34,104 36,108"   stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
         </g>
-        <g class="paw-group paw-r-group">
+        <g class="paw-r-group">
           <ellipse cx="66" cy="105" rx="12" ry="7" fill="#abd699"/>
           <path d="M60,108 Q61,104 63,108"   stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
           <path d="M66,107 Q67,103.5 69,107" stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
