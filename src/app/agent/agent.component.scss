@@ -17,6 +17,12 @@ $radius:   16px;
   transition:
     left   2.8s cubic-bezier(.4, 0, .2, 1),
     bottom 2.2s cubic-bezier(.4, 0, .2, 1);
+
+  &.dragging {
+    transition: none;
+    cursor: grabbing;
+    user-select: none;
+  }
 }
 
 // ── Root wrapper ────────────────────────────────────────────────────────────
@@ -79,6 +85,101 @@ $radius:   16px;
 @keyframes bubbleInCenter {
   from { opacity: 0; transform: translateX(-50%) scale(.78) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) scale(1)   translateY(0);    }
+}
+
+
+
+// ── Download bubble (inline in speech bubble) ─────────────────────────────────
+.dl-bubble {
+  // wrapper — inherits bubble padding
+}
+
+.dl-bubble-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+// ── Download modal ───────────────────────────────────────────────────────────
+.download-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+}
+
+.download-modal-inner {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 32px 24px;
+  min-width: 260px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,.18);
+  transition: transform .25s ease;
+
+  &.done { transform: scale(1.04); }
+}
+
+// bouncing paw icon
+.dl-paw-track {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.dl-paw {
+  width: 48px;
+  height: 48px;
+  animation: dl-paw-bounce 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes dl-paw-bounce {
+  from { transform: translateY(0) rotate(-8deg); }
+  to   { transform: translateY(-8px) rotate(8deg); }
+}
+
+.dl-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 4px;
+}
+
+.dl-file {
+  font-size: 0.72rem;
+  color: #888;
+  margin: 0 0 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.dl-bar-track {
+  background: #eee;
+  border-radius: 100px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.dl-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, $green-l, $green-d);
+  border-radius: 100px;
+  transition: width .3s ease;
+}
+
+.dl-pct {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $green-d;
+  margin: 0;
 }
 
 // ── Bubble text ───────────────────────────────────────────────────────────────
@@ -377,8 +478,10 @@ $radius:   16px;
 // ── Cat flip wrapper ──────────────────────────────────────────────────────────
 .cat-wrap {
   width: 90px;
-  cursor: pointer;
+  cursor: grab;
   transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+
+  :host.dragging & { cursor: grabbing; }
   position: relative;
   z-index: 1;
 

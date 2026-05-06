@@ -26,7 +26,7 @@ export const DEFAULT_SETTINGS: AgentSettings = {
   openaiModel: 'gpt-4o-mini',
   claudeModel: 'claude-haiku-4-5-20251001',
   ollamaModel: 'llama3.1:8b',
-  tfModel:     'HuggingFaceTB/SmolLM2-360M-Instruct'
+  tfModel:     'HuggingFaceTB/SmolLM2-135M-Instruct'
 };
 
 @Injectable({ providedIn: 'root' })
@@ -103,11 +103,22 @@ export class AgentService {
       `cloud-native development and healthcare platforms. Be concise, warm, playful. Max 2 sentences per response.`;
   }
 
+  get chatModelReady(): boolean { return this.chatReady; }
+  get whisperModelReady(): boolean { return this.whisperReady; }
+
+  /** Kick off model download in the background before the user's first message. */
+  async preload(model: string): Promise<void> {
+    return this.ensureChatModel(model);
+  }
+
   // ── Worker helpers ──────────────────────────────────────────────────────────
   private initWorker(): void {
     if (this.worker) return;
-    const url = `${this.baseUrl}/assets/kori-worker.js`;
-    this.worker = new Worker(url, { type: 'module' });
+    // Angular esbuild bundles kori.worker.ts as a separate chunk
+    this.worker = new Worker(
+      new URL('./kori.worker', import.meta.url),
+      { type: 'module' }
+    );
     this.worker.addEventListener('message', (e: MessageEvent) => {
       const { type, id, payload } = e.data;
       if (type === 'RESOLVE' || type === 'REJECT') {
@@ -140,22 +151,22 @@ export class AgentService {
   private onChatProgress(p: any): void {
     if (!p) return;
     if (p.status === 'progress' && p.progress != null) {
-      this.tfStatus$.next(`⬇ Model ${p.file?.split('/').pop() ?? ''} ${Math.round(p.progress)}%`);
-    } else if (p.status === 'initiate') {
-      this.tfStatus$.next(`⬇ Fetching ${p.file?.split('/').pop() ?? 'model'}…`);
+      this.tfStatus$.next(`chat:${Math.round(p.progress)}`);
+    } else if (p.status === 'initiate' || p.status === 'download') {
+      this.tfStatus$.next('chat:0');
     } else if (p.status === 'loading') {
-      this.tfStatus$.next('⚙ Loading model…');
+      this.tfStatus$.next('chat:loading');
     }
   }
 
   private onWhisperProgress(p: any): void {
     if (!p) return;
     if (p.status === 'progress' && p.progress != null) {
-      this.tfStatus$.next(`⬇ Whisper ${Math.round(p.progress)}%`);
-    } else if (p.status === 'initiate') {
-      this.tfStatus$.next('⬇ Fetching Whisper…');
+      this.tfStatus$.next(`whisper:${Math.round(p.progress)}`);
+    } else if (p.status === 'initiate' || p.status === 'download') {
+      this.tfStatus$.next('whisper:0');
     } else if (p.status === 'loading') {
-      this.tfStatus$.next('⚙ Loading Whisper…');
+      this.tfStatus$.next('whisper:loading');
     }
   }
 
@@ -164,13 +175,12 @@ export class AgentService {
     if (this.chatReady) return;
     if (!this.chatInitP) {
       this.chatInitP = (async () => {
-        // Wait for portfolio context to be ready
         while (!this.ready) { await new Promise(r => setTimeout(r, 300)); }
-        this.tfStatus$.next('⚙ Initializing…');
+        this.tfStatus$.next('chat:0');
         await this.post('SET_PROMPT', this.systemPrompt);
         await this.post('INIT_CHAT', { model });
         this.chatReady = true;
-        this.tfStatus$.next('');
+        this.tfStatus$.next('chat:done');
         this.chatInitP = null;
       })();
     }
@@ -181,9 +191,10 @@ export class AgentService {
     if (this.whisperReady) return;
     if (!this.whisperInitP) {
       this.whisperInitP = (async () => {
+        this.tfStatus$.next('whisper:0');
         await this.post('INIT_WHISPER');
         this.whisperReady = true;
-        this.tfStatus$.next('');
+        this.tfStatus$.next('whisper:done');
         this.whisperInitP = null;
       })();
     }

@@ -10,7 +10,8 @@ import { environment } from 'src/environments/environment';
   selector: 'app-agent',
   host: {
     '[style.left.px]':   'posX',
-    '[style.bottom.px]': 'posY'
+    '[style.bottom.px]': 'posY',
+    '[class.dragging]':  'isDragging'
   },
   templateUrl: './agent.component.html',
   styleUrls: ['./agent.component.scss']
@@ -21,21 +22,36 @@ export class AgentComponent implements OnInit, OnDestroy {
   posY = 80;
   facingRight = true;
 
-  isChatOpen     = false;
-  isSettingsOpen = false;
-  isThinking     = false;
-  isRunning      = false;
-  isListening    = false;
-  idleAnimClass  = '';
-  tfStatus       = '';
-  bubbleText     = '';
-  inputMessage   = '';
+  isChatOpen      = false;
+  isSettingsOpen  = false;
+  isThinking      = false;
+  isRunning       = false;
+  isListening     = false;
+  idleAnimClass   = '';
+  tfStatus        = '';
+  bubbleText      = '';
+  inputMessage    = '';
   settings: AgentSettings = { ...DEFAULT_SETTINGS };
 
-  private wanderTimer?:   ReturnType<typeof setTimeout>;
-  private dismissTimer?:  ReturnType<typeof setTimeout>;
-  private runTimer?:      ReturnType<typeof setTimeout>;
-  private idleAnimTimer?: ReturnType<typeof setTimeout>;
+  // ── Download bubble ─────────────────────────────────────────────────────────
+  showDownloadModal  = false;
+  downloadLabel      = '';
+  downloadFile       = '';
+  downloadPercent    = 0;
+  downloadDone       = false;
+
+  // ── Drag ────────────────────────────────────────────────────────────────────
+  isDragging    = false;
+  private dragMoved     = false;
+  private dragStartX    = 0;
+  private dragStartY    = 0;
+  private dragStartPosX = 0;
+  private dragStartPosY = 0;
+
+  private wanderTimer?:    ReturnType<typeof setTimeout>;
+  private dismissTimer?:   ReturnType<typeof setTimeout>;
+  private runTimer?:       ReturnType<typeof setTimeout>;
+  private idleAnimTimer?:  ReturnType<typeof setTimeout>;
   private recordingTimer?: ReturnType<typeof setTimeout>;
   private tfSub: any;
   private mediaRecorder?: MediaRecorder;
@@ -49,7 +65,11 @@ export class AgentComponent implements OnInit, OnDestroy {
     "Curious about his AI work? Just ask! 🤖",
     "Click me to chat — I don't bite! 🐾",
     "I've read all his articles! Ask away ✨",
-    "Want to know Emmanuel's tech stack? Ask! 🔮"
+    "Want to know Emmanuel's tech stack? Ask! 🔮",
+    "I run entirely in your browser! 🧠",
+    "No cloud, no cookies — just vibes 🐾",
+    "Try asking about my favourite Elixir patterns! ⚗️",
+    "Meow! Healthcare tech, AI, Go — ask anything 😺"
   ];
 
   constructor(private agentService: AgentService, private zone: NgZone) {}
@@ -64,8 +84,15 @@ export class AgentComponent implements OnInit, OnDestroy {
     this.tfSub = this.agentService.tfStatus$.subscribe(status => {
       this.zone.run(() => {
         this.tfStatus = status;
+        this.handleTfStatus(status);
       });
     });
+
+    // Pre-download the browser model in the background on page load
+    if (this.settings.provider === 'transformers') {
+      const model = this.settings.tfModel || DEFAULT_SETTINGS.tfModel;
+      this.agentService.preload(model);
+    }
 
     setTimeout(() => this.showIdle(this.idlePhrases[0], 5500), 2200);
     this.scheduleWander();
@@ -82,13 +109,106 @@ export class AgentComponent implements OnInit, OnDestroy {
     this.mediaRecorder?.stop();
   }
 
-  // ── Wander ──────────────────────────────────────────────────────────────────
+  // ── Download bubble ─────────────────────────────────────────────────────────
+  private handleTfStatus(status: string): void {
+    if (!status) return;
+
+    const [label, raw] = status.split(':');
+    if (!label || !raw) return;
+
+    const isChat    = label === 'chat';
+    const isWhisper = label === 'whisper';
+    if (!isChat && !isWhisper) return;
+
+    if (raw === 'done') {
+      this.downloadDone    = true;
+      this.downloadPercent = 100;
+      setTimeout(() => {
+        this.showDownloadModal = false;
+        this.downloadDone      = false;
+      }, 1400);
+      return;
+    }
+
+    this.showDownloadModal = true;
+    this.downloadDone      = false;
+    this.downloadLabel     = isChat ? 'Loading model' : 'Loading Whisper';
+
+    if (raw === 'loading') {
+      this.downloadFile    = 'Compiling…';
+      this.downloadPercent = 99;
+    } else {
+      const pct = parseInt(raw, 10);
+      if (!isNaN(pct)) this.downloadPercent = pct;
+    }
+  }
+
+  updateDownloadFile(file: string): void {
+    if (file) this.downloadFile = file;
+  }
+
+  // ── Drag ────────────────────────────────────────────────────────────────────
+  onCatPointerDown(e: MouseEvent | TouchEvent): void {
+    e.stopPropagation();
+    const pt = this.eventPoint(e);
+    this.isDragging    = true;
+    this.dragMoved     = false;
+    this.dragStartX    = pt.x;
+    this.dragStartY    = pt.y;
+    this.dragStartPosX = this.posX;
+    this.dragStartPosY = this.posY;
+    clearTimeout(this.wanderTimer as any);
+    clearTimeout(this.runTimer as any);
+    this.isRunning = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onDocMouseMove(e: MouseEvent): void {
+    if (!this.isDragging) return;
+    this.applyDrag(e.clientX, e.clientY);
+  }
+
+  @HostListener('document:touchmove', ['$event'])
+  onDocTouchMove(e: TouchEvent): void {
+    if (!this.isDragging || !e.touches.length) return;
+    this.applyDrag(e.touches[0].clientX, e.touches[0].clientY);
+  }
+
+  @HostListener('document:mouseup')
+  @HostListener('document:touchend')
+  onDragEnd(): void {
+    if (!this.isDragging) return;
+    this.isDragging = false;
+    if (this.dragMoved) this.scheduleWander();
+  }
+
+  private applyDrag(clientX: number, clientY: number): void {
+    const dx = clientX - this.dragStartX;
+    const dy = clientY - this.dragStartY;
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) this.dragMoved = true;
+    if (!this.dragMoved) return;
+
+    const w = window.innerWidth  || 800;
+    const h = window.innerHeight || 600;
+    this.posX = Math.max(0, Math.min(w - 90,  this.dragStartPosX + dx));
+    this.posY = Math.max(0, Math.min(h - 140, this.dragStartPosY - dy));
+    this.facingRight = dx >= 0;
+  }
+
+  private eventPoint(e: MouseEvent | TouchEvent): { x: number; y: number } {
+    if ('touches' in e && e.touches.length) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: (e as MouseEvent).clientX, y: (e as MouseEvent).clientY };
+  }
+
+  // ── Wander ───────────────────────────────────────────────────────────────────
   private scheduleWander(): void {
-    const delay = 9000 + Math.random() * 9000;
+    const delay = 3000 + Math.random() * 3000;
     this.zone.runOutsideAngular(() => {
       this.wanderTimer = setTimeout(() => {
         this.zone.run(() => {
-          if (!this.isChatOpen && !this.isSettingsOpen) this.wander();
+          if (!this.isChatOpen && !this.isSettingsOpen && !this.isDragging) this.wander();
           this.scheduleWander();
         });
       }, delay);
@@ -108,7 +228,7 @@ export class AgentComponent implements OnInit, OnDestroy {
     clearTimeout(this.runTimer as any);
     this.runTimer = setTimeout(() => { this.isRunning = false; }, 3200);
 
-    if (Math.random() < 0.32 && !this.bubbleText) {
+    if (Math.random() < 0.65 && !this.bubbleText) {
       const p = this.idlePhrases[Math.floor(Math.random() * this.idlePhrases.length)];
       setTimeout(() => { if (!this.isChatOpen) this.showIdle(p, 4500); }, 900);
     }
@@ -122,13 +242,13 @@ export class AgentComponent implements OnInit, OnDestroy {
     }, ms);
   }
 
-  // ── Idle animations ─────────────────────────────────────────────────────────
+  // ── Idle animations ───────────────────────────────────────────────────────────
   private scheduleIdleAnim(): void {
-    const delay = 12000 + Math.random() * 15000;
+    const delay = 4000 + Math.random() * 5000;
     this.zone.runOutsideAngular(() => {
       this.idleAnimTimer = setTimeout(() => {
         this.zone.run(() => {
-          if (!this.isChatOpen && !this.isSettingsOpen && !this.isRunning) {
+          if (!this.isChatOpen && !this.isSettingsOpen && !this.isRunning && !this.isDragging) {
             this.triggerIdleAnim();
           }
           this.scheduleIdleAnim();
@@ -144,7 +264,7 @@ export class AgentComponent implements OnInit, OnDestroy {
     setTimeout(() => { this.idleAnimClass = ''; }, dur[anim] ?? 2000);
   }
 
-  // ── Mic / Whisper ────────────────────────────────────────────────────────────
+  // ── Mic / Whisper ─────────────────────────────────────────────────────────────
   get isMicAvailable(): boolean {
     return !!(navigator.mediaDevices?.getUserMedia);
   }
@@ -171,7 +291,6 @@ export class AgentComponent implements OnInit, OnDestroy {
       this.mediaRecorder.onstop = () => this.handleAudioStop(stream);
       this.mediaRecorder.start();
       this.isListening = true;
-      // Auto-stop after 12 s to prevent accidental long recordings
       this.recordingTimer = setTimeout(() => {
         if (this.isListening) {
           this.mediaRecorder?.stop();
@@ -179,9 +298,7 @@ export class AgentComponent implements OnInit, OnDestroy {
         }
       }, 12000);
     } catch {
-      this.zone.run(() => {
-        this.showIdle('Mic access denied 🎤', 3500);
-      });
+      this.zone.run(() => { this.showIdle('Mic access denied 🎤', 3500); });
     }
   }
 
@@ -231,20 +348,21 @@ export class AgentComponent implements OnInit, OnDestroy {
     return out;
   }
 
-  // ── Clicks ──────────────────────────────────────────────────────────────────
+  // ── Clicks ────────────────────────────────────────────────────────────────────
   @HostListener('click', ['$event'])
   stopBubble(e: Event): void { e.stopPropagation(); }
 
   @HostListener('document:click')
   onOutsideClick(): void {
     if (this.isChatOpen || this.isSettingsOpen) {
-      this.isChatOpen    = false;
+      this.isChatOpen     = false;
       this.isSettingsOpen = false;
     }
   }
 
   onCatClick(e: Event): void {
     e.stopPropagation();
+    if (this.dragMoved) { this.dragMoved = false; return; }
     if (this.isSettingsOpen) { this.isSettingsOpen = false; return; }
     this.isChatOpen = !this.isChatOpen;
     if (this.isChatOpen && !this.bubbleText) this.bubbleText = "What would you like to know? 😺";
@@ -260,7 +378,7 @@ export class AgentComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ── Chat ────────────────────────────────────────────────────────────────────
+  // ── Chat ──────────────────────────────────────────────────────────────────────
   async sendMessage(): Promise<void> {
     const msg = this.inputMessage.trim();
     if (!msg || this.isThinking) return;
@@ -277,9 +395,14 @@ export class AgentComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ── Settings ────────────────────────────────────────────────────────────────
+  // ── Settings ──────────────────────────────────────────────────────────────────
   saveSettings(): void {
     this.agentService.saveSettings(this.settings);
+    // Trigger preload if user switches to browser provider
+    if (this.settings.provider === 'transformers') {
+      const model = this.settings.tfModel || DEFAULT_SETTINGS.tfModel;
+      this.agentService.preload(model);
+    }
     this.isSettingsOpen = false;
     this.showIdle("Settings saved! Let's chat 😸", 3500);
   }
@@ -290,7 +413,7 @@ export class AgentComponent implements OnInit, OnDestroy {
     return '';
   }
   set currentApiKey(v: string) {
-    if (this.settings.provider === 'openai')  this.settings.openaiKey = v;
+    if (this.settings.provider === 'openai')      this.settings.openaiKey = v;
     else if (this.settings.provider === 'claude') this.settings.claudeKey = v;
   }
 
@@ -310,12 +433,12 @@ export class AgentComponent implements OnInit, OnDestroy {
   get modelPlaceholder(): string {
     if (this.settings.provider === 'openai')       return 'gpt-4o-mini';
     if (this.settings.provider === 'claude')       return 'claude-haiku-4-5-20251001';
-    if (this.settings.provider === 'transformers') return 'HuggingFaceTB/SmolLM2-360M-Instruct';
+    if (this.settings.provider === 'transformers') return 'HuggingFaceTB/SmolLM2-135M-Instruct';
     return 'llama3.1:8b';
   }
 
   get bubbleVisible(): boolean {
-    return !!(this.bubbleText || this.isChatOpen || this.isThinking || this.isSettingsOpen);
+    return !!(this.bubbleText || this.isChatOpen || this.isThinking || this.isSettingsOpen || this.showDownloadModal);
   }
 
   get bubbleAlign(): string {
