@@ -9,10 +9,10 @@
       <div class="dl-bubble">
         <div class="dl-bubble-header">
           <svg class="dl-paw" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="20" cy="26" rx="10" ry="8" fill="#abd699"/>
-            <ellipse cx="11" cy="17" rx="4.5" ry="5.5" fill="#abd699"/>
-            <ellipse cx="20" cy="14" rx="4.5" ry="5.5" fill="#abd699"/>
-            <ellipse cx="29" cy="17" rx="4.5" ry="5.5" fill="#abd699"/>
+            <ellipse cx="20" cy="26" rx="10" ry="8" fill="#F4934A"/>
+            <ellipse cx="11" cy="17" rx="4.5" ry="5.5" fill="#F4934A"/>
+            <ellipse cx="20" cy="14" rx="4.5" ry="5.5" fill="#F4934A"/>
+            <ellipse cx="29" cy="17" rx="4.5" ry="5.5" fill="#F4934A"/>
           </svg>
           <span class="dl-title">{{ downloadDone ? '✅ Ready!' : downloadLabel }}</span>
           <span class="dl-pct">{{ downloadDone ? '' : (downloadPercent + '%') }}</span>
@@ -71,13 +71,24 @@
       </div>
     </ng-container>
 
+    <!-- Model download prompt -->
+    <ng-container *ngIf="showModelPrompt && !isSettingsOpen && !showDownloadModal">
+      <p class="bubble-text">{{ modelPromptMsg }}</p>
+      <button class="proceed-btn" (click)="onProceedDownload($event)">Yes, fetch it!</button>
+    </ng-container>
+
     <!-- Chat mode -->
-    <ng-container *ngIf="!isSettingsOpen && !showDownloadModal">
+    <ng-container *ngIf="!isSettingsOpen && !showDownloadModal && !showModelPrompt">
       <div class="thinking-dots" *ngIf="isThinking">
         <span></span><span></span><span></span>
       </div>
 
-      <p class="bubble-text" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
+      <p class="bubble-text" [class.streaming]="isStreaming" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
+
+      <div class="fetch-hint" *ngIf="showFetchHint">
+        <span>oh, and my brain isn't loaded yet — I need it for more creative, thoughtful responses! want me to grab it? 🧠</span>
+        <button class="fetch-hint-btn" (click)="onProceedDownload($event)">fetch it!</button>
+      </div>
 
       <div class="chat-input-row" *ngIf="isChatOpen && !isThinking">
         <input #chatInput
@@ -112,53 +123,74 @@
            [class.lick]="idleAnimClass === 'lick'"
            [class.purr]="idleAnimClass === 'purr'"
            [class.ear-twitch]="idleAnimClass === 'ear-twitch'"
+           [class.point]="idleAnimClass === 'point'"
+           [class.swipe]="idleAnimClass === 'swipe'"
+           [class.bop]="idleAnimClass === 'bop'"
+           [class.stretch]="idleAnimClass === 'stretch'"
+           [class.tail-chase]="idleAnimClass === 'tail-chase'"
+           [class.wave]="idleAnimClass === 'wave'"
            viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"
            aria-label="Kori the cat assistant">
 
         <!-- tail (behind body) -->
         <path class="tail"
               d="M68 90 Q92 76 88 55 Q84 40 70 52"
-              stroke="#abd699" stroke-width="9" fill="none" stroke-linecap="round"/>
+              stroke="#F4934A" stroke-width="9" fill="none" stroke-linecap="round"/>
 
         <!-- body -->
-        <ellipse cx="50" cy="88" rx="26" ry="20" fill="#abd699"/>
+        <ellipse cx="50" cy="88" rx="26" ry="20" fill="#F4934A"/>
         <!-- belly -->
-        <ellipse cx="50" cy="90" rx="14" ry="12" fill="#d4edca"/>
+        <ellipse cx="50" cy="90" rx="14" ry="12" fill="#FDDCB5"/>
+
+        <!-- left arm + hand (behind head) -->
+        <g class="arm-l-group">
+          <path d="M27,85 Q14,90 12,100" stroke="#F4934A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="13" cy="102" rx="8" ry="5.5" fill="#F4934A"/>
+          <path d="M7,103 Q9.5,100 12,103"  stroke="#C05C1A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+          <path d="M14,104 Q16.5,101 19,104" stroke="#C05C1A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- right arm + hand (behind head) -->
+        <g class="arm-r-group">
+          <path d="M73,85 Q86,90 88,100" stroke="#F4934A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="87" cy="102" rx="8" ry="5.5" fill="#F4934A"/>
+          <path d="M81,103 Q83.5,100 86,103" stroke="#C05C1A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+          <path d="M88,104 Q90.5,101 93,104" stroke="#C05C1A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+        </g>
 
         <!-- head -->
-        <circle cx="50" cy="48" r="26" fill="#abd699"/>
+        <circle cx="50" cy="48" r="26" fill="#F4934A"/>
 
         <!-- forehead stripe -->
-        <path d="M37 31 Q50 27 63 31" stroke="#47603c" stroke-width="2.2"
+        <path d="M37 31 Q50 27 63 31" stroke="#C05C1A" stroke-width="2.2"
               fill="none" opacity="0.38" stroke-linecap="round"/>
 
         <!-- left ear -->
         <g class="ear-l">
-          <polygon points="24,27 29,4 42,22" fill="#abd699"/>
+          <polygon points="24,27 29,4 42,22" fill="#F4934A"/>
           <polygon points="27,25 30,9 40,22" fill="#FFB3C6"/>
         </g>
         <!-- right ear -->
         <g class="ear-r">
-          <polygon points="58,22 71,4 76,27" fill="#abd699"/>
+          <polygon points="58,22 71,4 76,27" fill="#F4934A"/>
           <polygon points="60,22 70,9 73,25" fill="#FFB3C6"/>
         </g>
 
         <!-- eyes — white -->
         <ellipse cx="38" cy="46" rx="8"   ry="9"   fill="white"/>
         <ellipse cx="62" cy="46" rx="8"   ry="9"   fill="white"/>
-        <!-- iris (green) -->
-        <ellipse cx="38" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
-        <ellipse cx="62" cy="47" rx="5"   ry="6.5" fill="#7EC8A0"/>
+        <!-- iris (green) — follows cursor -->
+        <ellipse [attr.cx]="38 + eyeOffX" [attr.cy]="47 + eyeOffY" rx="5"   ry="6.5" fill="#7EC8A0"/>
+        <ellipse [attr.cx]="62 + eyeOffX" [attr.cy]="47 + eyeOffY" rx="5"   ry="6.5" fill="#7EC8A0"/>
         <!-- pupils -->
-        <ellipse cx="38" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
-        <ellipse cx="62" cy="47" rx="2.8" ry="5"   fill="#1a1a2e"/>
+        <ellipse [attr.cx]="38 + eyeOffX" [attr.cy]="47 + eyeOffY" rx="2.8" ry="5"   fill="#1a1a2e"/>
+        <ellipse [attr.cx]="62 + eyeOffX" [attr.cy]="47 + eyeOffY" rx="2.8" ry="5"   fill="#1a1a2e"/>
         <!-- eye shine -->
-        <circle  cx="40" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
-        <circle  cx="64" cy="43.5" r="1.8" fill="white" opacity="0.9"/>
+        <circle  [attr.cx]="40 + eyeOffX" [attr.cy]="43.5 + eyeOffY" r="1.8" fill="white" opacity="0.9"/>
+        <circle  [attr.cx]="64 + eyeOffX" [attr.cy]="43.5 + eyeOffY" r="1.8" fill="white" opacity="0.9"/>
 
         <!-- blink overlays (same colour as fur) -->
-        <ellipse class="blink-l" cx="38" cy="46" rx="8" ry="9" fill="#abd699"/>
-        <ellipse class="blink-r" cx="62" cy="46" rx="8" ry="9" fill="#abd699"/>
+        <ellipse class="blink-l" cx="38" cy="46" rx="8" ry="9" fill="#F4934A"/>
+        <ellipse class="blink-r" cx="62" cy="46" rx="8" ry="9" fill="#F4934A"/>
 
         <!-- cheek blush -->
         <ellipse cx="27" cy="56" rx="6" ry="4" fill="#FFB3C6" opacity="0.38"/>
@@ -171,25 +203,38 @@
               stroke="#FF8FAB" stroke-width="1.5" fill="none" stroke-linecap="round"/>
 
         <!-- whiskers left -->
-        <line x1="44" y1="58.5" x2="14" y2="53" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
-        <line x1="44" y1="61"   x2="14" y2="61" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
-        <line x1="44" y1="63.5" x2="14" y2="69" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="58.5" x2="14" y2="53" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="61"   x2="14" y2="61" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="44" y1="63.5" x2="14" y2="69" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
         <!-- whiskers right -->
-        <line x1="56" y1="58.5" x2="86" y2="53" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
-        <line x1="56" y1="61"   x2="86" y2="61" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
-        <line x1="56" y1="63.5" x2="86" y2="69" stroke="#47603c" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="58.5" x2="86" y2="53" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="61"   x2="86" y2="61" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
+        <line x1="56" y1="63.5" x2="86" y2="69" stroke="#C05C1A" stroke-width="1.1" opacity="0.42" stroke-linecap="round"/>
 
         <!-- front paws -->
         <g class="paw-l-group">
-          <ellipse cx="34" cy="105" rx="12" ry="7" fill="#abd699"/>
-          <path d="M27,107 Q28,103.5 30,107" stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-          <path d="M33,108 Q34,104 36,108"   stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="34" cy="105" rx="12" ry="7" fill="#F4934A"/>
+          <path d="M27,107 Q28,103.5 30,107" stroke="#C05C1A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <path d="M33,108 Q34,104 36,108"   stroke="#C05C1A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
         </g>
         <g class="paw-r-group">
-          <ellipse cx="66" cy="105" rx="12" ry="7" fill="#abd699"/>
-          <path d="M60,108 Q61,104 63,108"   stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-          <path d="M66,107 Q67,103.5 69,107" stroke="#47603c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="66" cy="105" rx="12" ry="7" fill="#F4934A"/>
+          <path d="M60,108 Q61,104 63,108"   stroke="#C05C1A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <path d="M66,107 Q67,103.5 69,107" stroke="#C05C1A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
         </g>
+      </svg>
+    </div>
+
+    <!-- Yarn ball — appears during swipe -->
+    <div class="yarn-wrap" *ngIf="idleAnimClass === 'swipe'">
+      <svg class="yarn-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="11" fill="#E87461"/>
+        <path d="M1,9  Q12,5  23,9"  stroke="#C44D3A" stroke-width="1.4" fill="none" opacity="0.85"/>
+        <path d="M1,12 Q12,8  23,12" stroke="#C44D3A" stroke-width="1.4" fill="none" opacity="0.85"/>
+        <path d="M1,15 Q12,11 23,15" stroke="#C44D3A" stroke-width="1.4" fill="none" opacity="0.85"/>
+        <path d="M9,1  Q12,12 9,23"  stroke="#C44D3A" stroke-width="1.1" fill="none" opacity="0.55"/>
+        <path d="M15,1 Q12,12 15,23" stroke="#C44D3A" stroke-width="1.1" fill="none" opacity="0.55"/>
+        <path d="M23,12 Q27,9 29,14"  stroke="#E87461" stroke-width="3" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
   </div>

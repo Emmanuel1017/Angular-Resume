@@ -25,8 +25,8 @@ export const DEFAULT_SETTINGS: AgentSettings = {
   ollamaUrl:   'http://localhost:11434',
   openaiModel: 'gpt-4o-mini',
   claudeModel: 'claude-haiku-4-5-20251001',
-  ollamaModel: 'llama3.1:8b',
-  tfModel:     'HuggingFaceTB/SmolLM2-135M-Instruct'
+  ollamaModel: 'qwen2.5:1.5b',
+  tfModel:     'onnx-community/gemma-3-270m-it'
 };
 
 @Injectable({ providedIn: 'root' })
@@ -39,6 +39,20 @@ export class AgentService {
   private ready        = false;
   private baseUrl      = '';
 
+  // ── Hardware ────────────────────────────────────────────────────────────────
+  hardware: 'webgpu' | 'cpu' = 'cpu';
+
+  async detectHardware(): Promise<'webgpu' | 'cpu'> {
+    if (typeof navigator !== 'undefined' && 'gpu' in navigator) {
+      try {
+        const adapter = await (navigator as any).gpu.requestAdapter();
+        if (adapter) { this.hardware = 'webgpu'; return 'webgpu'; }
+      } catch { /* gpu present but unavailable */ }
+    }
+    this.hardware = 'cpu';
+    return 'cpu';
+  }
+
   // ── Worker state ────────────────────────────────────────────────────────────
   private worker?: Worker;
   private pending = new Map<string, { resolve: (v: any) => void; reject: (e: any) => void }>();
@@ -46,6 +60,7 @@ export class AgentService {
   private whisperReady   = false;
   private chatInitP:     Promise<void> | null = null;
   private whisperInitP:  Promise<void> | null = null;
+  private onTokenCallback?: (text: string) => void;
 
   constructor(private http: HttpClient) {}
 
@@ -127,6 +142,8 @@ export class AgentService {
           this.pending.delete(id);
           type === 'RESOLVE' ? p.resolve(payload) : p.reject(new Error(payload));
         }
+      } else if (type === 'TOKEN') {
+        this.onTokenCallback?.(payload);
       } else if (type === 'PROGRESS') {
         this.onChatProgress(payload);
       } else if (type === 'WHISPER_PROGRESS') {
@@ -177,8 +194,10 @@ export class AgentService {
       this.chatInitP = (async () => {
         while (!this.ready) { await new Promise(r => setTimeout(r, 300)); }
         this.tfStatus$.next('chat:0');
+        const device = this.hardware;
+        const dtype  = device === 'webgpu' ? 'fp16' : 'q4';
         await this.post('SET_PROMPT', this.systemPrompt);
-        await this.post('INIT_CHAT', { model });
+        await this.post('INIT_CHAT', { model, device, dtype });
         this.chatReady = true;
         this.tfStatus$.next('chat:done');
         this.chatInitP = null;
@@ -214,13 +233,13 @@ export class AgentService {
   }
 
   // ── Chat routing ────────────────────────────────────────────────────────────
-  async chat(userMessage: string): Promise<string> {
+  async chat(userMessage: string, onToken?: (text: string) => void): Promise<string> {
     const s = this.getSettings();
     try {
       if (s.provider === 'openai')       return await this.openai(userMessage, s);
       if (s.provider === 'claude')       return await this.claude(userMessage, s);
-      if (s.provider === 'ollama')       return await this.ollama(userMessage, s);
-      if (s.provider === 'transformers') return await this.tfChat(userMessage, s);
+      if (s.provider === 'ollama')       return await this.ollama(userMessage, s, onToken);
+      if (s.provider === 'transformers') return await this.tfChat(userMessage, s, onToken);
       return 'Please select an AI provider in ⚙️ settings!';
     } catch (e: any) {
       const msg: string = e?.message ?? '';
@@ -232,10 +251,15 @@ export class AgentService {
     }
   }
 
-  private async tfChat(msg: string, s: AgentSettings): Promise<string> {
+  private async tfChat(msg: string, s: AgentSettings, onToken?: (text: string) => void): Promise<string> {
     const model = s.tfModel || DEFAULT_SETTINGS.tfModel;
     await this.ensureChatModel(model);
-    return this.post('CHAT', { message: msg });
+    this.onTokenCallback = onToken;
+    try {
+      return await this.post('CHAT', { message: msg });
+    } finally {
+      this.onTokenCallback = undefined;
+    }
   }
 
   private async openai(msg: string, s: AgentSettings): Promise<string> {
@@ -275,18 +299,46 @@ export class AgentService {
     return (await r.json()).content?.[0]?.text?.trim() ?? 'No response.';
   }
 
-  private async ollama(msg: string, s: AgentSettings): Promise<string> {
+  private async ollama(
+    msg: string, s: AgentSettings,
+    onToken?: (text: string) => void
+  ): Promise<string> {
     const url = `${s.ollamaUrl || 'http://localhost:11434'}/api/chat`;
     const r = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:    s.ollamaModel || 'llama3.1:8b',
+        model:    s.ollamaModel || DEFAULT_SETTINGS.ollamaModel,
         messages: [{ role: 'system', content: this.systemPrompt }, { role: 'user', content: msg }],
-        stream:   false
+        stream:   true
       })
     });
     if (!r.ok) { const t = await r.text(); throw { status: r.status, message: t }; }
-    return (await r.json()).message?.content?.trim() ?? 'No response.';
+
+    const reader  = r.body!.getReader();
+    const decoder = new TextDecoder();
+    let text   = '';
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        try {
+          const parsed = JSON.parse(line);
+          const token: string = parsed.message?.content ?? '';
+          if (token) {
+            text += token;
+            onToken?.(text);
+          }
+        } catch { /* ignore malformed lines */ }
+      }
+    }
+
+    return text.trim() || 'No response.';
   }
 }

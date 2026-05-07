@@ -3,7 +3,7 @@
  * Handles: local LLM inference (SmolLM2) + Whisper speech recognition.
  * ONNX runtime WASM is auto-fetched from jsDelivr CDN on first use.
  */
-import { pipeline } from '@huggingface/transformers';
+import { pipeline, TextStreamer } from '@huggingface/transformers';
 
 const w = self as any;
 
@@ -34,10 +34,13 @@ w.addEventListener('message', async (e: any) => {
         break;
 
       case 'INIT_CHAT': {
-        const model: string = payload?.model ?? 'HuggingFaceTB/SmolLM2-135M-Instruct';
-        console.log(`[KoriWorker] 🔄 Loading chat model: ${model}`);
+        const model:  string = payload?.model  ?? 'onnx-community/gemma-3-270m-it';
+        const device: string = payload?.device ?? 'cpu';
+        const dtype:  string = payload?.dtype  ?? 'q4';
+        console.log(`[KoriWorker] 🔄 Loading chat model: ${model} device=${device} dtype=${dtype}`);
         chatPipe = await (pipeline as any)('text-generation', model, {
-          dtype: 'q4' as any,
+          device: device as any,
+          dtype:  dtype  as any,
           progress_callback: (p: any) => {
             console.log(`[KoriWorker] 📦 Chat download — status=${p?.status} file=${p?.file ?? ''} progress=${p?.progress != null ? Math.round(p.progress) + '%' : 'n/a'}`);
             w.postMessage({ type: 'PROGRESS', payload: p });
@@ -55,17 +58,29 @@ w.addEventListener('message', async (e: any) => {
           { role: 'user',   content: payload.message as string }
         ];
         console.log(`[KoriWorker] 💬 Generating reply for: "${payload.message}"`);
+
+        let accumulated = '';
+        const streamer = new TextStreamer(chatPipe.tokenizer, {
+          skip_prompt:       true,
+          skip_special_tokens: true,
+          callback_function: (token: string) => {
+            accumulated += token;
+            w.postMessage({ type: 'TOKEN', id, payload: accumulated });
+          }
+        });
+
         const out: any = await chatPipe(messages, {
           max_new_tokens: 128,
           temperature:    0.7,
           do_sample:      true,
-          repetition_penalty: 1.1
+          repetition_penalty: 1.1,
+          streamer
         });
-        
+
         const raw   = out[0]?.generated_text;
         const reply = Array.isArray(raw)
           ? (raw.at(-1)?.content ?? '').trim()
-          : String(raw ?? '').trim();
+          : accumulated.trim() || String(raw ?? '').trim();
         console.log(`[KoriWorker] 💬 Reply generated: "${reply}"`);
         resolve(id, reply || 'No response 🐱');
         break;
