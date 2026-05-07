@@ -1,0 +1,240 @@
+[
+    {
+        "id": 1,
+        "position": 1,
+        "startAt": "10-01-2018",
+        "endAt": "12-31-2018",
+        "companyName": "Kenya Urban Roads Authority",
+        "website": "http://www.kura.go.ke/",
+        "logo": "assets/template/experience/logo/kura.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "ICT Intern",
+                "description": "<b>Kenya Urban Roads Authority (KURA)</b> is a statutory body established under the Kenya Roads Act, 2007, responsible for managing and maintaining national trunk roads in urban areas. As an ICT intern, I was embedded in the ICT department supporting network administration, Linux and Windows system installations, and end-user technical support. I assisted with software consultations and ICT helpdesk operations, gaining hands-on exposure to enterprise IT infrastructure and laying the foundation for my professional career in technology."
+            }
+        ],
+        "technologies": [
+            "Linux", "Windows", "Networking", "CISCO", "PHP", "Python", "HTML", "CSS", "JavaScript", "MySQL"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/lake.jpg"
+    },
+    {
+        "id": 2,
+        "position": 2,
+        "startAt": "01-01-2020",
+        "endAt": "06-30-2021",
+        "companyName": "Caribou Developers",
+        "website": "https://github.com/Emmanuel1017/",
+        "logo": "assets/template/experience/logo/caribou.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "Full-Stack Developer",
+                "description": "<b>Caribou Developers</b> is a software consultancy delivering mobile and web solutions across multiple platforms. I developed mobile applications using React Native, Angular, Vue and Flutter, while building backend services with Laravel, Spring Boot and C#. I managed relational and NoSQL databases, integrated third-party APIs including M-Pesa Daraja, and handled end-to-end delivery of client projects — strengthening my full-stack foundation across diverse technology stacks."
+            }
+        ],
+        "technologies": [
+            "Angular", "Vue", "React", "Flutter", "Dart", "Laravel", "Spring Boot", "C#", "JavaScript", "TypeScript", "MySQL", "SQLite", "Firebase", "M-Pesa API", "Docker", "Linux"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/rotterdam.jpg"
+    },
+    {
+        "id": 3,
+        "position": 3,
+        "startAt": "01-01-2021",
+        "endAt": "12-31-2022",
+        "companyName": "ROAM Tech",
+        "website": "https://www.linkedin.com/company/roam-electric/",
+        "logo": "assets/template/experience/logo/roamtech.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "Back-End Developer",
+                "description": "<b>ROAM Tech</b> is a technology company delivering enterprise backend solutions. I designed and developed robust backend services using Go and Laravel, crafting RESTful APIs and integrating payment gateways including Paykit and M-Pesa. I implemented security best practices across the platform, optimised database queries for performance and reliability, and built scalable microservice-oriented architectures. My role also extended to front-end work using Vue to deliver fully integrated full-stack solutions."
+            }
+        ],
+        "technologies": [
+            "Go", "Laravel", "PHP", "Vue", "REST APIs", "MySQL", "PostgreSQL", "Docker", "Linux", "M-Pesa API", "Payment Integrations", "SSL", "SSH"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/rotterdam.jpg"
+    },
+    {
+        "id": 4,
+        "position": 4,
+        "startAt": "11-01-2022",
+        "endAt": "04-30-2025",
+        "companyName": "Moi Teaching & Referral Hospital",
+        "website": "https://mtrh.go.ke/",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZNNDtpqv52JRn6Vo-d4QSN7MrQhWT8w4k9Men-Y5XGg&s",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "Full-Stack Developer — ERP & Healthcare",
+                "description": "<b>Moi Teaching and Referral Hospital (MTRH)</b> is Kenya's second-largest referral hospital. I led the modernisation of the hospital's ERP platform, building LIMS integrations using HL7 and DICOM standards for clinical interoperability. I integrated M-Pesa and financial reporting systems to streamline billing workflows, implemented real-time monitoring using Grafana and Prometheus, and managed CI/CD pipelines and DevOps deployments for high availability. Security hardening and HIPAA-aligned practices were applied across the HMS platform, significantly improving clinical operations and data reliability."
+            }
+        ],
+        "technologies": [
+            "Python", "Frappe", "ERPNext", "Vue", "JavaScript", "HL7", "DICOM", "MariaDB", "Galera Cluster", "Grafana", "Prometheus", "Docker", "Linux", "CI/CD", "M-Pesa API", "NGINX", "Redis"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/lake.jpg"
+    },
+    {
+        "id": 5,
+        "position": 5,
+        "startAt": "03-01-2024",
+        "endAt": "12-31-2024",
+        "companyName": "Dunia Tech Startup",
+        "website": "https://duniatech.com",
+        "logo": "assets/template/experience/logo/rubani.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Nairobi",
+                "country": "Kenya",
+                "role": "Full Stack Machine Learning Engineer",
+                "description": "<b>Dunia Tech Startup</b> is an AI-focused company delivering intelligent solutions across enterprise, fintech and healthcare sectors. I designed and deployed AI models using TensorFlow and PyTorch, implementing RAG pipelines with LangChain, LangGraph and vector databases (FAISS, ChromaDB). I built CI/CD pipelines for ML model deployment and monitoring, developed AI agents for task automation, and integrated intelligent systems into financial and healthcare platforms. I also applied bias-removal techniques to ensure fair, production-grade model behaviour at scale."
+            }
+        ],
+        "technologies": [
+            "Python", "TensorFlow", "PyTorch", "HuggingFace", "LangChain", "LangGraph", "FAISS", "ChromaDB", "RAG", "Docker", "Kubernetes", "MLflow", "Django", "Vue", "Celery", "Redis", "CI/CD"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Dunia Tech",
+                "http": "https://www.linkedin.com/company/duniatech/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/rotterdam.jpg"
+    },
+    {
+        "id": 6,
+        "position": 6,
+        "startAt": "06-01-2024",
+        "endAt": "11-30-2025",
+        "companyName": "Selstan",
+        "website": "https://www.selstan.com",
+        "logo": "https://static.wixstatic.com/media/b9e3e6_8d84fb05e5134865aa13c4e4f1e6cc2c~mv2.png/v1/fill/w_138,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Selstan%20Logo%20-%20Color%20Icon%20White%20Text.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Waterloo",
+                "country": "USA",
+                "role": "Full-Stack Engineer — Cyber Security & AI Compliance",
+                "description": "<b>Selstan</b> is a cybersecurity and AI compliance company based in Waterloo, USA. I built AI-powered compliance and privacy automation systems, implementing Zero Trust architecture and secure vault workflows to protect PII and reduce enterprise data risk exposure. I developed full-stack applications integrating AI for real-time data classification and monitoring, ensured GDPR, HIPAA and PIPEDA regulatory compliance, and led DevOps environment setup with CI/CD pipelines. I also built AI pipelines for model training, deployment and monitoring, significantly strengthening the organisation's overall security posture."
+            }
+        ],
+        "technologies": [
+            "Node.js", "React", "Python", "Django", "AI/ML", "Zero Trust", "GDPR", "HIPAA", "PIPEDA", "Vault", "Docker", "CI/CD", "LangChain", "PostgreSQL", "TypeScript", "DevOps"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Selstan",
+                "http": "https://www.linkedin.com/company/selstan-waterloo/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/rotterdam.jpg"
+    },
+    {
+        "id": 7,
+        "position": 7,
+        "startAt": "05-01-2025",
+        "endAt": "04-30-2026",
+        "companyName": "Value Chain Factory",
+        "website": "https://valuechainfactory.com",
+        "logo": "assets/template/experience/logo/vcf.png",
+        "internationalizations": [
+            {
+                "language": "en",
+                "city": "Eldoret",
+                "country": "Kenya",
+                "role": "Senior Software Engineer",
+                "description": "<b>Value Chain Factory</b> is an enterprise technology company delivering distributed systems and cloud-native solutions. As Senior Software Engineer, I architected high-concurrency distributed systems using Elixir, Phoenix and LiveView with OTP supervision trees. I led microservices and event-driven architecture decisions, designed real-time backend services for enterprise workloads, and built containerised cloud-native deployment pipelines. I drove observability, monitoring and incident response improvements and translated complex business requirements into scalable, maintainable technical solutions — elevating engineering standards across the team."
+            }
+        ],
+        "technologies": [
+            "Elixir", "Phoenix", "LiveView", "OTP", "Microservices", "Event-Driven", "Docker", "Kubernetes", "CI/CD", "PostgreSQL", "Redis", "NGINX", "Observability", "Linux", "TypeScript"
+        ],
+        "medias": [
+            {
+                "icon": "linkedin",
+                "title": "LinkedIn — Emmanuel Korir",
+                "http": "https://www.linkedin.com/in/emmanuel-korir-0a06b1ba/"
+            },
+            {
+                "icon": "github",
+                "title": "GitHub — Emmanuel1017",
+                "http": "https://github.com/Emmanuel1017/"
+            }
+        ],
+        "backgroundUrl": "assets/template/experience/lake.jpg"
+    }
+]
