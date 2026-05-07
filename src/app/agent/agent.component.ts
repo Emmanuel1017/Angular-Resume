@@ -22,16 +22,25 @@ export class AgentComponent implements OnInit, OnDestroy {
   posY = 80;
   facingRight = true;
 
-  isChatOpen      = false;
-  isSettingsOpen  = false;
-  isThinking      = false;
-  isRunning       = false;
-  isListening     = false;
-  idleAnimClass   = '';
+  isChatOpen        = false;
+  isSettingsOpen    = false;
+  isThinking        = false;
+  isStreaming       = false;
+  isRunning         = false;
+  isListening       = false;
+  isShowingFact     = false;
+  showModelPrompt   = false;
+  modelPromptMsg    = '';
+  idleAnimClass     = '';
   tfStatus        = '';
   bubbleText      = '';
   inputMessage    = '';
+  eyeOffX         = 0;
+  eyeOffY         = 0;
   settings: AgentSettings = { ...DEFAULT_SETTINGS };
+
+  private facts: string[] = [];
+  private lastFactIndex   = -1;
 
   // ── Download bubble ─────────────────────────────────────────────────────────
   showDownloadModal  = false;
@@ -48,16 +57,18 @@ export class AgentComponent implements OnInit, OnDestroy {
   private dragStartPosX = 0;
   private dragStartPosY = 0;
 
-  private wanderTimer?:    ReturnType<typeof setTimeout>;
-  private dismissTimer?:   ReturnType<typeof setTimeout>;
-  private runTimer?:       ReturnType<typeof setTimeout>;
-  private idleAnimTimer?:  ReturnType<typeof setTimeout>;
-  private recordingTimer?: ReturnType<typeof setTimeout>;
+  private wanderTimer?:       ReturnType<typeof setTimeout>;
+  private dismissTimer?:      ReturnType<typeof setTimeout>;
+  private runTimer?:          ReturnType<typeof setTimeout>;
+  private idleAnimTimer?:     ReturnType<typeof setTimeout>;
+  private factTimer?:         ReturnType<typeof setTimeout>;
+  private modelPromptTimer?:  ReturnType<typeof setTimeout>;
+  private recordingTimer?:    ReturnType<typeof setTimeout>;
   private tfSub: any;
   private mediaRecorder?: MediaRecorder;
   private audioChunks: Blob[] = [];
 
-  private readonly idleAnims = ['lick', 'purr', 'ear-twitch'] as const;
+  private readonly idleAnims = ['lick', 'purr', 'ear-twitch', 'swipe', 'bop', 'stretch', 'tail-chase', 'wave'] as const;
 
   private readonly idlePhrases = [
     "Hey there! Ask me anything about Emmanuel 😸",
@@ -88,15 +99,22 @@ export class AgentComponent implements OnInit, OnDestroy {
       });
     });
 
-    // Pre-download the browser model in the background on page load
-    if (this.settings.provider === 'transformers') {
-      const model = this.settings.tfModel || DEFAULT_SETTINGS.tfModel;
-      this.agentService.preload(model);
-    }
+    fetch(`${environment.baseUrl}/assets/kori-facts.json`)
+      .then(r => r.json())
+      .then((facts: string[]) => { this.facts = facts; });
 
-    setTimeout(() => this.showIdle(this.idlePhrases[0], 5500), 2200);
+    // Detect hardware then either prompt for model download (transformers) or just greet
+    this.agentService.detectHardware().then(hw => {
+      this.zone.run(() => {
+        if (this.settings.provider === 'transformers') {
+          setTimeout(() => this.showModelConfirm(hw), 1600);
+        }
+      });
+    });
+
     this.scheduleWander();
     this.scheduleIdleAnim();
+    this.scheduleFactBubble();
   }
 
   ngOnDestroy(): void {
@@ -104,6 +122,8 @@ export class AgentComponent implements OnInit, OnDestroy {
     clearTimeout(this.dismissTimer as any);
     clearTimeout(this.runTimer as any);
     clearTimeout(this.idleAnimTimer as any);
+    clearTimeout(this.factTimer as any);
+    clearTimeout(this.modelPromptTimer as any);
     clearTimeout(this.recordingTimer as any);
     this.tfSub?.unsubscribe();
     this.mediaRecorder?.stop();
@@ -132,7 +152,7 @@ export class AgentComponent implements OnInit, OnDestroy {
 
     this.showDownloadModal = true;
     this.downloadDone      = false;
-    this.downloadLabel     = isChat ? 'Loading model' : 'Loading Whisper';
+    this.downloadLabel     = isChat ? 'Loading my model first, I need it to understand you' : 'Loading Whisper, psst i need it to listen to you';
 
     if (raw === 'loading') {
       this.downloadFile    = 'Compiling…';
@@ -164,8 +184,25 @@ export class AgentComponent implements OnInit, OnDestroy {
 
   @HostListener('document:mousemove', ['$event'])
   onDocMouseMove(e: MouseEvent): void {
-    if (!this.isDragging) return;
-    this.applyDrag(e.clientX, e.clientY);
+    if (this.isDragging) { this.applyDrag(e.clientX, e.clientY); return; }
+    this.trackEyes(e.clientX, e.clientY);
+  }
+
+  private trackEyes(mx: number, my: number): void {
+    const headX = this.posX + 45;
+    const headY = window.innerHeight - this.posY - 60;
+    const dx    = mx - headX;
+    const dy    = my - headY;
+    const dist  = Math.sqrt(dx * dx + dy * dy);
+    const factor = Math.min(dist, 260) / 260;
+    const nx = dist > 8 ? dx / dist : 0;
+    const ny = dist > 8 ? dy / dist : 0;
+    const newX = +((nx * factor * 2) * (this.facingRight ? 1 : -1)).toFixed(1);
+    const newY = +(ny * factor * 1.5).toFixed(1);
+    if (newX !== this.eyeOffX || newY !== this.eyeOffY) {
+      this.eyeOffX = newX;
+      this.eyeOffY = newY;
+    }
   }
 
   @HostListener('document:touchmove', ['$event'])
@@ -219,18 +256,31 @@ export class AgentComponent implements OnInit, OnDestroy {
     const maxX = (window.innerWidth || 800) - 120;
     const newX = Math.max(16, Math.floor(Math.random() * maxX));
     const newY = 60 + Math.floor(Math.random() * 100);
-    this.facingRight = newX >= this.posX;
-    this.posX = newX;
-    this.posY = newY;
+    const willMove = Math.abs(newX - this.posX) > 8 || Math.abs(newY - this.posY) > 8;
 
+    this.facingRight  = newX >= this.posX;
+    this.posX         = newX;
+    this.posY         = newY;
     this.idleAnimClass = '';
-    this.isRunning = true;
-    clearTimeout(this.runTimer as any);
-    this.runTimer = setTimeout(() => { this.isRunning = false; }, 3200);
+
+    if (willMove) {
+      this.isRunning = true;
+      clearTimeout(this.runTimer as any);
+      // fallback: stop run if transitionend never fires
+      this.runTimer = setTimeout(() => { this.isRunning = false; }, 3400);
+    }
 
     if (Math.random() < 0.65 && !this.bubbleText) {
       const p = this.idlePhrases[Math.floor(Math.random() * this.idlePhrases.length)];
       setTimeout(() => { if (!this.isChatOpen) this.showIdle(p, 4500); }, 900);
+    }
+  }
+
+  @HostListener('transitionend', ['$event'])
+  onTransitionEnd(e: TransitionEvent): void {
+    if (this.isRunning && (e.propertyName === 'left' || e.propertyName === 'bottom')) {
+      this.isRunning = false;
+      clearTimeout(this.runTimer as any);
     }
   }
 
@@ -260,8 +310,75 @@ export class AgentComponent implements OnInit, OnDestroy {
   private triggerIdleAnim(): void {
     const anim = this.idleAnims[Math.floor(Math.random() * this.idleAnims.length)];
     this.idleAnimClass = anim;
-    const dur: Record<string, number> = { lick: 2400, purr: 3000, 'ear-twitch': 1200 };
+    const dur: Record<string, number> = {
+      lick: 2400, purr: 3000, 'ear-twitch': 1200,
+      swipe: 1100, bop: 2000, stretch: 2200, 'tail-chase': 1900, wave: 2100
+    };
     setTimeout(() => { this.idleAnimClass = ''; }, dur[anim] ?? 2000);
+  }
+
+  // ── Model download prompt ─────────────────────────────────────────────────────
+  private showModelConfirm(hw: 'webgpu' | 'cpu'): void {
+    this.showIdle("Hi! I'm Kori 🐾 — Emmanuel's AI assistant cat. I live right here in his portfolio, nice to meet you!", 4200);
+
+    setTimeout(() => {
+      this.modelPromptMsg = hw === 'webgpu'
+        ? "Oh! I can feel WebGPU sparking inside me ⚡ To really think for myself I need to fetch my little brain first (~270MB). Shall I?"
+        : "Hmm, no GPU today... I can still think right here in your browser, but I need to fetch my brain first (~270MB). Want me to? 🧠";
+      this.showModelPrompt = true;
+      clearTimeout(this.modelPromptTimer as any);
+      this.modelPromptTimer = setTimeout(() => {
+        this.zone.run(() => {
+          this.showModelPrompt = false;
+          if (this.facts.length) this.showFact();
+        });
+      }, 15000);
+    }, 4800);
+  }
+
+  private dismissModelPrompt(): void {
+    clearTimeout(this.modelPromptTimer as any);
+    this.showModelPrompt = false;
+  }
+
+  onProceedDownload(e: Event): void {
+    e.stopPropagation();
+    this.dismissModelPrompt();
+    const model = this.settings.tfModel || DEFAULT_SETTINGS.tfModel;
+    this.agentService.preload(model);
+  }
+
+  // ── Fact bubble ───────────────────────────────────────────────────────────────
+  private scheduleFactBubble(): void {
+    const delay = 4500 + Math.random() * 1500;
+    this.zone.runOutsideAngular(() => {
+      this.factTimer = setTimeout(() => {
+        this.zone.run(() => {
+          if (!this.isChatOpen && !this.isSettingsOpen && !this.isThinking && !this.isDragging && this.facts.length) {
+            this.showFact();
+          }
+          this.scheduleFactBubble();
+        });
+      }, delay);
+    });
+  }
+
+  private showFact(): void {
+    let idx: number;
+    do { idx = Math.floor(Math.random() * this.facts.length); }
+    while (idx === this.lastFactIndex && this.facts.length > 1);
+    this.lastFactIndex = idx;
+
+    this.isShowingFact = true;
+    this.idleAnimClass = 'point';
+    this.bubbleText    = this.facts[idx];
+
+    clearTimeout(this.dismissTimer as any);
+    this.dismissTimer = setTimeout(() => {
+      this.isShowingFact = false;
+      this.idleAnimClass = '';
+      if (!this.isChatOpen && !this.isSettingsOpen) this.bubbleText = '';
+    }, 6000);
   }
 
   // ── Mic / Whisper ─────────────────────────────────────────────────────────────
@@ -364,6 +481,7 @@ export class AgentComponent implements OnInit, OnDestroy {
     e.stopPropagation();
     if (this.dragMoved) { this.dragMoved = false; return; }
     if (this.isSettingsOpen) { this.isSettingsOpen = false; return; }
+    if (this.showModelPrompt) { this.dismissModelPrompt(); return; }
     this.isChatOpen = !this.isChatOpen;
     if (this.isChatOpen && !this.bubbleText) this.bubbleText = "What would you like to know? 😺";
     if (!this.isChatOpen) this.bubbleText = '';
@@ -384,14 +502,25 @@ export class AgentComponent implements OnInit, OnDestroy {
     if (!msg || this.isThinking) return;
     this.inputMessage = '';
     this.isThinking   = true;
+    this.isStreaming  = false;
     this.bubbleText   = '';
     try {
-      const resp = await this.agentService.chat(msg);
-      this.isThinking = false;
-      this.bubbleText = resp;
+      const resp = await this.agentService.chat(msg, (text) => {
+        this.zone.run(() => {
+          this.isThinking  = false;
+          this.isStreaming  = true;
+          this.bubbleText  = text;
+        });
+      });
+      this.zone.run(() => {
+        this.isThinking  = false;
+        this.isStreaming  = false;
+        this.bubbleText  = resp;
+      });
     } catch {
-      this.isThinking = false;
-      this.bubbleText = "Hmm, something went wrong. Try again? 😿";
+      this.isThinking  = false;
+      this.isStreaming  = false;
+      this.bubbleText  = "Hmm, something went wrong. Try again? 😿";
     }
   }
 
@@ -433,12 +562,25 @@ export class AgentComponent implements OnInit, OnDestroy {
   get modelPlaceholder(): string {
     if (this.settings.provider === 'openai')       return 'gpt-4o-mini';
     if (this.settings.provider === 'claude')       return 'claude-haiku-4-5-20251001';
-    if (this.settings.provider === 'transformers') return 'HuggingFaceTB/SmolLM2-135M-Instruct';
-    return 'llama3.1:8b';
+    if (this.settings.provider === 'transformers') return 'onnx-community/gemma-3-270m-it';
+    return 'qwen2.5:1.5b';
   }
 
   get bubbleVisible(): boolean {
-    return !!(this.bubbleText || this.isChatOpen || this.isThinking || this.isSettingsOpen || this.showDownloadModal);
+    return !!(this.bubbleText || this.isChatOpen || this.isThinking || this.isSettingsOpen || this.showDownloadModal || this.showModelPrompt);
+  }
+
+  get showFetchHint(): boolean {
+    return !!(
+      this.bubbleText &&
+      !this.isThinking &&
+      !this.isChatOpen &&
+      !this.showModelPrompt &&
+      !this.showDownloadModal &&
+      !this.isSettingsOpen &&
+      this.settings.provider === 'transformers' &&
+      !this.agentService.chatModelReady
+    );
   }
 
   get bubbleAlign(): string {
