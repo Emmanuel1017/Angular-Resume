@@ -30,6 +30,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private portfolioSettings: PortfolioSettingsService
   ) {}
 
+  private scrollY = 0;
+
   ngOnInit(): void {
     this.myDate = moment().format('YYYY-MM-DD');
     this.titleService.setTitle(this.title);
@@ -54,6 +56,16 @@ export class AppComponent implements OnInit, OnDestroy {
     ]);
 
     this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
+      // Save scroll position when going INTO maintenance so we can restore it on exit
+      if (s.maintenanceMode && !this.maintenanceMode) {
+        this.scrollY = window.scrollY;
+      }
+      // Restore scroll position when coming OUT of maintenance
+      if (!s.maintenanceMode && this.maintenanceMode) {
+        requestAnimationFrame(() =>
+          window.scrollTo({ top: this.scrollY, behavior: 'instant' })
+        );
+      }
       this.maintenanceMode = s.maintenanceMode;
       this.featuredMessage = s.featuredMessage;
     });

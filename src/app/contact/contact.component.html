@@ -1,11 +1,29 @@
 <section id="contact" itemscope itemtype="https://schema.org/ContactPage">
 
-    <!-- Contact form closed notice (toggled from Admin panel) -->
+    <!-- Contact form closed — full-height replacement matching form dimensions -->
     <div class="contact-closed-banner" *ngIf="!contactOpen">
-      <span class="closed-icon">🔒</span>
-      <span>Contact form is temporarily closed. Reach out directly at
-        <a href="mailto:koriremmanuel@rocketmail.com">koriremmanuel@rocketmail.com</a>.
-      </span>
+      <div class="ccb-glow ccb-glow-1"></div>
+      <div class="ccb-glow ccb-glow-2"></div>
+
+      <div class="ccb-photo">
+        <img src="assets/template/contact/dp.png" alt="Emmanuel Korir" />
+        <span class="ccb-status">🔒 Closed</span>
+      </div>
+
+      <div class="ccb-body">
+        <h2 class="ccb-title">Contact Form Closed</h2>
+        <p class="ccb-sub">
+          The form is temporarily offline — but your message still matters.
+          Reach out directly and I'll reply as soon as possible.
+        </p>
+
+        <a class="ccb-email-btn" href="mailto:koriremmanuel@rocketmail.com">
+          <span class="ccb-btn-icon">✉</span>
+          koriremmanuel@rocketmail.com
+        </a>
+
+        <p class="ccb-note">Usually replies within 24 hours · Eldoret, Kenya</p>
+      </div>
     </div>
 
     <div class="feedback-container" [ngClass]="feedbackStatus">
