@@ -305,20 +305,13 @@ npm run build        # outputs to dist/live-resume/
 
 ### Deploy to GitHub Pages
 
-The deploy script builds for production and pushes the output to the `gh-pages` branch in one command.
+The deploy script builds for production (with the correct `--base-href`) and pushes to the `gh-pages` branch in one command.
 
 **First-time setup — enable GitHub Pages:**
 1. Go to your repo → **Settings → Pages**
 2. Set **Source** to `Deploy from a branch`
 3. Set **Branch** to `gh-pages` / `/ (root)`
 4. Click **Save**
-
-**One-time secret unblock** (only needed once — the API key is intentionally bundled for public use):
-
-Visit this URL and click **"Allow secret"**:
-```
-https://github.com/Emmanuel1017/Angular-Resume/security/secret-scanning/unblock-secret/3Do8NljGXeJqGLqjXjO0MkgUz93
-```
 
 **Deploy:**
 
@@ -334,13 +327,21 @@ npm run deploy
 npm run deploy
 ```
 
-This runs `ng build --configuration=production` then `angular-cli-ghpages --dir=dist/live-resume` and pushes to the `gh-pages` branch. Your site will be live at:
+What this runs under the hood:
+```
+ng build --configuration=production --base-href=/Angular-Resume/
+npx angular-cli-ghpages --dir=dist/live-resume
+```
+
+> **`--base-href` is critical** — without it, Angular resolves all asset and route URLs from `/` instead of `/Angular-Resume/`, causing a blank page on GitHub Pages.
+
+Your site will be live at:
 
 ```
 https://emmanuel1017.github.io/Angular-Resume
 ```
 
-> GitHub Pages usually updates within 1–2 minutes. Check **Actions** tab for deploy status.
+> GitHub Pages usually updates within 1–2 minutes. Check the **Actions** tab for deploy status.
 
 ---
 
