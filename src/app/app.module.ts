@@ -57,7 +57,7 @@ registerLocaleData(localeEn, 'en');
     provideRemoteConfig(() => {
       const rc = getRemoteConfig();
       rc.settings.minimumFetchIntervalMillis = 3600000; // cache 1 hour
-      rc.defaultConfig = { openrouter_api_key: '' };
+      rc.defaultConfig = { openrouter_api_key: '', available_for_work: 'true' };
       return rc;
     }),
   ]

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { WelcomeComponent } from './welcome.component';
 import { WelcomeBackgroundComponent } from './welcome-background/welcome-background.component';
 import { WelcomeDpComponent } from './welcome-dp/welcome-dp.component';
@@ -8,7 +9,7 @@ import { TypingAnimationModule } from './welcome-dialog/welcome-dialog-typing/ty
 
 
 @NgModule({
-  imports: [ TypingAnimationModule ],
+  imports: [ CommonModule, TypingAnimationModule ],
   declarations: [ WelcomeComponent, WelcomeBackgroundComponent, WelcomeDialogComponent, WelcomeDpComponent],
   exports: [ WelcomeComponent ]
 })

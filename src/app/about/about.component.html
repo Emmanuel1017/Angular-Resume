@@ -1,33 +1,164 @@
 <section id="about" itemscope itemtype="https://schema.org/AboutPage">
-    <div class="about-container" itemscope itemtype="https://schema.org/Person">
-        <!-- structured data properties -->
-        <meta itemprop="jobTitle" content="Software Engineer" />
-        <meta itemprop="nationality" content="Kenyan" />
-        <meta itemprop="gender" content="Male" />
-        <meta itemprop="email" content="koriremmanuel@rocketmail.com" />
-        <meta itemprop="birthDate" content="1995-12-26" />
-        <meta itemprop="url" content="https://cariboudevs.com" />
-        <div class="first-column">
-            <h1 >About me</h1>
-            <h2><span itemprop="name">{{ name }}</span></h2>
-            <p class="years-old">
-                <span itemprop="yearsOld">{{ yearsOld }}</span>
-                &nbsp;<span >years old</span>
-            </p>
-           
-            <p class="text" internationalization [data]="aboutData?.internationalizations" property='description' itemprop="summary">Loading...</p>
-            <div class="hobbies">
-                <h3>Hobbies</h3>
-                <fa-icon *ngFor="let hobby of aboutData?.hobbies" [icon]="['fas', hobby.icon]" class="icon" title="{{ hobby.title }}" itemprop="hobby"></fa-icon>
-            </div>
+
+  <!-- hidden schema -->
+  <meta itemprop="jobTitle"    content="Senior Software Engineer" />
+  <meta itemprop="nationality" content="Kenyan" />
+  <meta itemprop="email"       content="koriremmanuel@rocketmail.com" />
+  <meta itemprop="birthDate"   content="1995-12-26" />
+
+  <div class="about-wrap" itemscope itemtype="https://schema.org/Person">
+
+    <!-- ══ LEFT PANEL ══════════════════════════════════════════════════════ -->
+    <div class="left-panel">
+
+      <!-- 3-D parallax name -->
+      <div class="name-stage" aria-label="Korir Emmanuel">
+        <div class="name-line">
+          <span *ngFor="let l of nameLetters1; let i = index"
+                class="name-letter"
+                [ngStyle]="letterStyle(i, nameLetters1.length)"
+                [attr.data-l]="l">{{ l }}</span>
         </div>
-        <div class="second-column">
-            <div class="profile-picture"></div>
-            <div class="social-media">
-                <a *ngFor="let media of aboutData?.medias" href="{{ media.http }}" target="_blank" itemprop="sameAs">
-                    <fa-icon [icon]="['fab', media.icon]" class="icon" title="{{ media.title }}"></fa-icon>
-                </a>
-            </div>
+        <div class="name-line name-line-2">
+          <span *ngFor="let l of nameLetters2; let i = index"
+                class="name-letter nl2"
+                [ngStyle]="letterStyle(i, nameLetters2.length)"
+                [attr.data-l]="l">{{ l }}</span>
         </div>
-    </div>
+      </div>
+
+      <!-- Title chips -->
+      <p class="title-tag">
+        <span class="tt-chip">Senior Software Engineer</span>
+        <span class="tt-dot">·</span>
+        <span class="tt-chip tt-dim">Distributed Systems</span>
+        <span class="tt-dot">·</span>
+        <span class="tt-chip tt-dim">Cloud &amp; AI</span>
+      </p>
+
+      <!-- Summary paragraph -->
+      <p class="summary" itemprop="description">
+        <span class="hw">7+ years</span> building
+        <span class="hw">scalable web platforms</span>,
+        <span class="hw">distributed systems</span> and
+        <span class="hw">AI-driven</span> enterprise solutions.
+        Based in <span class="hl">Eldoret, Kenya</span> — working
+        globally across <span class="hw">healthcare</span>,
+        <span class="hw">fintech</span> and
+        <span class="hw">cybersecurity</span>.
+        Architect of microservices, RAG pipelines and real-time
+        systems trusted by hospitals, startups and enterprises.
+      </p>
+
+      <!-- Stat cards -->
+      <div class="stats-row" #statsEl>
+        <div *ngFor="let s of stats; let i = index"
+             class="stat-card"
+             [class.stat-in]="statsVisible"
+             [style.--d]="(i * 100) + 'ms'">
+          <span class="stat-icon">{{ s.icon }}</span>
+          <span class="stat-val">{{ s.value }}</span>
+          <span class="stat-lbl">{{ s.label }}</span>
+        </div>
+      </div>
+
+      <!-- Interactive skill groups -->
+      <div class="skill-section">
+        <div class="skill-tabs">
+          <button *ngFor="let g of skillGroups; let i = index"
+                  class="skill-tab"
+                  [class.active]="activeGroup === i"
+                  [style.--accent]="g.color"
+                  (click)="selectGroup(i)">
+            {{ g.name }}
+          </button>
+        </div>
+        <div class="skill-pills">
+          <span *ngFor="let s of skillGroups[activeGroup].skills; let i = index"
+                class="skill-pill"
+                [style.--accent]="skillGroups[activeGroup].color"
+                [style.--d]="(i * 55) + 'ms'">
+            {{ s }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Hobbies -->
+      <div class="hobbies" *ngIf="aboutData?.hobbies?.length">
+        <span class="hobbies-lbl">Also into</span>
+        <fa-icon *ngFor="let h of aboutData.hobbies"
+                 [icon]="['fas', h.icon]"
+                 class="hobby-icon"
+                 [title]="h.title">
+        </fa-icon>
+      </div>
+
+    </div><!-- /left-panel -->
+
+    <!-- ══ RIGHT PANEL ═════════════════════════════════════════════════════ -->
+    <div class="right-panel">
+
+      <!-- Photo + available badge -->
+      <div class="photo-wrap">
+        <div class="profile-picture"></div>
+        <div class="photo-badge" *ngIf="availableForWork; else notAvailable">
+          <span class="badge-dot"></span>
+          Available for work
+        </div>
+        <ng-template #notAvailable>
+          <div class="photo-badge photo-badge-busy">
+            <span class="badge-dot badge-dot-busy"></span>
+            Not available
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Social links -->
+      <div class="social-row" *ngIf="aboutData?.medias?.length">
+        <a *ngFor="let m of aboutData.medias"
+           [href]="m.http" target="_blank" rel="noopener"
+           itemprop="sameAs" class="soc-icon">
+          <fa-icon [icon]="['fab', m.icon]" [title]="m.title"></fa-icon>
+        </a>
+      </div>
+
+      <!-- Experience timeline -->
+      <div class="timeline">
+        <p class="tl-heading">Experience</p>
+        <div *ngFor="let item of timeline; let i = index"
+             class="tl-item"
+             [class.tl-current]="item.current"
+             [class.tl-open]="expandedTimeline === i"
+             (click)="toggleTimeline(i)">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <span class="tl-year">{{ item.year }}</span>
+            <span class="tl-role">{{ item.role }}</span>
+            <span class="tl-company" *ngIf="expandedTimeline === i">
+              {{ item.company }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="edu-block">
+        <span class="edu-icon">🎓</span>
+        <div>
+          <span class="edu-deg">BSc Computer Science</span>
+          <span class="edu-school">Kabarak University · 2016 – 2019</span>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="cert-row">
+        <span class="cert-chip">🔐 Cyber Security</span>
+        <span class="cert-chip">📡 IEEE</span>
+        <span class="cert-chip">⚙️ Agile / Scrum</span>
+        <span class="cert-chip">🐧 Linux Admin</span>
+      </div>
+
+    </div><!-- /right-panel -->
+
+  </div>
 </section>

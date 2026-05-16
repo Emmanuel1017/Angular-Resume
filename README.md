@@ -398,6 +398,24 @@ Replace `src/assets/template/welcome/dp.png` and `src/assets/template/about/dp.p
 
 ---
 
+## Mobile Admin App
+
+A companion Flutter app lets you control this portfolio remotely from your phone — no redeploy needed.
+
+| Feature | How it works |
+|---|---|
+| **Available for Work** toggle | Writes to Firestore `/portfolio/settings`; this site reflects the change in real-time via `onSnapshot` in `about.component.ts` |
+| **Portfolio WebView** | Loads the live site with native URL chrome, JS-injected nav removal, and a section-jump pill strip |
+| **Native CV** | Flutter-native About section that mirrors the Angular one — same skills, timeline, stats |
+| **Contact / Maintenance toggles** | Additional flags readable by the Angular app |
+
+👉 **[github.com/Emmanuel1017/portfolio-admin](https://github.com/Emmanuel1017/portfolio-admin)**
+
+Both apps share the same Firebase project (`FIREBASE_PROJECT_ID` in your `.env`).  
+See the admin repo README for the full connection guide.
+
+---
+
 ## Author
 
 **Emmanuel Korir** — Senior Software Engineer  

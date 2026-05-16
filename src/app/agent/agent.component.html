@@ -119,6 +119,18 @@
 
   </div><!-- /bubble -->
 
+  <!-- ── Thought bubble — glassmorphism profile photo ─────────────────────── -->
+  <div class="thought-bubble" [class.thought-show]="thoughtBubbleVisible" *ngIf="thoughtBubbleImage">
+    <div class="thought-frame">
+      <div class="thought-photo" [style.background-image]="'url(' + thoughtBubbleImage + ')'"></div>
+    </div>
+    <div class="thought-circles">
+      <span class="tc tc-3"></span>
+      <span class="tc tc-2"></span>
+      <span class="tc tc-1"></span>
+    </div>
+  </div>
+
   <!-- ── Cat (Three.js WebGL canvas) ──────────────────────────────────────── -->
   <div class="cat-wrap"
        (click)="onCatClick($event)"

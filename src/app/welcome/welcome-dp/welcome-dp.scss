@@ -71,14 +71,14 @@ $sz: 290px;       // avatar diameter
   50%       { opacity: 1;   transform: translateZ(-30px) scale(1.48); }
 }
 
-// ─── Portrait circle ─────────────────────────────────────────────────────────
-.picture {
+// ─── Photo carousel stage ────────────────────────────────────────────────────
+.picture-stage {
   width:  $sz;
   height: $sz;
   position: absolute;
   top: 0; left: 0;
   border-radius: 50%;
-  background: url('../../../assets/template/welcome/dp.png') center/cover no-repeat;
+  overflow: hidden;
   transform: translateZ(18px);
   box-shadow:
     0 28px 60px rgba(0,0,0,.30),
@@ -86,6 +86,51 @@ $sz: 290px;       // avatar diameter
     0  0   0 14px rgba($gl, .14),
     inset 0 2px 5px rgba(255,255,255,.20);
   will-change: transform;
+  cursor: pointer;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide-back  { z-index: 1; }
+.slide-front { z-index: 2; }
+
+.slide-iris-in {
+  animation: irisIn 0.85s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+@keyframes irisIn {
+  from { clip-path: circle(0%   at 50% 50%); opacity: .55; }
+  to   { clip-path: circle(150% at 50% 50%); opacity: 1;   }
+}
+
+// ─── Dot navigation ──────────────────────────────────────────────────────────
+.slide-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 10;
+}
+
+.slide-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .45);
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .25s;
+
+  &.active {
+    background: rgba(255, 255, 255, .95);
+    transform: scale(1.45);
+  }
 }
 
 // ─── Specular sheen (soft highlight at top-left) ─────────────────────────────
