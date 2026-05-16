@@ -1162,14 +1162,14 @@
     flex-shrink: 0;
 
     img {
-      width:         180px;
-      height:        180px;
+      width:         120px;
+      height:        120px;
       border-radius: 50%;
       object-fit:    cover;
       border:        3px solid rgba(168, 232, 122, 0.45);
       box-shadow:
-        0 0 0 6px rgba(168, 232, 122, 0.08),
-        0 16px 40px rgba(0, 0, 0, 0.5);
+        0 0 0 5px rgba(168, 232, 122, 0.08),
+        0 12px 32px rgba(0, 0, 0, 0.5);
       display: block;
     }
 
@@ -1262,8 +1262,8 @@
     min-height:     480px;
 
     .ccb-photo img {
-      width: 140px;
-      height: 140px;
+      width: 100px;
+      height: 100px;
     }
     .ccb-title  { font-size: 24px; }
     .ccb-sub    { font-size: 14px; }

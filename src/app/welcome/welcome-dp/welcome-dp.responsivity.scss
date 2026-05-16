@@ -36,5 +36,15 @@
 }
 
 @media screen and (max-width: 600px) {
-  .avatar-scene { display: none; }
+  .avatar-scene {
+    display:          block;
+    transform:        scale(.46);
+    transform-origin: center top;
+    margin:           0 auto -90px;   /* pull typing window up tight below avatar */
+    height:           220px;
+    overflow:         visible;
+  }
+  /* keep only the core avatar visible — hide all orbits & rings */
+  .ring-1, .ring-2, .ring-3 { display: none; }
+  .po-a,   .po-b             { display: none; }
 }

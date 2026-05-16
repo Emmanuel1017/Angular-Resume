@@ -255,4 +255,21 @@ $radius:  16px;
   .my-work-section { padding: 56px 5vw 72px; }
   .work-grid { grid-template-columns: 1fr; gap: 20px; }
   .work-card { transform: none !important; }
+
+  /* Sticky header — keeps "Things I've Built" pinned just below the navbar
+     so users always know what section they're scrolling through            */
+  .work-header {
+    position:   sticky;
+    top:        62px;          /* below the 58px navbar */
+    z-index:    10;
+    margin:     0 -5vw 28px;
+    padding:    16px 5vw 14px;
+    background: rgba(247, 251, 244, 0.92);
+    backdrop-filter:         blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(90, 140, 62, 0.12);
+  }
+
+  .work-title { font-size: 1.9rem; margin-bottom: 10px; }
+  .work-sub   { font-size: .88rem; }
 }
