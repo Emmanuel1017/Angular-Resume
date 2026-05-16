@@ -17,6 +17,7 @@
 
 <p align="center">
   <a href="https://emmanuel1017.github.io/Angular-Resume/">🌐 Live Demo</a> &nbsp;|&nbsp;
+<!-- Replace `emmanuel1017` with your GitHub username after forking -->
   <a href="#kori--ai-cat-assistant">🐱 Meet Kori</a> &nbsp;|&nbsp;
   <a href="#getting-started">🚀 Getting Started</a>
 </p>
@@ -338,8 +339,16 @@ npx angular-cli-ghpages --dir=dist/live-resume
 Your site will be live at:
 
 ```
-https://emmanuel1017.github.io/Angular-Resume
+https://<your-github-username>.github.io/Angular-Resume
 ```
+
+> Replace `<your-github-username>` with your actual GitHub username.
+> Example: `https://emmanuel1017.github.io/Angular-Resume`
+
+> Also update the `--base-href` flag in `package.json` if your repo name differs:
+> ```json
+> "deploy": "ng build --configuration=production --base-href=/<your-repo-name>/ && ..."
+> ```
 
 > GitHub Pages usually updates within 1–2 minutes. Check the **Actions** tab for deploy status.
 
