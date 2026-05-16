@@ -252,24 +252,42 @@ $radius:  16px;
 
 // ── Mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 600px) {
-  .my-work-section { padding: 56px 5vw 72px; }
-  .work-grid { grid-template-columns: 1fr; gap: 20px; }
-  .work-card { transform: none !important; }
+  /* No horizontal padding — cards go edge-to-edge */
+  .my-work-section { padding: 56px 0 72px; }
 
-  /* Sticky header — keeps "Things I've Built" pinned just below the navbar
-     so users always know what section they're scrolling through            */
+  /* Sticky heading sits above the cards */
   .work-header {
     position:   sticky;
-    top:        62px;          /* below the 58px navbar */
+    top:        62px;
     z-index:    10;
-    margin:     0 -5vw 28px;
-    padding:    16px 5vw 14px;
-    background: rgba(247, 251, 244, 0.92);
+    margin:     0 0 0;
+    padding:    14px 16px 12px;
+    text-align: left;
+    background: rgba(247, 251, 244, 0.95);
     backdrop-filter:         blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(90, 140, 62, 0.12);
+    border-bottom: 1px solid rgba(90, 140, 62, 0.14);
   }
 
-  .work-title { font-size: 1.9rem; margin-bottom: 10px; }
-  .work-sub   { font-size: .88rem; }
+  .work-eyebrow { margin-bottom: 6px; }
+  .work-title   { font-size: 1.8rem; margin-bottom: 6px; }
+  .work-sub     { font-size: .84rem; }
+
+  /* Full-width single-column grid, cards flush to screen edges */
+  .work-grid {
+    max-width: 100%;
+    margin:    0;
+    padding:   0;
+    grid-template-columns: 1fr;
+    gap:       0;
+  }
+
+  .work-card {
+    transform:     none !important;
+    border-radius: 0;
+    border-left:   none;
+    border-right:  none;
+    /* hairline separator between cards instead of gaps */
+    border-bottom: 1px solid rgba(90, 140, 62, 0.12);
+  }
 }
