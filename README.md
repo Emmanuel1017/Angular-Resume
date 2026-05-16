@@ -53,6 +53,10 @@ To record your own demo:
 | 🌍 **3D Avatar** | Perspective-stage profile photo with floating orbital rings, planet icons, and JS tilt tracking |
 | 📱 **Responsive** | Mobile-first, tested across breakpoints, smooth CSS transitions throughout |
 | 🎯 **Data-Driven** | All content loaded from JSON — sections, skills, projects, experience, blog posts |
+| 🔔 **Featured Banner** | Glass pill banner just below the navbar driven from Firestore — shows any announcement in real-time, slides in with spring animation |
+| 🔧 **Maintenance Mode** | Full-viewport overlay with floating profile photos, ambient orbs, and pulsing glass card. Router-outlet stays mounted so scroll position is restored on exit |
+| 📬 **Contact Closed Banner** | When the admin turns off the contact form, a styled dark banner with direct email CTA replaces the form at the same height |
+| 📌 **Sticky Projects Header** | On mobile the "Things I've Built" heading sticks below the navbar so users always know what section they're scrolling through |
 
 ---
 
@@ -447,7 +451,16 @@ The Angular site listens to `/portfolio/settings` in Firestore via a single `onS
 
 ## Mobile Admin App
 
-A companion Flutter app lets you control all the settings above from your phone.
+A companion Flutter app lets you control all the settings above from your phone — or share with anyone as a guest portfolio viewer.
+
+### Entry modes
+
+| Mode | Access | Description |
+|---|---|---|
+| **Admin Login** | Email + password | Full control of all Firestore settings |
+| **Browse as Guest** | No login needed | Portfolio, Profile, and a contact form to send messages |
+
+### Admin features
 
 | Feature | How it works |
 |---|---|
@@ -457,9 +470,15 @@ A companion Flutter app lets you control all the settings above from your phone.
 | **Featured message editor** | Writes `featured_message` → glass pill banner floats below navbar across all pages |
 | **Kori greeting editor** | Writes `kori_greeting` → Kori uses this as her opening bubble on next load |
 | **Auto On toggle** | Writes `auto_on` → either app opening auto-sets you as available |
+| **Messages inbox** | Live stream of all `/contacts` — expandable cards, unread dot, source badge (web/app), copy-email-to-reply |
+
+### Guest features
+
+| Feature | How it works |
+|---|---|
 | **Portfolio WebView** | Loads the live site with native chrome, JS nav removal, section-jump pills |
 | **Native CV** | Flutter-native mirror of this About section — same skills, timeline, stats |
-| **Glass UI dashboard** | Glassmorphic admin panel with animated availability hero, per-field descriptions, char counters, live Firestore snapshot preview |
+| **Contact form** | Sends messages directly to Firestore `/contacts` — tagged `flutter-guest` so admin can see the source |
 
 👉 **[github.com/Emmanuel1017/portfolio-admin](https://github.com/Emmanuel1017/portfolio-admin)**
 
