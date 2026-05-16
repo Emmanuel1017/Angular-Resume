@@ -596,7 +596,76 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
   to   { opacity: 1; transform: scale(1);   }
 }
 
+// ── Thought bubble ────────────────────────────────────────────────────────────
+.thought-bubble {
+  position: absolute;
+  right: 94px;
+  bottom: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transform: scale(.7) translateY(16px);
+  transition:
+    opacity  .5s cubic-bezier(.34, 1.56, .64, 1),
+    transform .5s cubic-bezier(.34, 1.56, .64, 1);
+
+  &.thought-show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.thought-frame {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(255,255,255,.32);
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 0 4px rgba($green-l, .18);
+  animation: thoughtFloat 3.2s ease-in-out infinite;
+}
+
+.thought-photo {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+  border-radius: 50%;
+}
+
+.thought-circles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.tc {
+  border-radius: 50%;
+  background: rgba(255,255,255,.8);
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.tc-3 { width: 13px; height: 13px; }
+.tc-2 { width: 9px;  height: 9px;  }
+.tc-1 { width: 6px;  height: 6px;  }
+
+@keyframes thoughtFloat {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-5px); }
+}
+
 // ── Mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 480px) {
   .bubble { width: 212px; }
+  .thought-bubble { display: none; }
 }

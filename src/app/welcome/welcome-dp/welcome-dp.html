@@ -9,7 +9,28 @@
     <div class="avatar-tilt" #tiltEl>
       <div class="avatar-object">
         <div class="avatar-glow"></div>
-        <div class="picture"></div>
+
+        <!-- ── Photo carousel ───────────────────────────────────── -->
+        <div class="picture-stage" (click)="advance()">
+          <!-- Back layer: outgoing image -->
+          <div class="slide slide-back"
+               *ngIf="prevIdx >= 0"
+               [style.background-image]="'url(' + images[prevIdx] + ')'">
+          </div>
+          <!-- Front layer: active image — iris-wipes in when transitioning -->
+          <div class="slide slide-front"
+               [class.slide-iris-in]="transitioning"
+               [style.background-image]="'url(' + images[activeIdx] + ')'">
+          </div>
+          <!-- Dot nav -->
+          <div class="slide-dots">
+            <span *ngFor="let img of images; let i = index"
+                  class="slide-dot"
+                  [class.active]="i === activeIdx"
+                  (click)="$event.stopPropagation(); jumpTo(i)">
+            </span>
+          </div>
+        </div>
         <div class="ring ring-1"><div class="ring-dot dot-1"></div></div>
         <div class="ring ring-2"><div class="ring-dot dot-2"></div></div>
         <div class="ring ring-3"><div class="ring-dot dot-3"></div></div>

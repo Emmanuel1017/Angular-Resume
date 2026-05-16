@@ -102,13 +102,24 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
   private dragStartPosX = 0;
   private dragStartPosY = 0;
 
-  private wanderTimer?:       ReturnType<typeof setTimeout>;
-  private dismissTimer?:      ReturnType<typeof setTimeout>;
-  private runTimer?:          ReturnType<typeof setTimeout>;
-  private idleAnimTimer?:     ReturnType<typeof setTimeout>;
-  private factTimer?:         ReturnType<typeof setTimeout>;
-  private modelPromptTimer?:  ReturnType<typeof setTimeout>;
-  private recordingTimer?:    ReturnType<typeof setTimeout>;
+  // ── Thought bubble ────────────────────────────────────────────────────────
+  thoughtBubbleVisible = false;
+  thoughtBubbleImage   = '';
+  private readonly thoughtImages = [
+    'assets/template/me_code.png',
+    'assets/template/me_cyber.png',
+    'assets/template/me_cyber_2.png',
+    'assets/template/me_tricycle.png',
+  ];
+
+  private wanderTimer?:        ReturnType<typeof setTimeout>;
+  private dismissTimer?:       ReturnType<typeof setTimeout>;
+  private runTimer?:           ReturnType<typeof setTimeout>;
+  private idleAnimTimer?:      ReturnType<typeof setTimeout>;
+  private factTimer?:          ReturnType<typeof setTimeout>;
+  private modelPromptTimer?:   ReturnType<typeof setTimeout>;
+  private recordingTimer?:     ReturnType<typeof setTimeout>;
+  private thoughtBubbleTimer?: ReturnType<typeof setTimeout>;
   private tfSub: any;
   private mediaRecorder?: MediaRecorder;
   private audioChunks: Blob[] = [];
@@ -163,6 +174,7 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scheduleWander();
     this.scheduleIdleAnim();
     this.scheduleFactBubble();
+    this.scheduleThoughtBubble();
   }
 
   ngAfterViewInit(): void {
@@ -797,6 +809,7 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     clearTimeout(this.factTimer as any);
     clearTimeout(this.modelPromptTimer as any);
     clearTimeout(this.recordingTimer as any);
+    clearTimeout(this.thoughtBubbleTimer as any);
     this.tfSub?.unsubscribe();
     this.mediaRecorder?.stop();
   }
@@ -1022,6 +1035,24 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
             this.showFact();
           }
           this.scheduleFactBubble();
+        });
+      }, delay);
+    });
+  }
+
+  // ── Thought bubble (profile photo) ──────────────────────────────────────────
+  private scheduleThoughtBubble(): void {
+    const delay = 22000 + Math.random() * 18000;
+    this.zone.runOutsideAngular(() => {
+      this.thoughtBubbleTimer = setTimeout(() => {
+        this.zone.run(() => {
+          if (!this.isChatOpen && !this.isThinking && !this.isStreaming && !this.isDragging) {
+            const idx = Math.floor(Math.random() * this.thoughtImages.length);
+            this.thoughtBubbleImage   = this.thoughtImages[idx];
+            this.thoughtBubbleVisible = true;
+            setTimeout(() => { this.thoughtBubbleVisible = false; }, 5500);
+          }
+          this.scheduleThoughtBubble();
         });
       }, delay);
     });

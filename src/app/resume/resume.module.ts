@@ -18,6 +18,7 @@ import { WhatwedoComponent } from '../whatwedo/whatwedo.component';
 import { CountersComponent } from '../counters/counters.component';
 import {MatIconModule} from '@angular/material/icon';
 import { AgentModule } from '../agent/agent.module';
+import { MyWorkComponent } from '../my-work/my-work.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { AgentModule } from '../agent/agent.module';
     FooterComponent,
     PlatformsComponent,
     CountersComponent,
-    WhatwedoComponent
+    WhatwedoComponent,
+    MyWorkComponent
   ],
   exports: [ ResumeComponent ],
   providers: [ ContactService ]

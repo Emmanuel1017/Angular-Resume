@@ -1,0 +1,258 @@
+// ── Design tokens ─────────────────────────────────────────────────────────────
+$navy:    #222f5c;
+$navy-m:  #2d4070;
+$green-l: #d4f7b8;
+$green-m: #a8e87a;
+$green-d: #5a8c3e;
+$white:   #ffffff;
+$radius:  16px;
+
+// ── Section wrapper ───────────────────────────────────────────────────────────
+.my-work-section {
+  padding: 80px 5vw 100px;
+  background: linear-gradient(175deg, #f7fbf4 0%, #eef8e6 40%, #f0f7fa 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($green-m, .13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+// ── Section header ────────────────────────────────────────────────────────────
+.work-header {
+  max-width: 900px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+.work-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: $green-d;
+  margin: 0 0 16px;
+}
+
+.work-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: $navy;
+  margin: 0 0 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 .35em;
+
+  span { display: inline-block; }
+}
+
+.title-accent {
+  color: $green-d;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, $green-m, $green-l);
+    border-radius: 2px;
+  }
+}
+
+.work-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: rgba($navy, .58);
+  margin: 0;
+}
+
+// ── Reveal animation ──────────────────────────────────────────────────────────
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity  .7s cubic-bezier(.22, 1, .36, 1) var(--d, 0ms),
+      transform .7s cubic-bezier(.22, 1, .36, 1) var(--d, 0ms);
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ── Card grid ─────────────────────────────────────────────────────────────────
+.work-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 28px;
+}
+
+// ── Individual card ───────────────────────────────────────────────────────────
+.work-card {
+  position: relative;
+  border-radius: $radius + 4px;
+  background: $white;
+  box-shadow:
+    0 2px  8px  rgba($navy, .06),
+    0 12px 32px rgba($navy, .10);
+  overflow: hidden;
+  cursor: default;
+  transform-style: preserve-3d;
+  transition:
+    transform  .35s cubic-bezier(.22, 1, .36, 1),
+    box-shadow .35s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+
+  &:hover {
+    box-shadow:
+      0 4px  12px rgba($navy, .08),
+      0 24px 52px rgba($navy, .18);
+  }
+}
+
+// ── Card image ────────────────────────────────────────────────────────────────
+.card-img {
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.work-card:hover .card-img {
+  transform: scale(1.04);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba($navy, .55) 100%
+  );
+}
+
+// ── Specular shine (follows --mx / --my CSS vars set by JS) ──────────────────
+.card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, .16) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 3;
+}
+
+.work-card:hover .card-shine { opacity: 1; }
+
+// ── Card body ─────────────────────────────────────────────────────────────────
+.card-body {
+  padding: 20px 22px 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: $navy;
+  margin: 0 0 8px;
+  letter-spacing: -.01em;
+}
+
+.card-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .82rem;
+  color: rgba($navy, .62);
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+
+// ── Tech tags ─────────────────────────────────────────────────────────────────
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: rgba($green-m, .15);
+  color: $green-d;
+  border: 1px solid rgba($green-m, .3);
+}
+
+// ── Card links ────────────────────────────────────────────────────────────────
+.card-links {
+  display: flex;
+  gap: 8px;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .74rem;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+
+  &:hover { transform: translateY(-2px) scale(1.05); }
+}
+
+.link-gh {
+  background: $navy;
+  color: $white;
+  box-shadow: 0 4px 14px rgba($navy, .28);
+  &:hover { box-shadow: 0 6px 20px rgba($navy, .38); }
+}
+
+.link-live {
+  background: linear-gradient(135deg, $green-d, darken($green-d, 8%));
+  color: $white;
+  box-shadow: 0 4px 14px rgba($green-d, .32);
+  &:hover { box-shadow: 0 6px 20px rgba($green-d, .44); }
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .my-work-section { padding: 56px 5vw 72px; }
+  .work-grid { grid-template-columns: 1fr; gap: 20px; }
+  .work-card { transform: none !important; }
+}
