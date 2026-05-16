@@ -13,7 +13,7 @@
     "build:en": "ng build --configuration=en",
     "build:pt": "ng build --configuration=pt",
     "build:prod": "ng build --configuration=production",
-    "deploy": "ng build --configuration=production && npx angular-cli-ghpages --dir=dist/live-resume",
+    "deploy": "ng build --configuration=production --base-href=/Angular-Resume/ && npx angular-cli-ghpages --dir=dist/live-resume",
     "test": "ng test",
     "int:extract": "ng extract-i18n"
   },
