@@ -255,18 +255,11 @@ $radius:  16px;
   /* No horizontal padding — cards go edge-to-edge */
   .my-work-section { padding: 56px 0 72px; }
 
-  /* Sticky heading sits above the cards */
+  /* Header flows normally above the cards, no sticky */
   .work-header {
-    position:   sticky;
-    top:        62px;
-    z-index:    10;
-    margin:     0 0 0;
-    padding:    14px 16px 12px;
+    padding:    0 16px 28px;
     text-align: left;
-    background: rgba(247, 251, 244, 0.95);
-    backdrop-filter:         blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(90, 140, 62, 0.14);
+    margin:     0;
   }
 
   .work-eyebrow { margin-bottom: 6px; }
@@ -287,7 +280,6 @@ $radius:  16px;
     border-radius: 0;
     border-left:   none;
     border-right:  none;
-    /* hairline separator between cards instead of gaps */
     border-bottom: 1px solid rgba(90, 140, 62, 0.12);
   }
 }
