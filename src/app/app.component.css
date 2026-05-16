@@ -1,0 +1,141 @@
+/* ── Featured message banner ──────────────────────────────────────────── */
+/*
+  Navbar: position fixed, top 14px, height 58px, z-index 1000.
+  Banner sits just below it at top ~82px with z-index 999 so the navbar
+  always renders on top. Styled as a floating pill rather than a full-width bar.
+*/
+.featured-banner {
+  position:  fixed;
+  top:       82px;                   /* 14px navbar-top + 58px height + 10px gap */
+  left:      50%;
+  transform: translateX(-50%);
+  z-index:   999;                    /* one below navbar (1000) */
+
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  gap:            10px;
+
+  padding:    9px 20px 9px 14px;
+  max-width:  600px;
+  width:      calc(100% - 32px);
+
+  /* Glassmorphic dark pill */
+  background:        linear-gradient(135deg,
+                       rgba(21, 30, 46, 0.96) 0%,
+                       rgba(13, 19, 33, 0.96) 100%);
+  backdrop-filter:         blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border:        1px solid rgba(168, 232, 122, 0.28);
+  border-radius: 50px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(168, 232, 122, 0.06),
+    inset 0 1px 0 rgba(168, 232, 122, 0.08);
+
+  color:       #e8f5e0;
+  font-size:   13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+
+  animation: bannerDrop 0.45s cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+
+/* Subtle animated green shimmer behind the text */
+.featured-glow {
+  position:      absolute;
+  inset:         0;
+  border-radius: inherit;
+  background:    linear-gradient(90deg,
+                   transparent 0%,
+                   rgba(168, 232, 122, 0.06) 50%,
+                   transparent 100%);
+  background-size: 200% 100%;
+  animation:     bannerShimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+.featured-icon {
+  font-size:  15px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(168, 232, 122, 0.5));
+}
+
+.featured-text {
+  text-align: center;
+  overflow:   hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+/* Slide down from behind the navbar (starts at navbar bottom, not viewport top) */
+@keyframes bannerDrop {
+  from { transform: translateX(-50%) translateY(-18px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);     opacity: 1; }
+}
+
+@keyframes bannerShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Tighten on small screens */
+@media (max-width: 600px) {
+  .featured-banner {
+    top:      80px;
+    padding:  8px 16px 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ── Maintenance overlay ──────────────────────────────────────────────── */
+.maintenance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 40%, #0d1b2e 0%, #070d18 100%);
+  animation: fadeIn 0.5s ease;
+}
+
+.maintenance-card {
+  text-align: center;
+  padding: 48px 40px;
+  max-width: 420px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(100, 210, 140, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+
+.maintenance-icon  { font-size: 56px; margin-bottom: 20px; }
+
+.maintenance-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #f0f4ff;
+  letter-spacing: 1px;
+  margin: 0 0 12px;
+}
+
+.maintenance-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: rgba(200, 215, 240, 0.65);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

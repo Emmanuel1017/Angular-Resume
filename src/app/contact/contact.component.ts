@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PortfolioSettingsService } from '../core/portfolio-settings.service';
 import {
     faEnvelope, faPhone, faTimes,
   faMapMarkerAlt, IconDefinition
@@ -18,7 +20,7 @@ declare var contact_js: any;
   styleUrls: ['./contact.component.scss', './contact.component.responsivity.scss']
 })
 
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
 
   private readonly notifier: NotifierService;
   name: string;
@@ -36,7 +38,14 @@ export class ContactComponent implements OnInit {
   feedbackStatus: string;
   now: string;
 
-  constructor(private contactService: ContactService , notifierService: NotifierService) {
+  contactOpen = true;
+  private settingsSub!: Subscription;
+
+  constructor(
+    private contactService: ContactService,
+    notifierService: NotifierService,
+    private portfolioSettings: PortfolioSettingsService
+  ) {
     this.notifier = notifierService;
   }
 
@@ -82,7 +91,12 @@ export class ContactComponent implements OnInit {
     this.faTimes = faTimes;
     // tslint:disable-next-line:no-unused-expression
      new contact_js();
+    this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
+      this.contactOpen = s.contactOpen;
+    });
   }
+
+  ngOnDestroy(): void { this.settingsSub?.unsubscribe(); }
 
   saveContact(contact: Contact) {
     this.contactService.createContact(contact).then(() => {
@@ -107,6 +121,7 @@ export class ContactComponent implements OnInit {
 
 
   onSubmit(contactForm) {
+    if (!this.contactOpen) return;
     if (contactForm.valid) {
     this.isLoading = true;
     // tslint:disable-next-line:no-unused-expression

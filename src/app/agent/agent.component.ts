@@ -2,9 +2,11 @@ import {
   Component, OnInit, OnDestroy, AfterViewInit,
   NgZone, HostListener, ViewChild, ElementRef
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { AgentService, AgentSettings, DEFAULT_SETTINGS } from './agent.service';
 import { environment } from 'src/environments/environment';
+import { PortfolioSettingsService } from '../core/portfolio-settings.service';
 
 @Component({
   standalone: false,
@@ -142,11 +144,21 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     "Angular, SCSS, SVG sprites… he does it all! ✨"
   ];
 
-  constructor(private agentService: AgentService, private zone: NgZone) {}
+  private koriGreeting = '';
+  private settingsSub!: Subscription;
+
+  constructor(
+    private agentService: AgentService,
+    private zone: NgZone,
+    private portfolioSettings: PortfolioSettingsService
+  ) {}
 
   ngOnInit(): void {
     this.settings = this.agentService.getSettings();
     this.agentService.loadContext(environment.baseUrl);
+    this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
+      this.koriGreeting = s.koriGreeting;
+    });
 
     this.posX = Math.max(16, Math.min((window.innerWidth || 800) - 120, 80));
     this.posY = 80;
@@ -811,6 +823,7 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     clearTimeout(this.recordingTimer as any);
     clearTimeout(this.thoughtBubbleTimer as any);
     this.tfSub?.unsubscribe();
+    this.settingsSub?.unsubscribe();
     this.mediaRecorder?.stop();
   }
 
@@ -996,7 +1009,9 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // ── Model download prompt ─────────────────────────────────────────────────────
   private showModelConfirm(hw: 'webgpu' | 'cpu'): void {
-    this.showIdle("Hi! I'm Kori 🐾 — Emmanuel's AI assistant cat. I live right here in his portfolio, nice to meet you!", 4200);
+    const greeting = this.koriGreeting ||
+      "Hi! I'm Kori 🐾 — Emmanuel's AI assistant cat. I live right here in his portfolio, nice to meet you!";
+    this.showIdle(greeting, 4200);
 
     setTimeout(() => {
       this.modelPromptMsg = hw === 'webgpu'
@@ -1179,7 +1194,8 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isSettingsOpen) { this.isSettingsOpen = false; return; }
     if (this.showModelPrompt) { this.dismissModelPrompt(); return; }
     this.isChatOpen = !this.isChatOpen;
-    if (this.isChatOpen && !this.bubbleText) this.bubbleText = "What would you like to know? 😺";
+    if (this.isChatOpen && !this.bubbleText)
+      this.bubbleText = this.koriGreeting || "What would you like to know? 😺";
     if (!this.isChatOpen) this.bubbleText = '';
   }
 

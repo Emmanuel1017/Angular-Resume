@@ -241,14 +241,14 @@ npm start
 | `OPENROUTER_API_KEY` | ✅ For Kori chat | [openrouter.ai/keys](https://openrouter.ai/keys) — free tier available |
 | `OPENAI_API_KEY` | Optional | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
 | `CLAUDE_API_KEY` | Optional | [console.anthropic.com](https://console.anthropic.com/) |
-| `FIREBASE_API_KEY` | Optional | Firebase Console → Project Settings → Your apps |
-| `FIREBASE_AUTH_DOMAIN` | Optional | Firebase Console |
+| `FIREBASE_API_KEY` | ✅ For real-time admin | Firebase Console → Project Settings → Your apps |
+| `FIREBASE_AUTH_DOMAIN` | ✅ | Firebase Console |
 | `FIREBASE_DATABASE_URL` | Optional | Firebase Console |
-| `FIREBASE_PROJECT_ID` | Optional | Firebase Console |
+| `FIREBASE_PROJECT_ID` | ✅ | Firebase Console |
 | `FIREBASE_STORAGE_BUCKET` | Optional | Firebase Console |
-| `FIREBASE_MESSAGING_SENDER_ID` | Optional | Firebase Console |
-| `FIREBASE_APP_ID` | Optional | Firebase Console |
-| `FIREBASE_MEASUREMENT_ID` | Optional | Firebase Console |
+| `FIREBASE_MESSAGING_SENDER_ID` | ✅ | Firebase Console |
+| `FIREBASE_APP_ID` | ✅ | Firebase Console |
+| `FIREBASE_MEASUREMENT_ID` | Optional (Analytics) | Firebase Console |
 
 ### How it works
 
@@ -398,21 +398,72 @@ Replace `src/assets/template/welcome/dp.png` and `src/assets/template/about/dp.p
 
 ---
 
+## Firebase Real-Time Controls
+
+The Angular site listens to `/portfolio/settings` in Firestore via a single `onSnapshot` socket (`PortfolioSettingsService`) shared across all components. Changes made in the Flutter admin app appear on the live site within ~1 second — **no redeploy required**.
+
+### Firestore document: `/portfolio/settings`
+
+| Field | Type | Default | Effect on the Angular site |
+|---|---|---|---|
+| `available_for_work` | `boolean` | `true` | Shows/hides the green "Available for work" badge on the About section photo |
+| `contact_open` | `boolean` | `true` | Enables/disables the contact form. When `false` the form is hidden and a themed dark card with direct email link replaces it |
+| `maintenance_mode` | `boolean` | `false` | Replaces the entire `<router-outlet>` with a fullscreen dark overlay when `true` — zero redeploy needed |
+| `featured_message` | `string` | `""` | Displays a floating **glass pill banner** below the navbar across all pages. Leave empty to hide. Max 120 chars. |
+| `kori_greeting` | `string` | `""` | Overrides Kori's opening chat bubble on next page load. Leave empty for the default greeting. Max 160 chars. |
+| `auto_on` | `boolean` | `false` | When `true`, the Angular site automatically writes `available_for_work = true` on its very first Firestore snapshot — so opening the portfolio signals you are active |
+
+> All fields have safe defaults — the site works normally with no Firestore document at all.
+
+### Firebase Console one-time setup
+
+1. **Create a Firebase project** → [console.firebase.google.com](https://console.firebase.google.com)
+2. **Add a web app** → copy the `firebaseConfig` values into `.env` (see [Environment Setup](#environment-setup--secret-keys))
+3. **Enable Firestore** → Build → Firestore Database → Create database
+4. **Create the settings document**: Firestore → `portfolio` collection → `settings` document → add the fields above
+5. **Set Firestore rules**:
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /portfolio/settings {
+         allow read;                           // public — Angular site reads it
+         allow write: if request.auth != null; // only the Flutter admin writes
+       }
+       match /contacts/{id} {
+         allow create;    // contact form submissions
+         allow read, update, delete: if request.auth != null;
+       }
+       match /portfolio/meta {
+         allow read, write: if request.auth != null;
+       }
+     }
+   }
+   ```
+6. **Enable Email/Password auth** → Authentication → Sign-in method → Email/Password → Enable
+7. **First admin account** → handled in the Flutter app on first launch (no manual setup needed)
+
+---
+
 ## Mobile Admin App
 
-A companion Flutter app lets you control this portfolio remotely from your phone — no redeploy needed.
+A companion Flutter app lets you control all the settings above from your phone.
 
 | Feature | How it works |
 |---|---|
-| **Available for Work** toggle | Writes to Firestore `/portfolio/settings`; this site reflects the change in real-time via `onSnapshot` in `about.component.ts` |
-| **Portfolio WebView** | Loads the live site with native URL chrome, JS-injected nav removal, and a section-jump pill strip |
-| **Native CV** | Flutter-native About section that mirrors the Angular one — same skills, timeline, stats |
-| **Contact / Maintenance toggles** | Additional flags readable by the Angular app |
+| **Available for Work** toggle | Writes `available_for_work` → green/red badge updates on site in ~1 s |
+| **Contact form toggle** | Writes `contact_open` → form hidden, themed dark card with email link shown |
+| **Maintenance mode toggle** | Writes `maintenance_mode` → takes the entire site offline instantly |
+| **Featured message editor** | Writes `featured_message` → glass pill banner floats below navbar across all pages |
+| **Kori greeting editor** | Writes `kori_greeting` → Kori uses this as her opening bubble on next load |
+| **Auto On toggle** | Writes `auto_on` → either app opening auto-sets you as available |
+| **Portfolio WebView** | Loads the live site with native chrome, JS nav removal, section-jump pills |
+| **Native CV** | Flutter-native mirror of this About section — same skills, timeline, stats |
+| **Glass UI dashboard** | Glassmorphic admin panel with animated availability hero, per-field descriptions, char counters, live Firestore snapshot preview |
 
 👉 **[github.com/Emmanuel1017/portfolio-admin](https://github.com/Emmanuel1017/portfolio-admin)**
 
-Both apps share the same Firebase project (`FIREBASE_PROJECT_ID` in your `.env`).  
-See the admin repo README for the full connection guide.
+Both apps share the same Firebase project. See the admin README for the full Flutter setup guide.
 
 ---
 
