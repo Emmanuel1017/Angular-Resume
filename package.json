@@ -13,6 +13,7 @@
     "build:en": "ng build --configuration=en",
     "build:pt": "ng build --configuration=pt",
     "build:prod": "ng build --configuration=production",
+    "deploy": "ng build --configuration=production && npx angular-cli-ghpages --dir=dist/live-resume",
     "test": "ng test",
     "int:extract": "ng extract-i18n"
   },
@@ -55,6 +56,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.0.0",
     "@types/three": "^0.165.0",
+    "angular-cli-ghpages": "^3.0.3",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
