@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { IPost } from '../posts/posts-interfaces';
+import { environment } from 'src/environments/environment';
 
 export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers' | 'openrouter';
 
@@ -29,9 +30,9 @@ const STALE_OR_MODELS = [
 
 export const DEFAULT_SETTINGS: AgentSettings = {
   provider:          'openrouter',
-  openaiKey:         '',
-  claudeKey:         '',
-  openrouterKey:     '',
+  openaiKey:         environment.openaiKey     || '',
+  claudeKey:         environment.claudeKey     || '',
+  openrouterKey:     environment.openrouterKey || '',
   ollamaUrl:         'http://localhost:11434',
   openaiModel:       'gpt-4o-mini',
   claudeModel:       'claude-haiku-4-5-20251001',
