@@ -64,9 +64,10 @@ let environment = {
   },
 
   // ── AI provider keys (used as defaults for Kori; user can override in UI) ─
-  openrouterKey: '${get('OPENROUTER_API_KEY')}',
-  openaiKey:     '${get('OPENAI_API_KEY')}',
-  claudeKey:     '${get('CLAUDE_API_KEY')}',
+  // Production builds omit keys — visitors use their own key via ⚙️ settings.
+  openrouterKey: '${production ? '' : get('OPENROUTER_API_KEY')}',
+  openaiKey:     '${production ? '' : get('OPENAI_API_KEY')}',
+  claudeKey:     '${production ? '' : get('CLAUDE_API_KEY')}',
 
   // ── App ───────────────────────────────────────────────────────────────────
   baseUrl: '',
