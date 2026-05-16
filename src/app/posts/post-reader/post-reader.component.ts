@@ -21,6 +21,7 @@ export class PostReaderComponent implements OnChanges {
   progress = 0;
   readingTime = 0;
   visible = false;
+  private savedScrollY = 0;
 
   get i18n(): IPostI18n | null {
     return this.post?.internationalizations?.find(i => i.language === 'en') ?? null;
@@ -30,14 +31,27 @@ export class PostReaderComponent implements OnChanges {
     if (changes['post']) {
       if (this.post) {
         this.progress = 0;
+        // Reset reader scroll to top for the new article
+        if (this.scrollPane?.nativeElement) {
+          this.scrollPane.nativeElement.scrollTop = 0;
+        }
         const words = (this.i18n?.content ?? '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
         this.readingTime = Math.max(1, Math.round(words / 220));
-        // trigger animation next tick
+        // Lock body scroll without jumping: save position, pin body with fixed+offset
+        this.savedScrollY = window.scrollY;
+        document.body.style.overflow   = 'hidden';
+        document.body.style.position   = 'fixed';
+        document.body.style.top        = `-${this.savedScrollY}px`;
+        document.body.style.width      = '100%';
         setTimeout(() => { this.visible = true; }, 10);
-        document.body.style.overflow = 'hidden';
       } else {
         this.visible = false;
+        // Restore body scroll and jump back to exact position
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top      = '';
+        document.body.style.width    = '';
+        window.scrollTo({ top: this.savedScrollY, behavior: 'instant' as ScrollBehavior });
       }
     }
   }
@@ -51,6 +65,10 @@ export class PostReaderComponent implements OnChanges {
   close(): void {
     this.visible = false;
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.width    = '';
+    window.scrollTo({ top: this.savedScrollY, behavior: 'instant' as ScrollBehavior });
     setTimeout(() => this.closed.emit(), 280);
   }
 

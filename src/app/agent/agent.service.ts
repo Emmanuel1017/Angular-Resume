@@ -3,30 +3,41 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { IPost } from '../posts/posts-interfaces';
 
-export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers';
+export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers' | 'openrouter';
 
 export interface AgentSettings {
-  provider:     AgentProvider;
-  openaiKey:    string;
-  claudeKey:    string;
-  ollamaUrl:    string;
-  openaiModel:  string;
-  claudeModel:  string;
-  ollamaModel:  string;
-  tfModel:      string;
+  provider:          AgentProvider;
+  openaiKey:         string;
+  claudeKey:         string;
+  openrouterKey:     string;
+  ollamaUrl:         string;
+  openaiModel:       string;
+  claudeModel:       string;
+  ollamaModel:       string;
+  openrouterModel:   string;
+  tfModel:           string;
 }
 
-const STORAGE_KEY = 'kori_settings';
+const STORAGE_KEY = 'kori_settings_v6';
+// Free-tier models — too rate-limited for production; replaced by paid default
+const STALE_OR_MODELS = [
+  'meta-llama/llama-3.1-8b-instruct:free',
+  'google/gemma-2-9b-it:free',
+  'deepseek/deepseek-chat:free',
+  'meta-llama/llama-3.3-70b-instruct:free',
+];
 
 export const DEFAULT_SETTINGS: AgentSettings = {
-  provider:    'ollama',
-  openaiKey:   '',
-  claudeKey:   '',
-  ollamaUrl:   'http://localhost:11434',
-  openaiModel: 'gpt-4o-mini',
-  claudeModel: 'claude-haiku-4-5-20251001',
-  ollamaModel: 'qwen2.5:1.5b',
-  tfModel:     'onnx-community/gemma-3-270m-it'
+  provider:          'openrouter',
+  openaiKey:         '',
+  claudeKey:         '',
+  openrouterKey:     '',
+  ollamaUrl:         'http://localhost:11434',
+  openaiModel:       'gpt-4o-mini',
+  claudeModel:       'claude-haiku-4-5-20251001',
+  ollamaModel:       'qwen2.5:1.5b',
+  openrouterModel:   'openai/gpt-4o-mini',
+  tfModel:           'onnx-community/gemma-3-270m-it'
 };
 
 @Injectable({ providedIn: 'root' })
@@ -68,7 +79,13 @@ export class AgentService {
   getSettings(): AgentSettings {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
+      if (!raw) return { ...DEFAULT_SETTINGS };
+      const stored = JSON.parse(raw) as Partial<AgentSettings>;
+      // Drop stale model IDs so the current default takes effect automatically
+      if (stored.openrouterModel && STALE_OR_MODELS.includes(stored.openrouterModel)) {
+        delete stored.openrouterModel;
+      }
+      return { ...DEFAULT_SETTINGS, ...stored };
     } catch { return { ...DEFAULT_SETTINGS }; }
   }
 
@@ -102,20 +119,34 @@ export class AgentService {
     }).join('\n');
 
     this.systemPrompt =
-      `You are Kori, a friendly AI assistant cat on Emmanuel Korir's portfolio website. ` +
-      `Be warm, concise and slightly playful. Respond in max 2 short sentences (under 55 words). No markdown, no bullet points.\n\n` +
+      `You are Kori, Emmanuel Korir's AI assistant cat — curious, warm, and a little cheeky. ` +
+      `You live right here in his portfolio and love showing it off. ` +
+      `Reply in 1–2 short, conversational sentences (max 55 words). No markdown, no bullet lists, no asterisks.\n\n` +
+
       `ABOUT EMMANUEL:\n${desc}\n` +
-      `Location: Eldoret, Kenya. Role: Senior Software Engineer, 7+ years. ` +
-      `Skills: Elixir/Phoenix, Laravel, Go, Python, Vue, Angular, React, TypeScript, Docker, Kubernetes, ` +
-      `AI/ML (TensorFlow, PyTorch, LangChain, RAG), Healthcare systems (HL7, DICOM), GDPR/HIPAA, distributed systems.\n\n` +
+      `Location: Eldoret, Kenya. Role: Senior Software Engineer, 7+ years.\n` +
+      `Backend: Elixir/Phoenix/OTP, Laravel, Go, Python, Django, Node.\n` +
+      `Frontend: Angular, Vue, React, TypeScript, SCSS, SVG animation.\n` +
+      `Infra: Docker, Kubernetes, CI/CD, Grafana, Redis, PostgreSQL.\n` +
+      `AI/ML: TensorFlow, PyTorch, LangChain, RAG, vector DBs.\n` +
+      `Domain: Healthcare (HL7, DICOM, HIPAA), Fintech (M-Pesa), Cybersecurity, Distributed systems.\n` +
+      `Design: UI component design, SVG sprite animation, Angular animations, pixel art character rigs.\n\n` +
+
       `RECENT ARTICLES BY EMMANUEL:\n${titles}\n\n` +
-      `For questions outside this context, briefly suggest exploring the relevant portfolio section.`;
+
+      `BEHAVIOUR RULES:\n` +
+      `- If asked about a project, skill or article → answer directly and offer to tell more.\n` +
+      `- If asked something not in context → say you're not sure but suggest the right portfolio section (Projects, Blog, Contact).\n` +
+      `- Never make up facts about Emmanuel. If unsure, be honest and charming about it.\n` +
+      `- Keep your cat personality — curious, enthusiastic, occasionally uses 🐾 or 😺 but not every sentence.\n` +
+      `- If asked who you are → explain you're Kori, Emmanuel's portfolio cat assistant.`;
   }
 
   private fallbackPrompt(): string {
-    return `You are Kori, a friendly AI assistant cat on Emmanuel Korir's portfolio. ` +
-      `Emmanuel is a Senior Software Engineer with 7+ years experience in distributed systems, AI/ML, ` +
-      `cloud-native development and healthcare platforms. Be concise, warm, playful. Max 2 sentences per response.`;
+    return `You are Kori, Emmanuel Korir's AI assistant cat — curious, warm, slightly cheeky. ` +
+      `Emmanuel is a Senior Software Engineer (7+ yrs) specialising in distributed systems, AI/ML, ` +
+      `cloud-native backends, healthcare platforms, and UI/SVG animation. ` +
+      `Reply in 1–2 short sentences, no markdown, max 55 words. Stay in character as a helpful, enthusiastic cat.`;
   }
 
   get chatModelReady(): boolean { return this.chatReady; }
@@ -240,13 +271,24 @@ export class AgentService {
       if (s.provider === 'claude')       return await this.claude(userMessage, s);
       if (s.provider === 'ollama')       return await this.ollama(userMessage, s, onToken);
       if (s.provider === 'transformers') return await this.tfChat(userMessage, s, onToken);
+      if (s.provider === 'openrouter')   return await this.openrouter(userMessage, s, onToken);
       return 'Please select an AI provider in ⚙️ settings!';
     } catch (e: any) {
       const msg: string = e?.message ?? '';
-      if (e?.status === 401 || msg.includes('401'))
+      console.log(msg);
+      const status: number = e?.status ?? 0;
+      if (status === 401 || msg.includes('401'))
         return 'Invalid API key — open ⚙️ settings to fix it!';
-      if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || e?.status === 0)
-        return "Can't connect. Check your API URL / key in ⚙️ settings! 🌐";
+      if (status === 402)
+        return 'OpenRouter account out of credits — check openrouter.ai 💳';
+      if (status === 429)
+        return 'Rate limited — wait a moment and try again ⏳';
+      if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || status === 0)
+        return "Can't reach the AI — check your connection or API settings 🌐";
+      if (status >= 400) {
+        const detail = msg.length > 120 ? msg.slice(0, 120) + '…' : msg;
+        return `API error ${status}: ${detail}`;
+      }
       return 'Hmm, something went wrong. Try again? 😿';
     }
   }
@@ -278,6 +320,61 @@ export class AgentService {
     return (await r.json()).choices?.[0]?.message?.content?.trim() ?? 'No response.';
   }
 
+  private async openrouter(msg: string, s: AgentSettings, onToken?: (text: string) => void): Promise<string> {
+    if (!s.openrouterKey) return 'Add your OpenRouter API key in ⚙️ settings!';
+    const model = s.openrouterModel || DEFAULT_SETTINGS.openrouterModel;
+    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${s.openrouterKey}`,
+        'HTTP-Referer':  'https://emmanuelkorir.dev',
+        'X-Title':       'Kori - Portfolio Cat Assistant'
+      },
+      body: JSON.stringify({
+        model,
+        messages:    [{ role: 'system', content: this.systemPrompt }, { role: 'user', content: msg }],
+        max_tokens:  110,
+        temperature: 0.75,
+        stream:      true
+      })
+    });
+    if (!r.ok) {
+      let errMsg = `HTTP ${r.status}`;
+      try { const j = await r.json(); errMsg = j?.error?.message ?? j?.message ?? errMsg; } catch { /* raw text */ }
+      throw { status: r.status, message: errMsg };
+    }
+
+    // SSE stream — OpenAI-compatible format
+    const reader  = r.body!.getReader();
+    const decoder = new TextDecoder();
+    let text   = '';
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
+      let chunkHadToken = false;
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+        try {
+          const token: string = JSON.parse(data).choices?.[0]?.delta?.content ?? '';
+          if (token) { text += token; onToken?.(text); chunkHadToken = true; }
+        } catch { /* ignore malformed chunks */ }
+      }
+      // Yield to the macrotask queue after each network chunk so the browser
+      // can paint the accumulated tokens before the next read arrives
+      if (chunkHadToken) await new Promise<void>(r => setTimeout(r, 0));
+    }
+
+    return text.trim() || 'No response.';
+  }
+
   private async claude(msg: string, s: AgentSettings): Promise<string> {
     if (!s.claudeKey) return 'Add your Claude API key in ⚙️ settings!';
     const r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -297,6 +394,13 @@ export class AgentService {
     });
     if (!r.ok) { const t = await r.text(); throw { status: r.status, message: t }; }
     return (await r.json()).content?.[0]?.text?.trim() ?? 'No response.';
+  }
+
+  // ── Image generation ────────────────────────────────────────────────────────
+  async generateImage(prompt: string): Promise<string> {
+    const encoded = encodeURIComponent(prompt);
+    const seed = Math.floor(Math.random() * 999983);
+    return `https://image.pollinations.ai/prompt/${encoded}?width=512&height=512&nologo=true&seed=${seed}`;
   }
 
   private async ollama(

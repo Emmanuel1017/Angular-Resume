@@ -534,333 +534,66 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
   }
 }
 
-// ── Cat flip wrapper ──────────────────────────────────────────────────────────
+// ── Cat canvas wrapper ────────────────────────────────────────────────────────
 .cat-wrap {
   width: 90px;
+  height: 128px;
   cursor: grab;
-  transition: transform .55s cubic-bezier(.4, 0, .2, 1);
-
-  :host.dragging & { cursor: grabbing; }
   position: relative;
   z-index: 1;
 
-  &.flipped { transform: scaleX(-1); }
+  :host.dragging & { cursor: grabbing; }
 
   &:hover {
     filter: drop-shadow(0 6px 20px rgba($green-d, .52));
   }
-  // only pause float — not running
-  &:hover .cat-bounce:not(.running) {
-    animation-play-state: paused;
-  }
 }
 
-// ── Float / Run layer ─────────────────────────────────────────────────────────
-.cat-bounce {
-  animation: catFloat 2.8s ease-in-out infinite;
-
-  &.running {
-    animation: catRunBob 0.42s ease-in-out infinite;
-  }
-}
-
-@keyframes catFloat {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-
-@keyframes catRunBob {
-  0%, 100% { transform: translateY(0px)  rotate(-1deg); }
-  50%      { transform: translateY(-5px) rotate(1deg);  }
-}
-
-// ── SVG internals ─────────────────────────────────────────────────────────────
-.cat-svg {
+.kori-canvas {
+  display: block;
   width: 90px;
-  height: auto;
-  display: block;
+  height: 128px;
+  border-radius: 8px;
+}
 
-  .tail, .tail-tip {
-    transform-box: fill-box;
-    transform-origin: 68px 90px;
-  }
-  .tail     { animation: tailSway 2.4s ease-in-out infinite; }
-  .tail-tip { animation: tailSway 2.4s ease-in-out infinite; }
+// ── Generated image ───────────────────────────────────────────────────────────
+.gen-image-wrap {
+  position: relative;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba($navy, .06);
+  border: 1.5px solid rgba($green-l, .6);
 
-  .blink-l {
-    transform-box: fill-box;
-    transform-origin: center center;
-    animation: eyeBlink 4.8s ease-in-out infinite;
-  }
-  .blink-r {
-    transform-box: fill-box;
-    transform-origin: center center;
-    animation: eyeBlink 4.8s ease-in-out infinite .12s;
-  }
-
-  .ear-l, .ear-r {
-    transform-box: fill-box;
-    transform-origin: center bottom;
+  .gen-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    animation: genImgFadeIn .4s ease both;
   }
 
-  .paw-l-group, .paw-r-group {
-    transform-box: fill-box;
-    transform-origin: center bottom;
-  }
+  .gen-img-close {
+    position: absolute;
+    top: 5px; right: 5px;
+    width: 22px; height: 22px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
 
-  // arm-l shoulder ≈ top-right of its bounding box
-  .arm-l-group {
-    transform-box: fill-box;
-    transform-origin: 86% 12%;
-  }
-  // arm-r shoulder ≈ top-left of its bounding box
-  .arm-r-group {
-    transform-box: fill-box;
-    transform-origin: 14% 12%;
-  }
-
-  // ── Thinking ───────────────────────────────────────────────────────────────
-  &.thinking {
-    .blink-l, .blink-r { animation: eyeHalf .75s ease-in-out infinite; }
-    .tail, .tail-tip   { animation: tailSway .6s ease-in-out infinite; }
-  }
-
-  // ── Fact: point — right arm raises finger ──────────────────────────────────
-  &.point .arm-r-group {
-    animation: armPoint 3s ease-in-out 1 forwards;
-  }
-
-  // ── Idle: lick — left arm raises hand to face ──────────────────────────────
-  &.lick .arm-l-group {
-    animation: armLick .85s ease-in-out 3 forwards;
-  }
-
-  // ── Idle: purr ─────────────────────────────────────────────────────────────
-  &.purr {
-    animation: catPurr .15s ease-in-out 20;
-  }
-
-  // ── Idle: ear twitch ───────────────────────────────────────────────────────
-  &.ear-twitch .ear-r {
-    animation: earTwitch .4s ease-in-out 3;
-  }
-
-  // ── Idle: swipe — left arm bats at yarn ball ────────────────────────────────
-  &.swipe .arm-l-group {
-    animation: armSwipe .4s ease-out 2 forwards;
-  }
-
-  // ── Idle: wave — right arm waves hello ─────────────────────────────────────
-  &.wave .arm-r-group {
-    animation: armRaise .38s ease-out 1 forwards,
-               armWave  .32s ease-in-out 5 forwards .38s;
-  }
-
-  // ── Idle: curious head bop ─────────────────────────────────────────────────
-  &.bop {
-    transform-origin: 50px 80px;
-    animation: headBop 2s ease-in-out 1 forwards;
-  }
-
-  // ── Idle: stretch upward ───────────────────────────────────────────────────
-  &.stretch {
-    transform-origin: center bottom;
-    animation: catStretch 2.2s ease-in-out 1 forwards;
-  }
-
-  // ── Idle: chase own tail ───────────────────────────────────────────────────
-  &.tail-chase {
-    transform-origin: center center;
-    animation: tailChase .9s ease-in-out 2 forwards;
-    .tail { animation: tailSway .35s ease-in-out infinite; }
+    &:hover { background: rgba(0,0,0,.7); }
   }
 }
 
-// ── Running: paws, arms and tail driven by parent .cat-bounce.running ────────
-.cat-bounce.running .cat-svg {
-  .tail, .tail-tip { animation: tailRun .42s ease-in-out infinite; }
-  .paw-l-group     { animation: pawRunL .42s ease-in-out infinite; }
-  .paw-r-group     { animation: pawRunR .42s ease-in-out infinite; }
-  .arm-l-group     { animation: armRunL .42s ease-in-out infinite; }
-  .arm-r-group     { animation: armRunR .42s ease-in-out infinite; }
-}
-
-// ── Keyframes ─────────────────────────────────────────────────────────────────
-
-@keyframes tailSway {
-  0%, 100% { transform: rotate(0deg);   }
-  30%      { transform: rotate(-16deg); }
-  70%      { transform: rotate(11deg);  }
-}
-
-@keyframes tailRun {
-  0%, 100% { transform: rotate(-10deg); }
-  50%      { transform: rotate(10deg);  }
-}
-
-@keyframes eyeBlink {
-  0%, 88%, 100% { transform: scaleY(0); }
-  92%, 96%      { transform: scaleY(1); }
-}
-
-@keyframes eyeHalf {
-  0%, 100% { transform: scaleY(.55); }
-  50%      { transform: scaleY(.8);  }
-}
-
-// Alternating paws — left leads, right is 180° offset
-@keyframes pawRunL {
-  0%   { transform: translate(0,    0)    rotate(0deg);   }
-  25%  { transform: translate(-4px, -12px) rotate(-28deg); }
-  50%  { transform: translate(0,    0)    rotate(0deg);   }
-  75%  { transform: translate(3px,  3px)  rotate(14deg);  }
-  100% { transform: translate(0,    0)    rotate(0deg);   }
-}
-@keyframes pawRunR {
-  0%   { transform: translate(0,    0)    rotate(0deg);   }
-  25%  { transform: translate(3px,  3px)  rotate(14deg);  }
-  50%  { transform: translate(0,    0)    rotate(0deg);   }
-  75%  { transform: translate(-4px, -12px) rotate(-28deg); }
-  100% { transform: translate(0,    0)    rotate(0deg);   }
-}
-
-// Point: raise right paw high like a raised finger, hold, lower
-@keyframes pawPoint {
-  0%   { transform: translate(0,    0)      rotate(0deg);   }
-  12%  { transform: translate(-8px, -36px)  rotate(40deg);  }
-  75%  { transform: translate(-8px, -36px)  rotate(40deg);  }
-  100% { transform: translate(0,    0)      rotate(0deg);   }
-}
-
-// Lick: raise left paw to face, hold, lower
-@keyframes pawLick {
-  0%   { transform: translate(0,   0)     rotate(0deg);   }
-  20%  { transform: translate(6px, -26px) rotate(-42deg); }
-  50%  { transform: translate(7px, -28px) rotate(-45deg); }
-  80%  { transform: translate(6px, -26px) rotate(-42deg); }
-  100% { transform: translate(0,   0)     rotate(0deg);   }
-}
-
-// Purr: gentle whole-body vibration
-@keyframes catPurr {
-  0%, 100% { transform: translateX(0px)    translateY(0px);   }
-  25%      { transform: translateX(1.5px)  translateY(0.4px); }
-  75%      { transform: translateX(-1.5px) translateY(-0.4px); }
-}
-
-// Ear twitch: quick flick then settle
-@keyframes earTwitch {
-  0%, 100% { transform: rotate(0deg);   }
-  20%      { transform: rotate(-14deg); }
-  40%      { transform: rotate(9deg);   }
-  60%      { transform: rotate(-10deg); }
-  80%      { transform: rotate(5deg);   }
-}
-
-// ── Yarn ball ─────────────────────────────────────────────────────────────────
-.yarn-wrap {
-  position: absolute;
-  bottom: 3px;
-  left: 18px;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-  animation: yarnRoll 1.1s ease-out 1 forwards;
-}
-
-.yarn-svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-@keyframes yarnRoll {
-  0%   { transform: translateX(0)    rotate(0deg);   opacity: 1; }
-  65%  { transform: translateX(42px) rotate(210deg); opacity: 1; }
-  100% { transform: translateX(58px) rotate(270deg); opacity: 0; }
-}
-
-// ── Arm keyframes ─────────────────────────────────────────────────────────────
-
-// Lick: left arm rotates up, hand reaches face, then settles back
-@keyframes armLick {
-  0%   { transform: rotate(0deg); }
-  22%  { transform: rotate(122deg); }
-  55%  { transform: rotate(125deg); }
-  78%  { transform: rotate(122deg); }
-  100% { transform: rotate(0deg); }
-}
-
-// Swipe: left arm bats forward (rotates counterclockwise)
-@keyframes armSwipe {
-  0%   { transform: rotate(0deg); }
-  30%  { transform: rotate(-68deg); }
-  60%  { transform: rotate(-72deg); }
-  100% { transform: rotate(0deg); }
-}
-
-// Point: right arm raises high and holds
-@keyframes armPoint {
-  0%   { transform: rotate(0deg); }
-  12%  { transform: rotate(-128deg); }
-  75%  { transform: rotate(-128deg); }
-  100% { transform: rotate(0deg); }
-}
-
-// Wave — phase 1: raise arm up
-@keyframes armRaise {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(-118deg); }
-}
-// Wave — phase 2: wrist-flick side to side while raised
-@keyframes armWave {
-  0%   { transform: rotate(-118deg); }
-  50%  { transform: rotate(-98deg); }
-  100% { transform: rotate(-118deg); }
-}
-
-// Running: alternating arm swing (opposite to legs)
-@keyframes armRunL {
-  0%, 100% { transform: rotate(0deg); }
-  25%      { transform: rotate(-28deg); }
-  75%      { transform: rotate(22deg); }
-}
-@keyframes armRunR {
-  0%, 100% { transform: rotate(0deg); }
-  25%      { transform: rotate(22deg); }
-  75%      { transform: rotate(-28deg); }
-}
-
-// ── New idle keyframes ─────────────────────────────────────────────────────────
-
-// Swipe: left paw bats forward twice
-@keyframes pawSwipe {
-  0%   { transform: translate(0,     0)      rotate(0deg);   }
-  30%  { transform: translate(18px, -10px)   rotate(-55deg); }
-  60%  { transform: translate(20px, -8px)    rotate(-60deg); }
-  100% { transform: translate(0,     0)      rotate(0deg);   }
-}
-
-// Head bop: curious side-to-side tilt
-@keyframes headBop {
-  0%, 100% { transform: rotate(0deg);   }
-  22%      { transform: rotate(-13deg); }
-  50%      { transform: rotate(0deg);   }
-  78%      { transform: rotate(10deg);  }
-}
-
-// Stretch: cat reaches up, holds, settles
-@keyframes catStretch {
-  0%, 100% { transform: scaleY(1)    translateY(0);    }
-  25%      { transform: scaleY(1.09) translateY(-5px); }
-  70%      { transform: scaleY(1.09) translateY(-5px); }
-}
-
-// Tail chase: whole body rocks as cat spins after its tail
-@keyframes tailChase {
-  0%, 100% { transform: rotate(0deg);   }
-  25%      { transform: rotate(10deg);  }
-  75%      { transform: rotate(-10deg); }
+@keyframes genImgFadeIn {
+  from { opacity: 0; transform: scale(.95); }
+  to   { opacity: 1; transform: scale(1);   }
 }
 
 // ── Mobile ────────────────────────────────────────────────────────────────────
