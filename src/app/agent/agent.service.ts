@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { IPost } from '../posts/posts-interfaces';
 import { environment } from 'src/environments/environment';
+import { RemoteConfig, fetchAndActivate, getValue } from '@angular/fire/remote-config';
 
 export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers' | 'openrouter';
 
@@ -47,9 +48,10 @@ export class AgentService {
   /** Emits loading/progress status strings; '' means idle/done. */
   tfStatus$ = new Subject<string>();
 
-  private systemPrompt = '';
-  private ready        = false;
-  private baseUrl      = '';
+  private systemPrompt       = '';
+  private ready              = false;
+  private baseUrl            = '';
+  private remoteOpenrouterKey = '';
 
   // ── Hardware ────────────────────────────────────────────────────────────────
   hardware: 'webgpu' | 'cpu' = 'cpu';
@@ -74,7 +76,7 @@ export class AgentService {
   private whisperInitP:  Promise<void> | null = null;
   private onTokenCallback?: (text: string) => void;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private rc: RemoteConfig) {}
 
   // ── Settings ────────────────────────────────────────────────────────────────
   getSettings(): AgentSettings {
@@ -108,6 +110,15 @@ export class AgentService {
       this.systemPrompt = this.fallbackPrompt();
     }
     this.ready = true;
+    this.fetchRemoteKey(); // non-blocking — loads key in background
+  }
+
+  private async fetchRemoteKey(): Promise<void> {
+    try {
+      await fetchAndActivate(this.rc);
+      const key = getValue(this.rc, 'openrouter_api_key').asString();
+      if (key) this.remoteOpenrouterKey = key;
+    } catch { /* Remote Config unavailable — user provides own key via ⚙️ settings */ }
   }
 
   private buildPrompt(about: any, posts: IPost[]): void {
@@ -322,13 +333,14 @@ export class AgentService {
   }
 
   private async openrouter(msg: string, s: AgentSettings, onToken?: (text: string) => void): Promise<string> {
-    if (!s.openrouterKey) return 'Add your OpenRouter API key in ⚙️ settings!';
+    const key = s.openrouterKey || this.remoteOpenrouterKey;
+    if (!key) return 'Add your OpenRouter API key in ⚙️ settings!';
     const model = s.openrouterModel || DEFAULT_SETTINGS.openrouterModel;
     const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type':  'application/json',
-        'Authorization': `Bearer ${s.openrouterKey}`,
+        'Authorization': `Bearer ${key}`,
         'HTTP-Referer':  'https://emmanuelkorir.dev',
         'X-Title':       'Kori - Portfolio Cat Assistant'
       },

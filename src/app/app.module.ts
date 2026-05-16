@@ -14,6 +14,7 @@ import localeEn from '@angular/common/locales/en';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
+import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
 import { environment } from '../environments/environment';
 
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -53,6 +54,12 @@ registerLocaleData(localeEn, 'en');
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAnalytics(() => getAnalytics()),
+    provideRemoteConfig(() => {
+      const rc = getRemoteConfig();
+      rc.settings.minimumFetchIntervalMillis = 3600000; // cache 1 hour
+      rc.defaultConfig = { openrouter_api_key: '' };
+      return rc;
+    }),
   ]
 })
 
