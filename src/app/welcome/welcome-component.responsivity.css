@@ -17,7 +17,9 @@
     min-height: calc(100vh - 58px);
   }
 
+  /* avatar above, typing below — swap column-reverse back to column */
   .layer_one {
-    gap: 1.5em;
+    flex-direction: column;
+    gap: 0;
   }
 }
