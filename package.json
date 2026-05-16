@@ -3,9 +3,12 @@
   "version": "1.3.0",
   "scripts": {
     "ng": "ng",
+    "set-env": "node scripts/set-env.js",
+    "prestart": "node scripts/set-env.js",
     "start": "ng serve",
     "start:en": "ng serve --configuration=en",
     "start:pt": "ng serve --configuration=pt",
+    "prebuild": "node scripts/set-env.js",
     "build": "ng build",
     "build:en": "ng build --configuration=en",
     "build:pt": "ng build --configuration=pt",
