@@ -281,39 +281,32 @@ $pi-sz: 44px; // icon size
   }
 }
 
-// Planet badge — pill label, floats at top of its orbit ring, counter-rotates to stay upright
+// Planet icon — floats at the top of its orbit ring, counter-rotates to stay upright
 .pi {
   position: absolute;
-  top: -14px;   // half of ~28px pill height
+  top: -($pi-sz * 0.5);
   left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  height: auto;
-  padding: 5px 12px;
-  background: rgba($gm, 0.12);
-  border: 1px solid rgba($gm, 0.45);
-  border-radius: 50px;
-  color: $gm;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .02em;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-left: -($pi-sz * 0.5);
+  width: $pi-sz; height: $pi-sz;
+  background-size: 68%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 12px;
   box-shadow:
-    0 2px 12px rgba(0, 0, 0, .18),
-    0 0   8px rgba($gm, .14);
+    0 4px 18px rgba(0, 0, 0, .22),
+    0 0  10px rgba($gl, .18);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  transition: box-shadow .3s, background .3s;
+  transition: box-shadow .3s;
 
   &:hover {
-    background: rgba($gm, 0.22);
     box-shadow:
-      0 4px 18px rgba(0, 0, 0, .26),
-      0 0  14px rgba($gm, .35);
+      0 6px 24px rgba(0, 0, 0, .30),
+      0 0  16px rgba($gl, .45);
   }
 }
 
