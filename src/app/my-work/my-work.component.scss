@@ -263,7 +263,8 @@ $radius:  16px;
   }
 
   .work-eyebrow { margin-bottom: 6px; }
-  .work-title   { font-size: 1.8rem; margin-bottom: 6px; }
+  .work-title   { display: block; font-size: 1.6rem; margin-bottom: 6px; }
+  .work-title span { display: inline; }
   .work-sub     { font-size: .84rem; }
 
   /* Full-width single-column grid, cards flush to screen edges */
