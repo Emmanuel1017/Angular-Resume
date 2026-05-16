@@ -5,16 +5,46 @@
   <span class="featured-glow"></span>
 </div>
 
-<!-- ── Normal app ──────────────────────────────────────────────────────── -->
-<router-outlet *ngIf="!maintenanceMode"></router-outlet>
+<!-- ── Normal app ─────────────────────────────────────────────────────────
+  Wrapped in a div instead of *ngIf so the component stays mounted when
+  maintenance mode activates. Scroll position is saved/restored in
+  app.component.ts so users return to exactly where they were.
+──────────────────────────────────────────────────────────────────────── -->
+<div class="app-outlet" [style.display]="maintenanceMode ? 'none' : 'block'">
+  <router-outlet></router-outlet>
+</div>
 
-<!-- ── Maintenance overlay (covers entire viewport) ───────────────────── -->
+<!-- ── Maintenance overlay ────────────────────────────────────────────── -->
 <div class="maintenance-overlay" *ngIf="maintenanceMode" role="status" aria-live="polite">
+
+  <!-- Ambient background orbs -->
+  <div class="mo-orb mo-orb-1"></div>
+  <div class="mo-orb mo-orb-2"></div>
+  <div class="mo-orb mo-orb-3"></div>
+
+  <!-- Floating me_ photos -->
+  <div class="mo-photos">
+    <div class="mo-photo mo-photo-1">
+      <img src="assets/template/me_cyber.png" alt="" />
+    </div>
+    <div class="mo-photo mo-photo-2">
+      <img src="assets/template/me_tricycle.png" alt="" />
+    </div>
+    <div class="mo-photo mo-photo-3">
+      <img src="assets/template/me_cyber_2.png" alt="" />
+    </div>
+  </div>
+
+  <!-- Central card -->
   <div class="maintenance-card">
     <div class="maintenance-icon">🔧</div>
     <h1 class="maintenance-title">Under Maintenance</h1>
     <p class="maintenance-sub">
-      We're making some improvements. Check back soon.
+      Upgrading the experience — something awesome is coming.
     </p>
+    <div class="maintenance-pulse">
+      <span></span><span></span><span></span>
+    </div>
   </div>
+
 </div>

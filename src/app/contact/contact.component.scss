@@ -1110,37 +1110,163 @@
   }
 
 
-/* ── Contact-closed banner ──────────────────────────────────────────── */
+/* ── Contact-closed banner ───────────────────────────────────────────────────
+   Matches the height/width of the live .container so the section never
+   collapses when the form is disabled.
+   ─────────────────────────────────────────────────────────────────────────── */
 .contact-closed-banner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 16px;
-  margin: 60px auto;
-  max-width: 560px;
-  padding: 40px 32px;
-  background: #151e2e;
-  border: 1px solid rgba(168, 232, 122, 0.25);
-  border-radius: 16px;
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
 
-  .closed-icon {
-    font-size: 36px;
-    line-height: 1;
+  /* Same width as .container */
+  width:      85vw;
+  max-width:  1400px;
+  min-height: 560px;
+
+  display:         flex;
+  flex-direction:  row;
+  align-items:     center;
+  gap:             60px;
+
+  padding:      48px 56px;
+  margin:       0 auto;
+
+  background:   linear-gradient(135deg, #0f1c2e 0%, #0d1321 100%);
+  border:       1px solid rgba(168, 232, 122, 0.22);
+  border-radius: 24px;
+  box-shadow:   0 8px 48px rgba(0, 0, 0, 0.45);
+  z-index:      2;
+
+  /* ── Ambient glow blobs ── */
+  .ccb-glow {
+    position:      absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter:        blur(60px);
+    opacity:       0.18;
+  }
+  .ccb-glow-1 {
+    width: 320px; height: 320px;
+    background: #a8e87a;
+    top: -80px; left: -80px;
+  }
+  .ccb-glow-2 {
+    width: 260px; height: 260px;
+    background: #5a8c3e;
+    bottom: -60px; right: -40px;
   }
 
-  span {
-    font-size: 15px;
-    color: #8aa89e;
-    line-height: 1.7;
+  /* ── Left: photo ── */
+  .ccb-photo {
+    position:    relative;
+    flex-shrink: 0;
+
+    img {
+      width:         180px;
+      height:        180px;
+      border-radius: 50%;
+      object-fit:    cover;
+      border:        3px solid rgba(168, 232, 122, 0.45);
+      box-shadow:
+        0 0 0 6px rgba(168, 232, 122, 0.08),
+        0 16px 40px rgba(0, 0, 0, 0.5);
+      display: block;
+    }
+
+    .ccb-status {
+      position:      absolute;
+      bottom:        4px;
+      left:          50%;
+      transform:     translateX(-50%);
+      background:    rgba(13, 19, 33, 0.92);
+      border:        1px solid rgba(168, 232, 122, 0.3);
+      border-radius: 20px;
+      padding:       4px 12px;
+      font-size:     11px;
+      font-family:   'Montserrat', sans-serif;
+      font-weight:   700;
+      color:         #a8e87a;
+      white-space:   nowrap;
+    }
   }
 
-  a {
-    color: #a8e87a;
+  /* ── Right: text content ── */
+  .ccb-body {
+    flex: 1;
+    z-index: 1;
+  }
+
+  .ccb-title {
+    font-family:    'Montserrat', sans-serif;
+    font-size:      32px;
+    font-weight:    900;
+    color:          #e8f5e0;
+    letter-spacing: -0.5px;
+    margin:         0 0 14px;
+  }
+
+  .ccb-sub {
+    font-family:  'Montserrat', sans-serif;
+    font-size:    15px;
+    color:        #8aa89e;
+    line-height:  1.75;
+    margin:       0 0 28px;
+    max-width:    480px;
+  }
+
+  /* Email CTA button */
+  .ccb-email-btn {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             10px;
+    padding:         14px 28px;
+    background:      linear-gradient(135deg, #3a6b22 0%, #5a8c3e 100%);
+    border:          1px solid rgba(168, 232, 122, 0.4);
+    border-radius:   50px;
+    color:           #d4ffa0;
+    font-family:     'Montserrat', sans-serif;
+    font-size:       14px;
+    font-weight:     700;
     text-decoration: none;
-    font-weight: 500;
-    &:hover { color: #c5f59a; text-decoration: underline; }
+    letter-spacing:  0.3px;
+    box-shadow:
+      0 0 20px rgba(90, 140, 62, 0.35),
+      0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease;
+
+    .ccb-btn-icon { font-size: 16px; }
+
+    &:hover {
+      background:  linear-gradient(135deg, #4a7c2e 0%, #6a9e4e 100%);
+      box-shadow:
+        0 0 32px rgba(90, 140, 62, 0.55),
+        0 6px 20px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+      color: #e0ffc0;
+    }
+  }
+
+  .ccb-note {
+    font-family: 'Montserrat', sans-serif;
+    font-size:   12px;
+    color:       #4a6058;
+    margin:      16px 0 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align:     center;
+    padding:        40px 24px;
+    gap:            32px;
+    min-height:     480px;
+
+    .ccb-photo img {
+      width: 140px;
+      height: 140px;
+    }
+    .ccb-title  { font-size: 24px; }
+    .ccb-sub    { font-size: 14px; }
+    .ccb-body   { display: flex; flex-direction: column; align-items: center; }
   }
 }
