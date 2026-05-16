@@ -1,4 +1,13 @@
 <section id="contact" itemscope itemtype="https://schema.org/ContactPage">
+
+    <!-- Contact form closed notice (toggled from Admin panel) -->
+    <div class="contact-closed-banner" *ngIf="!contactOpen">
+      <span class="closed-icon">🔒</span>
+      <span>Contact form is temporarily closed. Reach out directly at
+        <a href="mailto:koriremmanuel@rocketmail.com">koriremmanuel@rocketmail.com</a>.
+      </span>
+    </div>
+
     <div class="feedback-container" [ngClass]="feedbackStatus">
         <p class="success">
             <span > 😀  Thank you for contacting me. i'll Reply soon. Kudos! 😀.</span>
@@ -10,7 +19,7 @@
         </p>
 
     </div>
-    <div class="container" [ngClass]="{'fade': hasBeenSubmited}">
+    <div class="container" [ngClass]="{'fade': hasBeenSubmited}" *ngIf="contactOpen">
         <div class="left-side">
             <div class="title">
                 <h1 >Contact</h1>

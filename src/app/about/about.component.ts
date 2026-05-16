@@ -5,7 +5,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas  } from '@fortawesome/free-solid-svg-icons';
 import { fab  } from '@fortawesome/free-brands-svg-icons';
 import { Subscription } from 'rxjs';
-import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
+import { PortfolioSettingsService } from '../core/portfolio-settings.service';
 
 interface StatItem  { value: string; label: string; icon: string; }
 interface TimelineItem { year: string; role: string; company: string; current?: boolean; }
@@ -67,13 +67,13 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('statsEl') statsEl!: ElementRef;
   private io!: IntersectionObserver;
 
-  private settingsUnsub?: () => void;
+  private settingsSub!: import('rxjs').Subscription;
 
   constructor(
     private dataService: DataService,
     private library: FaIconLibrary,
     private host: ElementRef,
-    private firestore: Firestore
+    private portfolioSettings: PortfolioSettingsService
   ) { library.addIconPacks(fas, fab); }
 
   ngOnInit(): void {
@@ -81,7 +81,9 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.dataService.getAbout()
       .subscribe((about: IAbout) => this.aboutData = about);
     this.scheduleCycle();
-    this.watchAvailability();
+    this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
+      this.availableForWork = s.availableForWork;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -93,7 +95,7 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
-    this.settingsUnsub?.();
+    this.settingsSub?.unsubscribe();
     this.io?.disconnect();
     clearTimeout(this.cycleTimer);
   }
@@ -141,18 +143,6 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toggleTimeline(i: number) {
     this.expandedTimeline = this.expandedTimeline === i ? -1 : i;
-  }
-
-  private watchAvailability() {
-    const ref = doc(this.firestore, 'portfolio', 'settings');
-    this.settingsUnsub = onSnapshot(ref, (snap) => {
-      if (snap.exists()) {
-        const data = snap.data() as { available_for_work?: boolean };
-        if (data['available_for_work'] !== undefined) {
-          this.availableForWork = !!data['available_for_work'];
-        }
-      }
-    }, () => { /* keep default true on error */ });
   }
 
   private calcAge(d: string) {

@@ -1,8 +1,10 @@
 import { CanonicalService } from './resume/canonical.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 import moment from 'moment';
+import { PortfolioSettingsService } from './core/portfolio-settings.service';
 
 @Component({
   standalone: false,
@@ -11,22 +13,28 @@ import moment from 'moment';
   styleUrls: ['./app.component.css'],
   providers: [DatePipe]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   title = 'Korir Emmanuel';
-  myDate ;
+  myDate: any;
 
+  maintenanceMode  = false;
+  featuredMessage  = '';
+
+  private settingsSub!: Subscription;
 
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
-    private canonicalService: CanonicalService
-  ) {  }
+    private canonicalService: CanonicalService,
+    private portfolioSettings: PortfolioSettingsService
+  ) {}
 
   ngOnInit(): void {
     this.myDate = moment().format('YYYY-MM-DD');
     this.titleService.setTitle(this.title);
-    this.canonicalService.setCanonicalURL();    this.metaTagService.addTags([
+    this.canonicalService.setCanonicalURL();
+    this.metaTagService.addTags([
       // tslint:disable-next-line:max-line-length
       {name: 'keywords', content: 'Caribou Developers,Caribou Devs,Emmanuel K Korir, korir Emmanuel,Emmanuel Bett,Software developer kenya,Emmanuel_Be_Cool,emmanuel_be_cool,Caribou Kenya,Caribou,Emmanuel1017,Software Engineer,Software Engineer Kenya,Emmanuel,Computer Scientist kenya,caribou kenya,Software Company kenya,Web Developer kenya,Android Developer kenya,IOS Developer kenya,Web Developer,Android Developer,IOS Developer,Software Kenya,Eldoret Developer,Nairobi Android Developer,nairobi Web Developer,Nairobi IOS Developer,Nairobi Software Engineer,Nairobi Software Developer,'},
       // tslint:disable-next-line:max-line-length
@@ -44,5 +52,12 @@ export class AppComponent implements OnInit {
       { name: 'og:description', content: '' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1"' }
     ]);
+
+    this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
+      this.maintenanceMode = s.maintenanceMode;
+      this.featuredMessage = s.featuredMessage;
+    });
   }
+
+  ngOnDestroy(): void { this.settingsSub?.unsubscribe(); }
 }
