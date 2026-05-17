@@ -4,6 +4,11 @@ $green-l: #abd699;
 $green-d: #47603c;
 $muted:   #5e6788;
 $white:   #fff;
+// Orange paw / Kori tabby — shared with the screenshots section and the
+// Flutter app's Kori avatar so the brand reads consistent across all three
+// surfaces (web header CTA · web screenshots section · native Kori).
+$paw:      #F4934A;
+$paw-dark: #D97A37;
 
 // ─── Host: floating fixed, inset from edges ───────────────────────────────────
 :host {
@@ -203,4 +208,74 @@ header {
 @keyframes logoDot {
   0%, 100% { transform: scale(1);    opacity: 1;   }
   50%       { transform: scale(1.5); opacity: 0.7; }
+}
+
+// ─── Get-the-App CTA ──────────────────────────────────────────────────────────
+// Sits as the last item in the nav <ul>. Styled as a pill that breaks visual
+// hierarchy with the muted nav links so the eye catches it. The pulsing dot is
+// a subtle "live / new" signal — keeps drawing attention without being noisy.
+.get-app-li {
+  // Cancel the default <li> reset the rest of the nav uses
+  list-style: none;
+}
+
+.get-app-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, $paw 0%, $paw-dark 100%);
+  color: #fff !important;
+  font-weight: 800;
+  font-size: 12.5px;
+  letter-spacing: .01em;
+  text-decoration: none !important;
+  box-shadow: 0 6px 18px rgba($paw, .35);
+  transition: transform .2s ease, box-shadow .2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba($paw, .5);
+    color: #fff !important;
+  }
+
+  &:active { transform: translateY(0); }
+
+  .ga-paw {
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    color: #fff;
+    opacity: .95;
+
+    svg { width: 100%; height: 100%; display: block; }
+  }
+
+  // Small pulsing dot — fires the "look at me" signal without being noisy
+  .ga-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 0 rgba(#fff, .6);
+    animation: gaPulse 1.6s ease-out infinite;
+  }
+}
+
+@keyframes gaPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(#fff, .8); }
+  70%  { box-shadow: 0 0 0 9px rgba(#fff, 0);  }
+  100% { box-shadow: 0 0 0 0   rgba(#fff, 0);  }
+}
+
+// On collapsed mobile menu the CTA breaks line, so keep it readable
+@media (max-width: 1024px) {
+  .get-app-cta {
+    margin: 8px auto 0;
+    padding: 10px 20px 10px 14px;
+    font-size: 13px;
+  }
 }

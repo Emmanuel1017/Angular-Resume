@@ -1,3 +1,4 @@
+<app-promo-banner></app-promo-banner>
 <app-header [activeSection]="activeSection" [pageXOffset]="pageXOffset" [ngClass]="{'sticky' : isSticky}"></app-header>
 <app-welcome in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'welcome')"></app-welcome>
 <app-about  in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'about')"></app-about>
@@ -6,6 +7,7 @@
 <app-my-work></app-my-work>
 <app-experience in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'experience')"></app-experience>
 <app-posts in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'posts')"></app-posts>
+<app-screenshots *ngIf="!isFlutterApp" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'app')"></app-screenshots>
 <app-contact in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'contact')"></app-contact>
 <app-footer></app-footer>
-<app-agent></app-agent>
+<app-agent *ngIf="!isFlutterApp"></app-agent>

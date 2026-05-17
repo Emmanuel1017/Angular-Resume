@@ -17,7 +17,22 @@
             <li><a (click)="resetMenu()" href="#contact"  itemprop="url"><span itemprop="name">Contact</span></a></li>
             <li><a (click)="resetMenu()" href="404-relax"  itemprop="url"><span itemprop="name">Relax</span></a></li>
             <li><a (click)="resetMenu()" href="https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Korir%20K%20Emmanuel%20My%20CV.pdf?alt=media&token=0b1abffb-f31b-41dc-b9c0-3890585223d9" rel="follow" title="My Resume" target="_blank"><span itemprop="name"> <mat-icon>attachment</mat-icon></span></a></li>
-            <li><a (click)="resetMenu()" href="https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Emmanuel%20Resume.apk?alt=media&token=4ccce073-462b-4d77-866c-ed849d2b271b" rel="follow" title="My Android Application" target="_blank"><span itemprop="name"><mat-icon>android</mat-icon></span></a></li>
+            <!-- Eye-catching "Get the App" CTA — only on the public web; hidden
+                 inside the Flutter WebView (you're already in the app there). -->
+            <li *ngIf="!isFlutterApp" class="get-app-li">
+              <a (click)="resetMenu()" href="#app" class="get-app-cta" aria-label="Get the Android app">
+                <span class="ga-paw" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="20" cy="26" rx="10" ry="8" fill="currentColor"/>
+                    <ellipse cx="11" cy="17" rx="4.5" ry="5.5" fill="currentColor"/>
+                    <ellipse cx="20" cy="14" rx="4.5" ry="5.5" fill="currentColor"/>
+                    <ellipse cx="29" cy="17" rx="4.5" ry="5.5" fill="currentColor"/>
+                  </svg>
+                </span>
+                <span class="ga-label">Get the App</span>
+                <span class="ga-dot"></span>
+              </a>
+            </li>
         </ul>
     </div>
 

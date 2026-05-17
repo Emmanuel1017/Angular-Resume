@@ -1,0 +1,245 @@
+// ── Palette (mirrors the rest of the site) ──────────────────────────────────
+$green-d: #47603c;
+$green-l: #6b8a59;
+$orange:  #F4934A;
+$ink-1:   #0f1117;
+$ink-2:   #161922;
+$ink-3:   #1d2230;
+$text-h:  #e9ecf1;
+$text-m:  #a8b0bd;
+$text-l:  #6e7686;
+$border:  #2a3142;
+
+// ── Section shell ───────────────────────────────────────────────────────────
+.screenshots-section {
+  position: relative;
+  padding: 96px 24px 112px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba($orange, .10), transparent 45%),
+    radial-gradient(circle at 82% 88%, rgba($green-l, .12), transparent 50%),
+    $ink-1;
+  color: $text-h;
+  overflow: hidden;
+  text-align: center;
+}
+
+// ── Header ──────────────────────────────────────────────────────────────────
+.ss-header {
+  max-width: 720px;
+  margin: 0 auto 56px;
+
+  .ss-eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 18px;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: $orange;
+    background: rgba($orange, .12);
+    border: 1px solid rgba($orange, .35);
+    border-radius: 999px;
+  }
+
+  .ss-title {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 4.2vw, 44px);
+    font-weight: 900;
+    letter-spacing: -.02em;
+    background: linear-gradient(135deg, $text-h 0%, $green-l 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ss-sub {
+    margin: 0 auto;
+    max-width: 560px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: $text-m;
+  }
+
+  .ss-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 26px;
+  }
+}
+
+.ss-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-decoration: none;
+  color: $ink-1;
+  background: linear-gradient(135deg, $orange, darken($orange, 8%));
+  box-shadow: 0 8px 28px rgba($orange, .35);
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba($orange, .45);
+  }
+
+  svg { display: block; }
+}
+
+.ss-badge-ghost {
+  color: $text-h;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid $border;
+  box-shadow: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, .08);
+    box-shadow: none;
+  }
+}
+
+// ── Phone stage ─────────────────────────────────────────────────────────────
+.ss-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.ss-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid $border;
+  background: $ink-2;
+  color: $text-m;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $orange;
+    border-color: rgba($orange, .5);
+    transform: scale(1.08);
+  }
+}
+
+.ss-phone {
+  position: relative;
+  width: 280px;
+  height: 580px;
+  background: $ink-3;
+  border-radius: 38px;
+  border: 8px solid #0a0c12;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, .55),
+    inset 0 0 0 1px rgba(255, 255, 255, .04);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ss-phone-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 22px;
+  background: #0a0c12;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+
+.ss-phone-screen {
+  position: absolute;
+  inset: 0;
+  background: $ink-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ss-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: ss-fade .35s ease both;
+}
+
+@keyframes ss-fade {
+  from { opacity: 0; transform: scale(.985); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+// ── Caption ─────────────────────────────────────────────────────────────────
+.ss-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 20px;
+  min-height: 44px;
+
+  .ss-caption-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: $text-h;
+  }
+  .ss-caption-sub {
+    font-size: 13px;
+    color: $text-m;
+  }
+}
+
+// ── Dots ────────────────────────────────────────────────────────────────────
+.ss-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.ss-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, .15);
+  cursor: pointer;
+  padding: 0;
+  transition: all .25s ease;
+
+  &.active {
+    width: 24px;
+    border-radius: 999px;
+    background: $orange;
+  }
+
+  &:hover:not(.active) { background: rgba(255, 255, 255, .3); }
+}
+
+// ── Mobile (single column) ──────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .screenshots-section { padding: 64px 16px 80px; }
+
+  .ss-stage { gap: 8px; }
+  .ss-arrow { width: 38px; height: 38px; font-size: 22px; }
+  .ss-phone {
+    width: 240px;
+    height: 500px;
+    border-radius: 32px;
+    border-width: 6px;
+  }
+}

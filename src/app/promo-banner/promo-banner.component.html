@@ -1,0 +1,37 @@
+<div class="promo-banner"
+     *ngIf="!isFlutterApp"
+     [class.show]="visible"
+     role="region"
+     aria-label="Companion app promotion">
+  <div class="pb-inner" (click)="scrollToApp($event)">
+
+    <!-- Paw badge — same shape as the Kori avatar so visual brand reads -->
+    <span class="pb-paw" aria-hidden="true">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="20" cy="26" rx="10" ry="8" fill="currentColor"/>
+        <ellipse cx="11" cy="17" rx="4.5" ry="5.5" fill="currentColor"/>
+        <ellipse cx="20" cy="14" rx="4.5" ry="5.5" fill="currentColor"/>
+        <ellipse cx="29" cy="17" rx="4.5" ry="5.5" fill="currentColor"/>
+      </svg>
+    </span>
+
+    <div class="pb-copy">
+      <span class="pb-eyebrow">NEW</span>
+      <span class="pb-title">Try the Android companion app</span>
+      <span class="pb-sub">Native Kori, push notifications, full-screen portfolio.</span>
+    </div>
+
+    <button type="button" class="pb-cta" (click)="scrollToApp($event)">
+      <span>Check it out</span>
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+        <path fill="currentColor"
+              d="M5 2l6 6-6 6-1.4-1.4L8.2 8 3.6 3.4z"/>
+      </svg>
+    </button>
+
+    <button type="button"
+            class="pb-close"
+            (click)="dismiss($event)"
+            aria-label="Dismiss banner">×</button>
+  </div>
+</div>

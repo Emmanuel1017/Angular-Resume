@@ -11,6 +11,17 @@ declare var headerjs: any;
 
 export class HeaderComponent implements OnInit, AfterViewInit {
 
+  /**
+   * True when this page is being rendered inside the Flutter portfolio-admin
+   * WebView. Detected via the custom UA marker set by PortfolioScreen, plus the
+   * JS-injected flag for late checks. Used to hide the "Get the App" CTA — no
+   * point promoting the app to someone who's already inside it.
+   */
+  readonly isFlutterApp: boolean =
+    typeof navigator !== 'undefined' &&
+    (/PortfolioAdminFlutter/i.test(navigator.userAgent) ||
+     (typeof window !== 'undefined' && (window as any).__FLUTTER_APP__ === true));
+
   private _activeSection: any;
   private _pageXOffset: any;
   private ngNavigatorShareService: NgNavigatorShareService;

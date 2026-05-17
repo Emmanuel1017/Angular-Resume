@@ -19,6 +19,8 @@ import { CountersComponent } from '../counters/counters.component';
 import {MatIconModule} from '@angular/material/icon';
 import { AgentModule } from '../agent/agent.module';
 import { MyWorkComponent } from '../my-work/my-work.component';
+import { ScreenshotsComponent } from '../screenshots/screenshots.component';
+import { PromoBannerComponent } from '../promo-banner/promo-banner.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { MyWorkComponent } from '../my-work/my-work.component';
     PlatformsComponent,
     CountersComponent,
     WhatwedoComponent,
-    MyWorkComponent
+    MyWorkComponent,
+    ScreenshotsComponent,
+    PromoBannerComponent
   ],
   exports: [ ResumeComponent ],
   providers: [ ContactService ]

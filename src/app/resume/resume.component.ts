@@ -13,6 +13,14 @@ export class ResumeComponent implements OnInit {
 
   title = 'Emmanuel k Korir';
 
+  // True when running inside the Flutter portfolio-admin WebView. We detect via
+  // the custom UA string set in portfolio_screen.dart (also a JS-injected flag
+  // for late checks). Used to skip heavy components that the native app re-implements.
+  readonly isFlutterApp: boolean =
+    typeof navigator !== 'undefined' &&
+    (/PortfolioAdminFlutter/i.test(navigator.userAgent) ||
+     (typeof window !== 'undefined' && (window as any).__FLUTTER_APP__ === true));
+
   isSticky: boolean = false;
   activeSection: string;
 

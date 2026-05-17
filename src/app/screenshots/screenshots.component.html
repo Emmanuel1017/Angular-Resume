@@ -1,0 +1,58 @@
+<section id="app" class="screenshots-section">
+  <div class="ss-header">
+    <span class="ss-eyebrow">Companion native app</span>
+    <h2 class="ss-title">Available on Android</h2>
+    <p class="ss-sub">
+      A Flutter app that wraps this portfolio with a native shell — instant scroll,
+      Firebase-backed inbox, and an offline-capable Kori running natively on-device.
+    </p>
+    <div class="ss-badges">
+      <a class="ss-badge"
+         href="https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest/download/portfolio-admin.apk"
+         target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M5.3 2.5l1.5 2.6A11 11 0 0 0 12 4c1.9 0 3.7.5 5.2 1.1l1.5-2.6.9.5-1.4 2.6A10 10 0 0 1 22 14H2a10 10 0 0 1 3.8-8.4L4.4 3l.9-.5zM8 11.5A1 1 0 1 0 8 9.5a1 1 0 0 0 0 2zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </svg>
+        <span>Download APK</span>
+      </a>
+      <a class="ss-badge ss-badge-ghost"
+         href="https://github.com/Emmanuel1017/My-Resume-Flutter-APP"
+         target="_blank" rel="noopener">
+        <span>View source</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ss-stage">
+    <button class="ss-arrow ss-prev" type="button" (click)="prev()" aria-label="Previous">‹</button>
+
+    <div class="ss-phone">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-phone-screen">
+        <ng-container *ngFor="let s of shots; let i = index; trackBy: trackBy">
+          <img *ngIf="i === activeIndex"
+               [src]="'./assets/screenshots-app/' + s.file"
+               [alt]="s.title + ' — ' + s.caption"
+               class="ss-img"
+               loading="lazy">
+        </ng-container>
+      </div>
+    </div>
+
+    <button class="ss-arrow ss-next" type="button" (click)="next()" aria-label="Next">›</button>
+  </div>
+
+  <div class="ss-caption">
+    <span class="ss-caption-title">{{ shots[activeIndex].title }}</span>
+    <span class="ss-caption-sub">{{ shots[activeIndex].caption }}</span>
+  </div>
+
+  <div class="ss-dots" role="tablist">
+    <button *ngFor="let s of shots; let i = index; trackBy: trackBy"
+            type="button"
+            class="ss-dot"
+            [class.active]="i === activeIndex"
+            [attr.aria-label]="s.title"
+            (click)="setActive(i)"></button>
+  </div>
+</section>

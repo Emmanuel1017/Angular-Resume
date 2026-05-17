@@ -25,8 +25,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
+    // Restrict Hammer's swipe recognizer to the horizontal axis only.
+    // DIRECTION_ALL was capturing vertical pans too, which prevented native
+    // momentum scroll over any section that bound (swipe) — most visibly the
+    // "Latest Posts" stage on mobile, where dragging vertically got eaten by
+    // Hammer instead of scrolling the page.
     overrides = {
-        swipe: { direction: Hammer.DIRECTION_ALL },
+        swipe: { direction: Hammer.DIRECTION_HORIZONTAL },
+        pan:   { direction: Hammer.DIRECTION_HORIZONTAL },
     } as any;
 }
 

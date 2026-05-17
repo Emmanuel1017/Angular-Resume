@@ -78,6 +78,11 @@ $white:   #fff;
 .posts-stage {
   width: 100%;
   margin-bottom: 2.8em;
+  // Declare the touch axis explicitly so the browser can hand vertical drags
+  // straight to the page scroller without waiting on Hammer to decide. Without
+  // this, even with Hammer restricted to horizontal, mobile briefly stalls
+  // before native scroll kicks in.
+  touch-action: pan-y;
 
   app-posts-carousel {
     display: block;
