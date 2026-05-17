@@ -8,7 +8,9 @@
 
 name: Publish CV
 
-on:
+# Quoted "on" — YAML 1.1 treats unquoted `on` as boolean true, which silently
+# drops the trigger block on GitHub Actions and leaves the workflow inert.
+"on":
   push:
     branches: [master]
     paths:
