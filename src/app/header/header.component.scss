@@ -14,12 +14,16 @@ $paw-dark: #D97A37;
 :host {
   display: block;
   position: fixed;
-  top: 14px;
+  // The promo banner sets --promo-banner-height on the root when it slides in
+  // (64 px = pill height 54 + margin 10). Header drops by exactly that amount
+  // so the two never overlap. The transition matches the banner's slide curve.
+  top: calc(14px + var(--promo-banner-height, 0px));
   left: 0;
   right: 0;
   z-index: 1000;
   padding: 0 18px;
   pointer-events: none;
+  transition: top .55s cubic-bezier(.16, 1, .3, 1);
 }
 
 // ─── Pill shell ───────────────────────────────────────────────────────────────

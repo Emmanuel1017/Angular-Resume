@@ -33,7 +33,9 @@ $text:     #FFF;
 // corners read clearly. Cursor:pointer because the whole strip is tappable
 // (the inner buttons stop propagation themselves only for dismiss).
 .pb-inner {
-  margin: 10px auto 0;
+  // Top breathing room above (status bar / page edge), bottom gap so the
+  // floating header pill never tucks into the banner's drop-shadow.
+  margin: 10px auto 8px;
   max-width: 960px;
   display: flex;
   align-items: center;
@@ -182,7 +184,7 @@ $text:     #FFF;
 // ── Mobile — stack copy block tighter and shrink CTA copy ──────────────────
 @media (max-width: 640px) {
   .pb-inner {
-    margin: 6px 8px 0;
+    margin: 6px 8px 6px;
     padding: 8px 8px 8px 8px;
     gap: 10px;
     border-radius: 14px;
