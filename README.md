@@ -1,28 +1,19 @@
-<!--README -->
+<div align="center">
 
-<h1 align="center">
-  <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white"/>
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
-  <img src="https://img.shields.io/badge/OpenRouter-412991?style=for-the-badge&logo=openai&logoColor=white"/>
-</h1>
+# Emmanuel Korir &middot; Portfolio
 
-<h1 align="center" style="font-size: 2.8em; font-weight: 800; letter-spacing: -1px;">
-  Emmanuel Korir — Interactive Portfolio
-</h1>
+A living portfolio site &mdash; with a 3D AI cat in the corner, a real blog engine, scroll-triggered section animations, and a 404 page you can actually play.
 
-<p align="center">
-  <em>A living, breathing portfolio — with a 3D AI cat assistant, real-time streaming chat, image generation, and a full blog engine. Built entirely in Angular.</em>
-</p>
+[![Live](https://img.shields.io/badge/Live-emmanuel1017.github.io-A8E87A?style=for-the-badge&logo=googlechrome&logoColor=white)](https://emmanuel1017.github.io/Angular-Resume/)
+[![Companion APK](https://img.shields.io/badge/Companion-Android%20APK-F4934A?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest/download/portfolio-admin.apk)
+[![Angular](https://img.shields.io/badge/Angular-17%2B-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![Three.js](https://img.shields.io/badge/Three.js-WebGL-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org)
 
-<p align="center">
-  <a href="https://emmanuel1017.github.io/Angular-Resume/">🌐 Live Demo</a> &nbsp;|&nbsp;
-<!-- Replace `emmanuel1017` with your GitHub username after forking -->
-  <a href="#kori--ai-cat-assistant">🐱 Meet Kori</a> &nbsp;|&nbsp;
-  <a href="#getting-started">🚀 Getting Started</a>
-</p>
+</div>
 
 ---
+
+I built this as both a CV and a playground &mdash; somewhere to keep the work, the writing, and a handful of bits I just wanted to make. The whole thing lives on GitHub Pages, gets driven from Firestore so I can flip things on and off from my phone, and ships an Android companion app for the parts that should be native.
 
 ## Demo
 
@@ -31,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Emmanuel1017/Angular-Resume/releases/download/v1.0.0/demo.mp4">▶️ Download full-quality MP4 demo</a>
+  <a href="https://github.com/Emmanuel1017/Angular-Resume/releases/download/v1.0.0/demo.mp4">Download the full MP4</a>
 </p>
 
 ---
@@ -40,493 +31,151 @@
 
 <table>
   <tr>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/01-home-welcome.png" alt="Home – welcome hero" width="100%"/>
-      <sub><b>Home — 3D avatar + AI cat Kori</b></sub>
-    </td>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/02-home-avatar.png" alt="Home – orbital avatar" width="100%"/>
-      <sub><b>Home — orbital tech icon rings</b></sub>
-    </td>
+    <td align="center" width="50%"><img src="docs/screenshots/01-home-welcome.png" width="100%"/><br/><sub><b>Home</b> &middot; 3D avatar with Kori</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/02-home-avatar.png" width="100%"/><br/><sub><b>Avatar</b> &middot; orbital tech rings</sub></td>
   </tr>
   <tr>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/03-about.png" alt="About section" width="100%"/>
-      <sub><b>About — bio, badges, experience stats</b></sub>
-    </td>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/04-stats-work.png" alt="Stats and project cards" width="100%"/>
-      <sub><b>By the Numbers + Things I've Built</b></sub>
-    </td>
+    <td align="center"><img src="docs/screenshots/03-about.png" width="100%"/><br/><sub><b>About</b> &middot; bio &middot; badges &middot; stats</sub></td>
+    <td align="center"><img src="docs/screenshots/04-stats-work.png" width="100%"/><br/><sub><b>Things I&rsquo;ve Built</b> &middot; project cards</sub></td>
   </tr>
   <tr>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/05-experience.png" alt="Experience timeline" width="100%"/>
-      <sub><b>My Experiences — interactive timeline</b></sub>
-    </td>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/06-blog-contact.png" alt="Blog posts" width="100%"/>
-      <sub><b>Latest Posts — blog engine</b></sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="docs/screenshots/07-contact-form.png" alt="Contact form" width="50%"/>
-      <sub><b>Contact — Firestore-backed form</b></sub>
-    </td>
+    <td align="center"><img src="docs/screenshots/05-experience.png" width="100%"/><br/><sub><b>Experience</b> &middot; timeline</sub></td>
+    <td align="center"><img src="docs/screenshots/06-blog-contact.png" width="100%"/><br/><sub><b>Blog</b> &middot; latest posts</sub></td>
   </tr>
 </table>
 
 ---
 
-## Features at a Glance
+## What it actually does
 
-| Feature | Description |
-|---|---|
-| 🐱 **Kori — 3D AI Cat** | WebGL cat built in Three.js, fully rigged with 15+ animations, physics ears, and streaming AI chat |
-| 🎨 **Image Generation** | Ask Kori to draw anything — powered by Pollinations.ai, no API key required |
-| 💬 **Streaming Chat** | Token-by-token streaming with animated thinking/speaking poses synced to the AI response |
-| 📝 **Blog Engine** | Full post reader with reading-time, progress bar, scroll-lock, and mobile-optimised layout |
-| 🌐 **Multi-Provider AI** | OpenRouter, OpenAI, Anthropic Claude, Ollama (local), or fully in-browser via Transformers.js |
-| 🌍 **3D Avatar** | Perspective-stage profile photo with floating orbital rings, planet icons, and JS tilt tracking |
-| 📱 **Responsive** | Mobile-first, tested across breakpoints, smooth CSS transitions throughout |
-| 🎯 **Data-Driven** | All content loaded from JSON — sections, skills, projects, experience, blog posts |
-| 🔔 **Featured Banner** | Glass pill banner just below the navbar driven from Firestore — shows any announcement in real-time, slides in with spring animation |
-| 🔧 **Maintenance Mode** | Full-viewport overlay with floating profile photos, ambient orbs, and pulsing glass card. Router-outlet stays mounted so scroll position is restored on exit |
-| 📬 **Contact Closed Banner** | When the admin turns off the contact form, a styled dark banner with direct email CTA replaces the form at the same height |
-| 📌 **Sticky Projects Header** | On mobile the "Things I've Built" heading sticks below the navbar so users always know what section they're scrolling through |
+**Kori** is the cat in the bottom-right corner. She's a Three.js rig &mdash; a capsule torso with a procedurally-generated tabby fur texture, a sphere head with painted iris textures, spring-physics ears, and around fifteen named animations (think, speak, lick, purr, swipe, tail-chase, that kind of thing). Behind the rig sits a multi-provider chat client &mdash; OpenRouter by default, but you can flip to OpenAI, Claude, Ollama, or even run a quantised model fully in-browser via Transformers.js. Streaming is plain Fetch + ReadableStream; I had to drop a `setTimeout(0)` after every SSE chunk to keep Angular's zone scheduler from coalescing tokens into one big render frame. Ask her to draw something and she'll route the prompt through Pollinations.ai and animate paw strokes while the image lands.
+
+**Blog engine** &mdash; posts live in a JSON file, the reader opens as a full-screen overlay, and the body scroll gets locked the right way (`position: fixed + top: -${scrollY}px + width: 100%`) so closing the reader doesn't dump the user at the top of the page like every CSS-only `overflow: hidden` trick does. Reading time is calculated at 220 wpm and a progress bar tracks scroll inside the reader.
+
+**Scroll animations** come from [AOS](https://michalsnik.github.io/aos/). One init in `AppComponent` (650ms ease-out-cubic, `once: true`, `refreshHard()` after the async sections paint so their trigger lines land in the right place), then `data-aos="fade-up"` etc. on each section. About, counters, my-work, posts, contact, and the companion-app screenshots all fade in as you scroll past. Experience slides in from the side because the timeline reads left-to-right anyway.
+
+**404 page is a game.** Visit `/404-relax` and you get a fullscreen canvas with cubes that fly at the camera &mdash; tap or swipe to smash them. There's a slow-mo mode after ten smashes, double-strong cubes at 2000 points, and a spinner threshold for variety. The whole thing is around 1500 lines of plain JS in `assets/js/custom.js` &mdash; no game framework. It's a deliberate easter-egg for anyone who hits a dead link.
+
+**Companion app** &mdash; a native Flutter Android build at [Emmanuel1017/My-Resume-Flutter-APP](https://github.com/Emmanuel1017/My-Resume-Flutter-APP). It wraps the site in a WebView with native chrome, but the parts that should be native are native: a Kori chat tab (the WebGL cat gets hidden inside the WebView, replaced with a `CustomPainter` 2D cat I drew in Flutter), a real-time Firestore inbox with FCM push, and admin controls for the Firestore toggles you'll see further down. The web site grew a sticky orange banner and a "Get the App" nav pill that both link to the companion section, both of which auto-hide inside the WebView via a UA marker so the app never advertises itself to itself.
 
 ---
 
-## Kori — AI Cat Assistant
+## Real-time controls
 
-Kori is a fully custom **Three.js WebGL character** rendered in an `<canvas>` element — no sprite sheets, no SVG — pure 3D geometry assembled at runtime.
+The site listens to `/portfolio/settings` in Firestore through one shared `onSnapshot` and pushes changes into a `Subject` that every component subscribes to. From the Flutter admin app I can flip these without redeploying:
 
-### 3D Rig
+| Field | Effect |
+| --- | --- |
+| `available_for_work` | Green badge on the About photo turns on/off |
+| `contact_open` | Contact form gets replaced with a dark "I'm not taking messages right now" card with an email CTA |
+| `maintenance_mode` | Replaces the entire `<router-outlet>` with a fullscreen overlay. The router stays mounted, so when I turn it back off the scroll position restores |
+| `featured_message` | Glass pill banner floats under the navbar across every page. Empty string hides it. |
+| `kori_greeting` | Override Kori's opening line on next page load |
+| `auto_on` | First Firestore snapshot also sets `available_for_work = true` &mdash; opening the site flips me to available |
 
-- **Body**: `CapsuleGeometry` torso with tabby fur texture generated pixel-by-pixel via `createImageData` (multi-frequency sine waves → organic mackerel stripe pattern)
-- **Head**: Sphere with procedural eye canvases (iris, pupil, catch-light rendered to `CanvasTexture`), dynamic blink meshes (`depthTest: false` to prevent z-fighting), whisker groups, mouth
-- **Ears**: Spring physics — each ear has its own velocity and restitution constants, reacts to idle animations and UI state
-- **Limbs**: Arms and legs as `CapsuleGeometry` with per-joint rotation groups; paws with 3 toes each, each toe has a claw (`ConeGeometry`)
-- **Tail**: Sine-wave lash driven by animation time
-- **Lighting**: 3-point rig — warm key light, cool fill, amber rim
-
-### Animations (15+)
-
-| Anim | Trigger |
-|---|---|
-| `think` | Waiting for AI response — chin-rest pose, holds until first token |
-| `speak` | Streaming tokens — head bob + body sway, auto-clears when done |
-| `draw` | Image generation in progress — arm strokes, head tilts |
-| `wave` | Image result ready |
-| `lick` | Idle — arm raises to face |
-| `purr` | Idle — full-body vibration at 44Hz |
-| `bop` | Idle — head groove |
-| `swipe` | Idle — paw swipe |
-| `stretch` | Idle — squash & stretch |
-| `ear-twitch` | Idle — ear spring flick |
-| `tail-chase` | Idle — body rotation |
-| `point` | Fact bubble — arm extends |
-| `run` | Wander transitions |
-
-### AI Providers
-
-Kori routes messages through whichever backend is configured in the ⚙️ settings panel:
-
-```
-OpenRouter  → https://openrouter.ai/api/v1  (default, SSE streaming)
-OpenAI      → https://api.openai.com/v1     (direct)
-Claude      → https://api.anthropic.com/v1  (direct)
-Ollama      → http://localhost:11434        (local, streaming)
-Transformers.js → runs entirely in the browser via WebWorker (WebGPU / WASM)
-```
-
-Streaming is implemented with the **Fetch ReadableStream API** + `TextDecoder`. Angular's zone-coalescing issue (rapid `zone.run()` calls collapsing into one render frame) is solved by `await new Promise(r => setTimeout(r, 0))` after each SSE network chunk — forces a macrotask boundary so the browser paints each batch of tokens before reading the next.
-
-### Image Generation
-
-When Kori detects an image-intent phrase (`draw`, `paint`, `sketch`, `generate image of`, etc.) she:
-
-1. Switches to the `draw` animation
-2. Resolves the subject from the message
-3. Constructs a [Pollinations.ai](https://image.pollinations.ai) URL — free, no API key, returns JPEG directly
-4. Displays the result inside the speech bubble with a fade-in animation
-5. Plays `wave` on reveal
+Every field has a safe default in `RemoteConfig` defaults, so the site works fine even if the Firestore document is missing.
 
 ---
 
-## Blog Engine
+## Tech, in one paragraph
 
-- Posts stored in `src/assets/data/posts.json` with full i18n support (`internationalizations[]`)
-- Post reader opens as a full-screen overlay — body scroll is locked via `position: fixed + top: -${scrollY}px + width: 100%` (prevents the browser scroll-jump that `overflow: hidden` alone causes)
-- Exact scroll position restored on close via `window.scrollTo({ behavior: 'instant' })`
-- Reading-time estimate (`words / 220 WPM`), progress bar driven by `onscroll`
-- Escape key closes the reader
-
-### Current Blog Posts
-
-| Title | Topic |
-|---|---|
-| MCP: The Protocol Connecting AI Agents to Everything | Model Context Protocol architecture |
-| Inference-Time Compute: Why Thinking Longer Beats a Bigger Model | o1 / R1 / extended thinking |
-| The 2025 LLM Landscape: Claude 4, GPT-4.1, Gemini 2.5 | Practical model comparison |
+Angular 17 (NgModule hybrid), TypeScript, RxJS, SCSS. Three.js for Kori. Hammer.js for swipe gestures (restricted to horizontal only after `DIRECTION_ALL` was eating vertical scroll on mobile). AOS for scroll-triggered fades. Firebase for Firestore, Remote Config, and the contact-form sink &mdash; via `@angular/fire`. `angular-cli-ghpages` for deploys. `set-env.js` reads `.env` and writes `environment.ts`/`environment.prod.ts` at build time so secrets stay out of git.
 
 ---
 
-## Tech Stack
-
-### Core Framework
-| Tech | Version | Role |
-|---|---|---|
-| **Angular** | 17+ | SPA framework, standalone + NgModule hybrid |
-| **TypeScript** | 5.x | Type-safe throughout |
-| **RxJS** | 7.x | `Subject` for TF status events, async pipe |
-| **Angular Router** | — | Hash-free routing, fragment scrolling, `onSameUrlNavigation: 'ignore'` |
-
-### 3D / Graphics
-| Tech | Role |
-|---|---|
-| **Three.js** | WebGL renderer, geometries, materials, scene graph |
-| **CanvasTexture** | Procedural fur pattern, iris/pupil eye textures |
-| **OrthographicCamera** | Flat-projection cat that scales cleanly at any DPR |
-| **WebGLRenderer** | Alpha background, 2× DPR, antialias |
-
-### AI / ML
-| Tech | Role |
-|---|---|
-| **OpenRouter API** | Multi-model gateway — default `openai/gpt-4o-mini` |
-| **OpenAI API** | Direct GPT integration |
-| **Anthropic API** | Direct Claude integration |
-| **Ollama** | Local model serving (CORS: `OLLAMA_ORIGINS=*`) |
-| **Transformers.js** | In-browser inference via WebWorker, WebGPU or WASM fallback |
-| **Whisper (ONNX)** | In-browser speech-to-text for voice input |
-| **Pollinations.ai** | Free image generation, no API key needed |
-
-### Styling & Animation
-| Tech | Role |
-|---|---|
-| **SCSS** | Component-scoped styles, design tokens, mixins |
-| **CSS Custom Animations** | Orbital rings, avatar float, bubble spring, mic pulse |
-| **CSS Filters** | Cartoon/cel-shaded profile photo effect (saturate + contrast) |
-| **Bootstrap 5** | Grid, utilities |
-
-### Infrastructure
-| Tech | Role |
-|---|---|
-| **GitHub Pages** | Hosting via `angular-cli-ghpages` |
-| **Google Analytics** | Page tracking |
-| **JSON data files** | Content CMS (`about.json`, `posts.json`, `projects.json`, etc.) |
-| **localStorage** | Persisted AI settings with versioned key + stale-model migration |
-| **`.env` + `scripts/set-env.js`** | Secrets loaded at build time, never committed to git |
-
----
-
-## Architecture
-
-```
-src/
-├── app/
-│   ├── agent/                    # Kori AI cat
-│   │   ├── agent.component.ts    # Three.js rig, animations, chat flow
-│   │   ├── agent.service.ts      # AI provider routing, streaming, image gen
-│   │   ├── agent.component.html  # Speech bubble, settings panel, image display
-│   │   ├── agent.component.scss  # Cat canvas, bubble, generated image styles
-│   │   └── kori.worker.ts        # WebWorker — Transformers.js inference (off main thread)
-│   ├── posts/
-│   │   ├── posts.component.ts    # Blog grid
-│   │   └── post-reader/          # Full-screen overlay reader
-│   ├── resume/                   # Section host
-│   ├── welcome/welcome-dp/       # 3D perspective avatar + orbital rings
-│   ├── about/                    # About section + cartoon-filtered profile photo
-│   ├── skills/, projects/,       # Other resume sections
-│   │   experience/, education/
-│   └── 404/                      # Not-found page
-├── assets/
-│   ├── data/                     # posts.json, about.json, projects.json …
-│   └── kori-facts.json           # Random fact bubbles for Kori
-├── environments/
-│   ├── environment.example.ts    # ✅ committed — shows all available fields
-│   ├── environment.ts            # ❌ gitignored — generated by set-env.js
-│   └── environment.prod.ts       # ❌ gitignored — generated by set-env.js
-└── scripts/
-    └── set-env.js                # Reads .env → writes environment files
-```
-
----
-
-## Environment Setup & Secret Keys
-
-API keys and secrets are managed via a `.env` file that is **never committed to git**. A Node script reads it and writes the Angular environment files before each build.
-
-### Quick Setup
-
-```bash
-# 1. Copy the example file
-cp .env.example .env
-
-# 2. Fill in your keys (see table below)
-#    Open .env in your editor and set the values
-
-# 3. Generate environment files
-node scripts/set-env.js
-
-# 4. Start the dev server (set-env runs automatically via prestart)
-npm start
-```
-
-> **`npm start` and `npm run build` both run `set-env.js` automatically** via `prestart` / `prebuild` hooks — you only need to run it manually if you change `.env` without restarting.
-
-### Available Keys
-
-| Variable | Required | Where to get it |
-|---|---|---|
-| `OPENROUTER_API_KEY` | ✅ For Kori chat | [openrouter.ai/keys](https://openrouter.ai/keys) — free tier available |
-| `OPENAI_API_KEY` | Optional | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
-| `CLAUDE_API_KEY` | Optional | [console.anthropic.com](https://console.anthropic.com/) |
-| `FIREBASE_API_KEY` | ✅ For real-time admin | Firebase Console → Project Settings → Your apps |
-| `FIREBASE_AUTH_DOMAIN` | ✅ | Firebase Console |
-| `FIREBASE_DATABASE_URL` | Optional | Firebase Console |
-| `FIREBASE_PROJECT_ID` | ✅ | Firebase Console |
-| `FIREBASE_STORAGE_BUCKET` | Optional | Firebase Console |
-| `FIREBASE_MESSAGING_SENDER_ID` | ✅ | Firebase Console |
-| `FIREBASE_APP_ID` | ✅ | Firebase Console |
-| `FIREBASE_MEASUREMENT_ID` | Optional (Analytics) | Firebase Console |
-
-### How it works
-
-```
-.env  ──→  scripts/set-env.js  ──→  environment.ts        (dev)
-                                └──→  environment.prod.ts   (prod)
-```
-
-- `.env` — your local secrets, gitignored
-- `.env.example` — committed template with placeholder values
-- `environment.example.ts` — committed TypeScript template showing all fields
-- Both generated `environment*.ts` files are gitignored
-
-Keys loaded into `environment` are used as **default values** for Kori's settings — users can always override them at runtime via the ⚙️ settings panel in the UI (stored in their browser's `localStorage`).
-
-### CI / GitHub Actions
-
-In CI, set the same variable names as **repository secrets** (`Settings → Secrets → Actions`). The `set-env.js` script reads from `process.env` as a fallback when no `.env` file is present:
-
-```yaml
-- name: Generate environment files
-  run: node scripts/set-env.js
-  env:
-    OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-    FIREBASE_API_KEY:   ${{ secrets.FIREBASE_API_KEY }}
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- **Node.js 18+** — [nodejs.org](https://nodejs.org/)
-- **npm** or **yarn**
-
-```bash
-npm install npm@latest -g
-```
-
-### Install & Run
+## Run it locally
 
 ```bash
 git clone https://github.com/Emmanuel1017/Angular-Resume.git
 cd Angular-Resume
-npm install          # or: yarn
-npm start            # serves at http://localhost:4200
+npm install
+cp .env.example .env       # then fill in the keys below
+npm start                  # http://localhost:4200
 ```
 
-### Build for Production
+`npm start` runs `set-env.js` first via the `prestart` hook, so you only re-run it manually if you change `.env` without restarting the dev server.
+
+### Keys
+
+The example file lists everything, but the ones that actually have to be set are:
+
+| Variable | What it's for |
+| --- | --- |
+| `OPENROUTER_API_KEY` | Default Kori provider. Free tier works. [openrouter.ai/keys](https://openrouter.ai/keys) |
+| `FIREBASE_API_KEY` &middot; `FIREBASE_PROJECT_ID` &middot; `FIREBASE_AUTH_DOMAIN` &middot; `FIREBASE_MESSAGING_SENDER_ID` &middot; `FIREBASE_APP_ID` | Real-time settings + the contact form. Firebase Console &rarr; Project Settings &rarr; Your apps. |
+
+OpenAI and Anthropic keys are optional &mdash; users can paste their own in Kori's settings panel at runtime anyway.
+
+### Deploy
 
 ```bash
-npm run build        # outputs to dist/live-resume/
-```
-
-### Deploy to GitHub Pages
-
-The deploy script builds for production (with the correct `--base-href`) and pushes to the `gh-pages` branch in one command.
-
-**First-time setup — enable GitHub Pages:**
-1. Go to your repo → **Settings → Pages**
-2. Set **Source** to `Deploy from a branch`
-3. Set **Branch** to `gh-pages` / `/ (root)`
-4. Click **Save**
-
-**Deploy:**
-
-```powershell
-# Windows — add Node to PATH first if using Laragon
-$env:PATH += ";C:\laragon\bin\nodejs\node-v22"
-
 npm run deploy
 ```
 
-```bash
-# macOS / Linux
-npm run deploy
-```
-
-What this runs under the hood:
-```
-ng build --configuration=production --base-href=/Angular-Resume/
-npx angular-cli-ghpages --dir=dist/live-resume
-```
-
-> **`--base-href` is critical** — without it, Angular resolves all asset and route URLs from `/` instead of `/Angular-Resume/`, causing a blank page on GitHub Pages.
-
-Your site will be live at:
-
-```
-https://<your-github-username>.github.io/Angular-Resume
-```
-
-> Replace `<your-github-username>` with your actual GitHub username.
-> Example: `https://emmanuel1017.github.io/Angular-Resume`
-
-> Also update the `--base-href` flag in `package.json` if your repo name differs:
-> ```json
-> "deploy": "ng build --configuration=production --base-href=/<your-repo-name>/ && ..."
-> ```
-
-> GitHub Pages usually updates within 1–2 minutes. Check the **Actions** tab for deploy status.
+Builds with `--base-href=/Angular-Resume/` and pushes to `gh-pages` via `angular-cli-ghpages`. GitHub Pages picks it up in 1-2 minutes. The base-href flag is non-negotiable &mdash; without it the asset URLs resolve from `/` and you'll get a blank page.
 
 ---
 
-## AI Configuration
+## Firestore rules
 
-Open the ⚙️ gear button on Kori to switch providers. Settings are persisted in `localStorage`.
-
-Keys baked in at build time (from `.env`) are used as defaults — but any user can override them in the settings panel without touching the source.
-
-### OpenRouter (default)
-
-1. Add your key to `.env`: `OPENROUTER_API_KEY=sk-or-v1-...`
-2. Or paste it directly into Kori's ⚙️ settings → **OpenRouter** tab at runtime
-3. Set model to any [OpenRouter model ID](https://openrouter.ai/models) e.g. `openai/gpt-4o-mini`
-
-### Ollama (local, 100% private)
-
-```bash
-OLLAMA_ORIGINS=* ollama serve
-ollama pull qwen2.5:1.5b
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /portfolio/settings {
+      allow read;
+      allow write: if request.auth != null;
+    }
+    match /contacts/{id} {
+      allow create;
+      allow read, update, delete: if request.auth != null;
+    }
+    match /portfolio/meta { allow read, write: if request.auth != null; }
+    match /admin_tokens/{token} { allow read, write: if request.auth != null; }
+  }
+}
 ```
 
-Then set Kori's provider to **Ollama** and URL to `http://localhost:11434`.
+---
 
-### Browser (Transformers.js — fully offline)
+## Layout
 
-Switch to **Browser** tab — Kori will prompt to download the model (~270MB on first use, then cached). Runs via WebGPU if available, falls back to WASM CPU.
+```text
+src/
+|-- app/
+|   |-- agent/                Kori - Three.js rig, chat, image gen
+|   |-- promo-banner/         Sticky CTA to companion app (hides in WebView)
+|   |-- screenshots/          Companion-app phone-mockup carousel (auto-rotates)
+|   |-- posts/                Blog grid + full-screen reader
+|   |-- 404/                  Canvas cube-smash game
+|   |-- welcome/welcome-dp/   3D perspective avatar
+|   |-- about, counters,      Resume sections
+|   |   experience, my-work, contact
+|   |-- header/               Floating navbar with "Get the App" pill
+|   `-- core/                 Settings service, directives, pipes
+|-- assets/
+|   |-- data/                 JSON CMS - about, posts, projects, experience
+|   |-- screenshots-app/      Companion-app screenshots for the carousel
+|   |-- js/custom.js          404 game implementation
+|   `-- kori-facts.json       Random fact bubbles
+|-- environments/
+|   |-- environment.example.ts   committed
+|   |-- environment.ts            gitignored, generated
+|   `-- environment.prod.ts       gitignored, generated
+`-- scripts/set-env.js        Reads .env -> writes environment files
+```
 
 ---
 
-## Customising Content
+## The companion app
 
-All content lives in JSON files under `src/assets/data/`:
+Built it because the things I actually want on my phone aren't "view the portfolio" &mdash; they're "ping me when someone messages me" and "flip availability without opening a laptop." So the Flutter app does both, plus runs a native Kori (no WebGL on the phone), plus has a paginated Firestore inbox.
 
-| File | Controls |
-|---|---|
-| `about.json` | Bio, title, description (i18n) |
-| `posts.json` | Blog posts with full HTML content |
-| `projects.json` | Project cards |
-| `skills.json` | Skills + proficiency levels |
-| `experience.json` | Work history |
-| `education.json` | Education timeline |
+Source &mdash; [Emmanuel1017/My-Resume-Flutter-APP](https://github.com/Emmanuel1017/My-Resume-Flutter-APP)
+Download &mdash; [v1.0.0 APK](https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest/download/portfolio-admin.apk)
 
-Replace `src/assets/template/welcome/dp.png` and `src/assets/template/about/dp.png` with your own photo.
+Both projects share one Firebase project. The Flutter README has the full setup &mdash; including the Cloud Function that fans out FCM pushes to admin devices when a new contact lands.
 
 ---
 
-## Firebase Real-Time Controls
-
-The Angular site listens to `/portfolio/settings` in Firestore via a single `onSnapshot` socket (`PortfolioSettingsService`) shared across all components. Changes made in the Flutter admin app appear on the live site within ~1 second — **no redeploy required**.
-
-### Firestore document: `/portfolio/settings`
-
-| Field | Type | Default | Effect on the Angular site |
-|---|---|---|---|
-| `available_for_work` | `boolean` | `true` | Shows/hides the green "Available for work" badge on the About section photo |
-| `contact_open` | `boolean` | `true` | Enables/disables the contact form. When `false` the form is hidden and a themed dark card with direct email link replaces it |
-| `maintenance_mode` | `boolean` | `false` | Replaces the entire `<router-outlet>` with a fullscreen dark overlay when `true` — zero redeploy needed |
-| `featured_message` | `string` | `""` | Displays a floating **glass pill banner** below the navbar across all pages. Leave empty to hide. Max 120 chars. |
-| `kori_greeting` | `string` | `""` | Overrides Kori's opening chat bubble on next page load. Leave empty for the default greeting. Max 160 chars. |
-| `auto_on` | `boolean` | `false` | When `true`, the Angular site automatically writes `available_for_work = true` on its very first Firestore snapshot — so opening the portfolio signals you are active |
-
-> All fields have safe defaults — the site works normally with no Firestore document at all.
-
-### Firebase Console one-time setup
-
-1. **Create a Firebase project** → [console.firebase.google.com](https://console.firebase.google.com)
-2. **Add a web app** → copy the `firebaseConfig` values into `.env` (see [Environment Setup](#environment-setup--secret-keys))
-3. **Enable Firestore** → Build → Firestore Database → Create database
-4. **Create the settings document**: Firestore → `portfolio` collection → `settings` document → add the fields above
-5. **Set Firestore rules**:
-   ```
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /portfolio/settings {
-         allow read;                           // public — Angular site reads it
-         allow write: if request.auth != null; // only the Flutter admin writes
-       }
-       match /contacts/{id} {
-         allow create;    // contact form submissions
-         allow read, update, delete: if request.auth != null;
-       }
-       match /portfolio/meta {
-         allow read, write: if request.auth != null;
-       }
-     }
-   }
-   ```
-6. **Enable Email/Password auth** → Authentication → Sign-in method → Email/Password → Enable
-7. **First admin account** → handled in the Flutter app on first launch (no manual setup needed)
-
----
-
-## Mobile Admin App
-
-A companion Flutter app lets you control all the settings above from your phone — or share with anyone as a guest portfolio viewer.
-
-### Entry modes
-
-| Mode | Access | Description |
-|---|---|---|
-| **Admin Login** | Email + password | Full control of all Firestore settings |
-| **Browse as Guest** | No login needed | Portfolio, Profile, and a contact form to send messages |
-
-### Admin features
-
-| Feature | How it works |
-|---|---|
-| **Available for Work** toggle | Writes `available_for_work` → green/red badge updates on site in ~1 s |
-| **Contact form toggle** | Writes `contact_open` → form hidden, themed dark card with email link shown |
-| **Maintenance mode toggle** | Writes `maintenance_mode` → takes the entire site offline instantly |
-| **Featured message editor** | Writes `featured_message` → glass pill banner floats below navbar across all pages |
-| **Kori greeting editor** | Writes `kori_greeting` → Kori uses this as her opening bubble on next load |
-| **Auto On toggle** | Writes `auto_on` → either app opening auto-sets you as available |
-| **Messages inbox** | Live stream of all `/contacts` — expandable cards, unread dot, source badge (web/app), copy-email-to-reply |
-
-### Guest features
-
-| Feature | How it works |
-|---|---|
-| **Portfolio WebView** | Loads the live site with native chrome, JS nav removal, section-jump pills |
-| **Native CV** | Flutter-native mirror of this About section — same skills, timeline, stats |
-| **Contact form** | Sends messages directly to Firestore `/contacts` — tagged `flutter-guest` so admin can see the source |
-
-👉 **[github.com/Emmanuel1017/portfolio-admin](https://github.com/Emmanuel1017/portfolio-admin)**
-
-Both apps share the same Firebase project. See the admin README for the full Flutter setup guide.
-
----
-
-## Author
-
-**Emmanuel Korir** — Senior Software Engineer  
-Eldoret, Kenya · [GitHub @Emmanuel1017](https://github.com/Emmanuel1017)
-
-> *Built with Angular, Three.js, and a lot of cat energy 🐾*
+Emmanuel Korir &middot; Senior Software Engineer &middot; Eldoret, Kenya &middot; [github.com/Emmanuel1017](https://github.com/Emmanuel1017)
