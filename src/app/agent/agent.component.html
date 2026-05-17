@@ -87,11 +87,6 @@
 
       <p class="bubble-text" [class.streaming]="isStreaming" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
 
-      <div class="gen-image-wrap" *ngIf="generatedImageUrl && !isThinking">
-        <img [src]="generatedImageUrl" class="gen-img" alt="Generated image" (error)="clearGeneratedImage()">
-        <button class="gen-img-close" (click)="clearGeneratedImage($event)" title="Close">✕</button>
-      </div>
-
       <div class="fetch-hint" *ngIf="showFetchHint">
         <span>oh, and my brain isn't loaded yet — I need it for more creative, thoughtful responses! want me to grab it? 🧠</span>
         <button class="fetch-hint-btn" (click)="onProceedDownload($event)">fetch it!</button>
@@ -128,6 +123,25 @@
     </ng-container>
 
   </div><!-- /bubble -->
+
+  <!-- ── Generated-image thought bubble ───────────────────────────────────
+       When Kori makes an image, it floats out of her head like a thought,
+       same trailing-dot metaphor as the profile-photo thought below — but
+       sized for a real image (square-ish, curved corners) and dismissible. -->
+  <div class="gen-thought" *ngIf="generatedImageUrl && !isThinking"
+       [class.gen-show]="!!generatedImageUrl">
+    <div class="gen-thought-frame">
+      <img [src]="generatedImageUrl" class="gen-img"
+           alt="Generated image" (error)="clearGeneratedImage()">
+      <button class="gen-img-close" type="button"
+              (click)="clearGeneratedImage($event)" title="Close">✕</button>
+    </div>
+    <div class="thought-circles" aria-hidden="true">
+      <span class="tc tc-3"></span>
+      <span class="tc tc-2"></span>
+      <span class="tc tc-1"></span>
+    </div>
+  </div>
 
   <!-- ── Thought bubble — glassmorphism profile photo ─────────────────────── -->
   <div class="thought-bubble" [class.thought-show]="thoughtBubbleVisible" *ngIf="thoughtBubbleImage">

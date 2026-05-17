@@ -588,43 +588,84 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
   border-radius: 8px;
 }
 
-// ── Generated image ───────────────────────────────────────────────────────────
-.gen-image-wrap {
+// ── Generated image (rendered as a thought bubble from Kori's head) ─────────
+// Floats off to the side of the cat at the same offset as the profile-photo
+// thought bubble below, with the same trailing dots leading down from frame
+// to head so the metaphor reads cleanly: she's *thinking* this image up.
+.gen-thought {
+  position: absolute;
+  // Kori's head sits ~bottom-right of the canvas. The trailing dots point
+  // down from the frame toward the head, so we anchor the frame above and
+  // left of where the speech bubble would be.
+  right: 84px;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0;
+  transform: scale(.7) translateY(20px);
+  transition:
+    opacity   .45s cubic-bezier(.34, 1.56, .64, 1),
+    transform .45s cubic-bezier(.34, 1.56, .64, 1);
+
+  &.gen-show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    // The frame itself reacts to pointer; the trailing dots are decorative
+    // and stay inert so they don't intercept clicks on the cat.
+    .gen-thought-frame { pointer-events: all; }
+  }
+}
+
+.gen-thought-frame {
   position: relative;
-  margin-top: 10px;
-  border-radius: 10px;
+  width: 168px;
+  max-width: 60vw;
+  border-radius: 22px;
   overflow: hidden;
-  background: rgba($navy, .06);
-  border: 1.5px solid rgba($green-l, .6);
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(255,255,255,.32);
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.4),
+    0 0 0 4px rgba($green-l, .22);
+  animation: thoughtFloat 3.6s ease-in-out infinite;
 
   .gen-img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 8px;
-    animation: genImgFadeIn .4s ease both;
+    border-radius: 20px;
+    animation: genImgFadeIn .45s ease both;
   }
 
   .gen-img-close {
     position: absolute;
-    top: 5px; right: 5px;
-    width: 22px; height: 22px;
-    border: none;
+    top: 6px; right: 6px;
+    width: 24px; height: 24px;
+    border: 0;
     border-radius: 50%;
-    background: rgba(0,0,0,.45);
+    background: rgba(0,0,0,.55);
     color: #fff;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s, transform .15s;
+    backdrop-filter: blur(6px);
 
-    &:hover { background: rgba(0,0,0,.7); }
+    &:hover { background: rgba(0,0,0,.78); transform: scale(1.08); }
   }
 }
 
 @keyframes genImgFadeIn {
-  from { opacity: 0; transform: scale(.95); }
+  from { opacity: 0; transform: scale(.92); }
   to   { opacity: 1; transform: scale(1);   }
 }
 
@@ -697,7 +738,12 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
 }
 
 // ── Mobile ────────────────────────────────────────────────────────────────────
+// At <=480px the bubble is centered and there isn't room for thought metaphors
+// next to the cat. Both the profile-photo bubble and the generated-image
+// thought are hidden so they don't get cut off awkwardly. The image is still
+// shown inline inside the chat bubble via the regular speech path.
 @media (max-width: 480px) {
   .bubble { width: 212px; }
-  .thought-bubble { display: none; }
+  .thought-bubble,
+  .gen-thought { display: none; }
 }

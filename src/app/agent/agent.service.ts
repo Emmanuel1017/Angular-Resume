@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { IPost } from '../posts/posts-interfaces';
 import { environment } from 'src/environments/environment';
 import { RemoteConfig, fetchAndActivate, getValue } from '@angular/fire/remote-config';
+import { PortfolioSettingsService, PortfolioSettings } from '../core/portfolio-settings.service';
 
 export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers' | 'openrouter';
 
@@ -76,7 +77,43 @@ export class AgentService {
   private whisperInitP:  Promise<void> | null = null;
   private onTokenCallback?: (text: string) => void;
 
-  constructor(private http: HttpClient, private rc: RemoteConfig) {}
+  // Latest portfolio settings snapshot — refreshed live via PortfolioSettingsService.
+  // Used to inject "currently available for hire" / "contact form open" facts
+  // into the system prompt at message-send time so Kori never gives a stale
+  // answer when the admin toggles availability on the Flutter side.
+  private portfolioSettings: PortfolioSettings | null = null;
+
+  constructor(
+    private http: HttpClient,
+    private rc: RemoteConfig,
+    private portfolioSettingsService: PortfolioSettingsService,
+  ) {
+    this.portfolioSettingsService.settings$.subscribe(s => {
+      this.portfolioSettings = s;
+    });
+  }
+
+  /** Static persona + dynamic live status. Called every time a prompt
+   *  is built so the answer to "are you hiring" is always current. */
+  private buildLiveSystemPrompt(): string {
+    const base = this.systemPrompt || this.fallbackPrompt();
+    const s = this.portfolioSettings;
+    const lines = [base, '', 'CURRENT STATUS (live, can change at any time)'];
+    if (!s) {
+      lines.push('Status: unknown — point the visitor at the contact form.');
+    } else {
+      lines.push(s.availableForWork
+        ? 'Hiring availability: AVAILABLE FOR HIRE right now. Emmanuel is open to new senior software engineering work — full-time, contract, or consulting. Encourage the visitor to use the Contact section or email koriremmanuel@rocketmail.com.'
+        : 'Hiring availability: NOT actively looking right now. He is heads-down on existing work, but interesting messages are still welcome via the Contact section.');
+      lines.push(s.contactOpen
+        ? 'Contact form: open — the form on the page works and goes straight to his inbox.'
+        : 'Contact form: temporarily closed — direct them to email koriremmanuel@rocketmail.com instead.');
+      if (s.featuredMessage?.trim()) {
+        lines.push(`Pinned announcement on the site: "${s.featuredMessage.trim()}". Mention it if the visitor asks "what is he up to" or similar.`);
+      }
+    }
+    return lines.join('\n');
+  }
 
   // ── Settings ────────────────────────────────────────────────────────────────
   getSettings(): AgentSettings {
@@ -365,7 +402,7 @@ export class AgentService {
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${s.openaiKey}` },
       body: JSON.stringify({
         model:      s.openaiModel || 'gpt-4o-mini',
-        messages:   [{ role: 'system', content: this.systemPrompt }, { role: 'user', content: msg }],
+        messages:   [{ role: 'system', content: this.buildLiveSystemPrompt() }, { role: 'user', content: msg }],
         max_tokens: 110,
         temperature: 0.75
       })
@@ -388,7 +425,7 @@ export class AgentService {
       },
       body: JSON.stringify({
         model,
-        messages:    [{ role: 'system', content: this.systemPrompt }, { role: 'user', content: msg }],
+        messages:    [{ role: 'system', content: this.buildLiveSystemPrompt() }, { role: 'user', content: msg }],
         max_tokens:  110,
         temperature: 0.75,
         stream:      true
@@ -442,7 +479,7 @@ export class AgentService {
       },
       body: JSON.stringify({
         model:      s.claudeModel || 'claude-haiku-4-5-20251001',
-        system:     this.systemPrompt,
+        system:     this.buildLiveSystemPrompt(),
         messages:   [{ role: 'user', content: msg }],
         max_tokens: 110
       })
@@ -468,7 +505,7 @@ export class AgentService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model:    s.ollamaModel || DEFAULT_SETTINGS.ollamaModel,
-        messages: [{ role: 'system', content: this.systemPrompt }, { role: 'user', content: msg }],
+        messages: [{ role: 'system', content: this.buildLiveSystemPrompt() }, { role: 'user', content: msg }],
         stream:   true
       })
     });
