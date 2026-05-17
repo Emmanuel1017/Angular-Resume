@@ -309,6 +309,38 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
   50%      { transform: scale(1.4); opacity: .55; }
 }
 
+// ── Suggestion chips (first-turn) ────────────────────────────────────────────
+// Wraps softly; the row of pills appears above the input until the visitor
+// sends their first message, then collapses out so it doesn't keep cluttering
+// the bubble during ongoing chat.
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+
+  .suggestion-chip {
+    border: 1px solid rgba($navy, .18);
+    background: rgba($navy, .04);
+    color: $navy;
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .15s ease, transform .12s ease, border-color .15s ease;
+
+    &:hover {
+      background: rgba($green-d, .12);
+      border-color: rgba($green-d, .45);
+      transform: translateY(-1px);
+    }
+    &:active { transform: translateY(0); }
+  }
+}
+
 // ── Chat input ────────────────────────────────────────────────────────────────
 .chat-input-row {
   display: flex;

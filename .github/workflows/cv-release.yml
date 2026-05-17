@@ -1,0 +1,57 @@
+# When docs/cv.pdf changes on master, replace the asset on the `cv-latest`
+# GitHub Release so both the Angular navbar link and the Flutter Profile
+# CV button pick up the new file with no code change.
+#
+# Trigger:
+#   - any push to master that touches docs/cv.pdf
+#   - manual run from the Actions tab (workflow_dispatch)
+
+name: Publish CV
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/cv.pdf'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure cv-latest release exists, then replace its CV asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          TAG="cv-latest"
+          REPO="${GITHUB_REPOSITORY}"
+
+          # Find or create the release.
+          REL_ID=$(gh api "repos/$REPO/releases/tags/$TAG" --jq '.id' 2>/dev/null || echo "")
+          if [ -z "$REL_ID" ]; then
+            echo "Creating release $TAG"
+            REL_ID=$(gh api "repos/$REPO/releases" -X POST \
+              -f tag_name="$TAG" \
+              -f name="Latest CV" \
+              -f body="Most recent CV. Auto-published from docs/cv.pdf via the cv-release workflow." \
+              -F draft=false -F prerelease=false \
+              --jq '.id')
+          fi
+          echo "Release id: $REL_ID"
+
+          # Delete any existing cv.pdf asset on this release.
+          OLD_ID=$(gh api "repos/$REPO/releases/$REL_ID/assets" \
+            --jq '.[] | select(.name=="cv.pdf") | .id' | head -n1)
+          if [ -n "$OLD_ID" ]; then
+            echo "Deleting old asset $OLD_ID"
+            gh api "repos/$REPO/releases/assets/$OLD_ID" -X DELETE
+          fi
+
+          # Upload the new one. `gh release upload` is the friendlier path.
+          gh release upload "$TAG" docs/cv.pdf --clobber

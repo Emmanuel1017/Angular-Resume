@@ -213,6 +213,32 @@ header {
   50%       { transform: scale(1.5); opacity: 0.7; }
 }
 
+// ─── CV download link ────────────────────────────────────────────────────────
+// Subtle outlined pill — recognisable as a download, not loud enough to fight
+// the orange "Get the App" CTA next to it.
+.cv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px 5px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba($green-l, .45);
+  background: rgba($green-l, .08);
+  color: $green-l;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .02em;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+
+  mat-icon { font-size: 16px; width: 16px; height: 16px; }
+
+  &:hover {
+    background: rgba($green-l, .18);
+    border-color: $green-l;
+    transform: translateY(-1px);
+  }
+}
+
 // ─── Get-the-App CTA ──────────────────────────────────────────────────────────
 // Sits as the last item in the nav <ul>. Styled as a pill that breaks visual
 // hierarchy with the muted nav links so the eye catches it. The pulsing dot is

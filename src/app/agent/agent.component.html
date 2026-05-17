@@ -97,6 +97,16 @@
         <button class="fetch-hint-btn" (click)="onProceedDownload($event)">fetch it!</button>
       </div>
 
+      <!-- Suggestion chips — only on the visitor's first turn so we don't
+           clutter ongoing conversations. -->
+      <div class="chat-suggestions"
+           *ngIf="isChatOpen && !isThinking && !isStreaming && !hasSentOnce">
+        <button *ngFor="let q of suggestedQuestions"
+                type="button"
+                class="suggestion-chip"
+                (click)="pickSuggestion(q)">{{ q }}</button>
+      </div>
+
       <div class="chat-input-row" *ngIf="isChatOpen && !isThinking">
         <input #chatInput
                type="text"

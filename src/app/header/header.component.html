@@ -16,7 +16,16 @@
             <li><a (click)="resetMenu()" href="#posts"  itemprop="url"><span itemprop="name">My Blog</span></a></li>
             <li><a (click)="resetMenu()" href="#contact"  itemprop="url"><span itemprop="name">Contact</span></a></li>
             <li><a (click)="resetMenu()" href="404-relax"  itemprop="url"><span itemprop="name">Relax</span></a></li>
-            <li><a (click)="resetMenu()" href="https://firebasestorage.googleapis.com/v0/b/emmanuelkorircv.appspot.com/o/Korir%20K%20Emmanuel%20My%20CV.pdf?alt=media&token=0b1abffb-f31b-41dc-b9c0-3890585223d9" rel="follow" title="My Resume" target="_blank"><span itemprop="name"> <mat-icon>attachment</mat-icon></span></a></li>
+            <!-- CV download — served from this repo's GitHub Release "cv-latest"
+                 so updating the PDF is a one-step push, not a Firebase upload. -->
+            <li><a (click)="resetMenu()"
+                   href="https://github.com/Emmanuel1017/Angular-Resume/releases/download/cv-latest/cv.pdf"
+                   rel="follow" title="Download CV" target="_blank">
+              <span itemprop="name" class="cv-link">
+                <mat-icon>file_download</mat-icon>
+                <span class="cv-link-label">CV</span>
+              </span>
+            </a></li>
             <!-- Eye-catching "Get the App" CTA — only on the public web; hidden
                  inside the Flutter WebView (you're already in the app there). -->
             <li *ngIf="!isFlutterApp" class="get-app-li">

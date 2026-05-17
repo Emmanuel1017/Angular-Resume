@@ -137,11 +137,26 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
     "Want to know Emmanuel's tech stack? Ask! 🔮",
     "I run entirely in your browser! 🧠",
     "No cloud, no cookies — just vibes 🐾",
-    "Try asking about my favourite Elixir patterns! ⚗️",
-    "Meow! Healthcare tech, AI, Go — ask anything 😺",
-    "Ask me about his UI & animation work too! 🎨",
-    "He designs AND builds — full stack, full art 🖌️",
-    "Angular, SCSS, SVG sprites… he does it all! ✨"
+    "Try asking about his Elixir / Phoenix work! ⚗️",
+    "Healthcare, AI compliance, Go — ask anything 😺",
+    "Hiring? Try the contact form, I'll relay it 📬",
+    "Ask me about his MTRH hospital ERP work 🏥",
+    "Selstan, Value Chain Factory, Dunia Tech… ask! 💼"
+  ];
+
+  /**
+   * Suggested first-message prompts shown beneath the greeting bubble. Tap a
+   * chip and it auto-sends. Curated to surface the most interview-relevant
+   * facets first — these get the conversation flowing in 1 click instead of
+   * staring at a blank input.
+   */
+  readonly suggestedQuestions: string[] = [
+    'What does Emmanuel do?',
+    'Tell me about his AI compliance work',
+    'What stack does he use?',
+    'Where is he based?',
+    'Is he available for hire?',
+    'Show me his healthcare projects',
   ];
 
   private koriGreeting = '';
@@ -1241,9 +1256,23 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // ── Chat ──────────────────────────────────────────────────────────────────────
+  /** Suggestion-chip click: stuff the prompt and send straight away. Marks the
+   *  conversation as started so the suggestion strip hides on next render. */
+  pickSuggestion(s: string): void {
+    if (this.isThinking || this.isStreaming) return;
+    this.inputMessage = s;
+    this.hasSentOnce  = true;
+    void this.sendMessage();
+  }
+
+  /** True until the visitor sends their first message. Drives whether the
+   *  suggestion chips are visible in the chat bubble. */
+  hasSentOnce = false;
+
   async sendMessage(): Promise<void> {
     const msg = this.inputMessage.trim();
     if (!msg || this.isThinking) return;
+    this.hasSentOnce = true;
     this.inputMessage      = '';
     this.isThinking        = true;
     this.isStreaming       = false;
