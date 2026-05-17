@@ -5,6 +5,7 @@ import { IPost } from '../posts/posts-interfaces';
 import { environment } from 'src/environments/environment';
 import { RemoteConfig, fetchAndActivate, getValue } from '@angular/fire/remote-config';
 import { PortfolioSettingsService, PortfolioSettings } from '../core/portfolio-settings.service';
+import { KoriConfigService, KoriConfig } from '../core/kori-config.service';
 
 export type AgentProvider = 'openai' | 'claude' | 'ollama' | 'transformers' | 'openrouter';
 
@@ -83,20 +84,42 @@ export class AgentService {
   // answer when the admin toggles availability on the Flutter side.
   private portfolioSettings: PortfolioSettings | null = null;
 
+  // Latest /portfolio/kori snapshot — drives the persona, knobs, and feature
+  // toggles. Defaults are safe so first cold-loads still work.
+  private koriConfig: KoriConfig | null = null;
+
   constructor(
     private http: HttpClient,
     private rc: RemoteConfig,
     private portfolioSettingsService: PortfolioSettingsService,
+    private koriConfigService: KoriConfigService,
   ) {
     this.portfolioSettingsService.settings$.subscribe(s => {
       this.portfolioSettings = s;
     });
+    this.koriConfigService.config$.subscribe(c => {
+      this.koriConfig = c;
+    });
   }
 
   /** Static persona + dynamic live status. Called every time a prompt
-   *  is built so the answer to "are you hiring" is always current. */
+   *  is built so the answer to "are you hiring" is always current. Now also
+   *  prefers the admin-edited Firestore prompt if any of its sections are
+   *  filled in, otherwise falls back to the legacy hard-coded persona. */
   private buildLiveSystemPrompt(): string {
-    const base = this.systemPrompt || this.fallbackPrompt();
+    const c = this.koriConfig;
+    // If the admin has filled in any of the prompt sections in Firestore,
+    // we treat that as the source of truth — anyone editing it expects their
+    // changes to win over the bundled defaults.
+    const adminAuthored = !!c && (
+      (c.persona     && c.persona.trim().length     > 0) ||
+      (c.coreBelief  && c.coreBelief.trim().length  > 0) ||
+      (c.knowledge   && c.knowledge.trim().length   > 0) ||
+      (c.employment  && c.employment.trim().length  > 0) ||
+      (c.behaviour   && c.behaviour.trim().length   > 0));
+    const base = adminAuthored && c
+      ? this.koriConfigService.composePrompt(c)
+      : (this.systemPrompt || this.fallbackPrompt());
     const s = this.portfolioSettings;
     const lines = [base, '', 'CURRENT STATUS (live, can change at any time)'];
     if (!s) {
@@ -430,16 +453,15 @@ export class AgentService {
         'X-Title':       'Kori - Portfolio Cat Assistant'
       },
       body: JSON.stringify({
-        model,
+        model: this.koriConfig?.modelOverride?.trim() || model,
         messages:    [{ role: 'system', content: this.buildLiveSystemPrompt() }, { role: 'user', content: msg }],
-        max_tokens:  220,                  // headroom for an inline markdown link or two
-        temperature: 0.75,
+        max_tokens:  this.koriConfig?.maxTokens   ?? 220,
+        temperature: this.koriConfig?.temperature ?? 0.75,
         stream:      true,
-        // Agentic web grounding — OpenRouter's `web` plugin transparently runs
-        // a web search if the model decides the question needs it, and
-        // injects the top results into context with proper citations. Cheap
-        // ($0.004/request), opt-in per call. Kori is allowed to cite inline.
-        plugins:     [{ id: 'web', max_results: 3 }],
+        // Web plugin gated on the admin toggle (defaults on).
+        ...(this.koriConfig?.webSearch === false
+            ? {}
+            : { plugins: [{ id: 'web', max_results: 3 }] }),
       })
     });
     if (!r.ok) {
