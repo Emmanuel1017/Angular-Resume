@@ -85,7 +85,9 @@
         <span></span><span></span><span></span>
       </div>
 
-      <p class="bubble-text" [class.streaming]="isStreaming" *ngIf="!isThinking && bubbleText">{{ bubbleText }}</p>
+      <div class="bubble-text" [class.streaming]="isStreaming"
+           *ngIf="!isThinking && bubbleText"
+           [innerHTML]="renderKori(bubbleText)"></div>
 
       <div class="fetch-hint" *ngIf="showFetchHint">
         <span>oh, and my brain isn't loaded yet — I need it for more creative, thoughtful responses! want me to grab it? 🧠</span>

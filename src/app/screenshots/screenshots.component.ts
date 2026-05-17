@@ -63,6 +63,37 @@ export class ScreenshotsComponent implements OnInit, OnDestroy {
     this.setActive((this.activeIndex - 1 + this.shots.length) % this.shots.length, userInitiated);
   }
 
+  /**
+   * True when the current page is already installed as a PWA / standalone app.
+   * Used to hide the "Install as PWA" call-to-action so we don't suggest
+   * installing what's already installed.
+   */
+  get isAlreadyStandalone(): boolean {
+    try {
+      return (typeof window !== 'undefined') && (
+        window.matchMedia?.('(display-mode: standalone)').matches === true ||
+        (window.navigator as any).standalone === true
+      );
+    } catch { return false; }
+  }
+
+  /** Trigger the browser-native install prompt if one was offered, or fall
+   *  back to a tooltip explaining how to install manually. */
+  installPwa(): void {
+    const evt = (window as any).__pwaInstallPrompt as
+      { prompt: () => Promise<void>; userChoice: Promise<unknown> } | undefined;
+    if (evt && typeof evt.prompt === 'function') {
+      evt.prompt();
+    } else {
+      // No deferred event in this browser session. Most browsers expose
+      // install via the address-bar icon or browser menu instead.
+      alert(
+        'Your browser will offer "Install Korir Portfolio" in the address-bar ' +
+        'menu (Edge/Chrome: install icon to the right of the URL; Firefox: ' +
+        '"Install Site as App"; Safari iOS: Share → Add to Home Screen).');
+    }
+  }
+
   /** Pause + restart on user interaction so auto doesn't fight a click. */
   bumpAuto(): void {
     this.stopAuto();

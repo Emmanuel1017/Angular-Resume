@@ -181,12 +181,33 @@ $cat-d:    #C05C1A;   // cat dark orange (stripes / paw marks)
 }
 
 // ── Bubble text ───────────────────────────────────────────────────────────────
+// Markdown rendered into the bubble via DomSanitizer-bypassed innerHTML.
+// Light styles for bold / italic / code / links / paragraphs so Kori's
+// formatted output looks intentional, not raw.
 .bubble-text {
   font-size: 12.5px;
   font-weight: 600;
   line-height: 1.55;
   color: $navy;
   margin: 0;
+
+  p           { margin: 0 0 6px 0; }
+  p:last-child{ margin-bottom: 0; }
+  strong      { color: $green-d; }
+  em          { font-style: italic; opacity: .9; }
+  code {
+    background: rgba($green-d, .12);
+    padding: 0 4px;
+    border-radius: 4px;
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 11.5px;
+  }
+  a {
+    color: $green-d;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    &:hover { color: darken($green-d, 10%); }
+  }
 
   &.streaming::after {
     content: '▋';

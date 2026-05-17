@@ -3,6 +3,7 @@ import {
   NgZone, HostListener, ViewChild, ElementRef
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import * as THREE from 'three';
 import { AgentService, AgentSettings, DEFAULT_SETTINGS } from './agent.service';
 import { environment } from 'src/environments/environment';
@@ -165,8 +166,36 @@ export class AgentComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private agentService: AgentService,
     private zone: NgZone,
-    private portfolioSettings: PortfolioSettingsService
+    private portfolioSettings: PortfolioSettingsService,
+    private sanitizer: DomSanitizer,
   ) {}
+
+  /**
+   * Tiny markdown → HTML renderer for Kori's replies. Covers the small set we
+   * actually want her to use: `**bold**`, `*italic*`, `[label](url)` links,
+   * `` `code` `` spans, and `\n\n` paragraph breaks. Bypassing the sanitizer
+   * is safe here because the input is always Kori's own model output passed
+   * through escape-and-rewrite — not user-typed content.
+   */
+  renderKori(text: string): SafeHtml {
+    if (!text) return '';
+    // 1. Escape every HTML char first so model output can't smuggle tags.
+    let s = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    // 2. Inline rewrites — code, bold, italic, links.
+    s = s.replace(/`([^`]+?)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[\s(])_(?!_)(.+?)_(?=[\s).,!?]|$)/g, '$1<em>$2</em>');
+    s = s.replace(
+      /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>',
+    );
+    // 3. Paragraph breaks for double-newline; single-newlines stay as <br>.
+    s = s.replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>');
+    return this.sanitizer.bypassSecurityTrustHtml(`<p>${s}</p>`);
+  }
 
   ngOnInit(): void {
     this.settings = this.agentService.getSettings();
