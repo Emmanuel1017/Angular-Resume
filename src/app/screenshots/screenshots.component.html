@@ -1,5 +1,5 @@
 <section id="app" class="screenshots-section">
-  <div class="ss-header">
+  <div class="ss-header" data-aos="fade-up">
     <span class="ss-eyebrow">Companion native app</span>
     <h2 class="ss-title">Available on Android</h2>
     <p class="ss-sub">
@@ -23,8 +23,12 @@
     </div>
   </div>
 
-  <div class="ss-stage">
-    <button class="ss-arrow ss-prev" type="button" (click)="prev()" aria-label="Previous">‹</button>
+  <div class="ss-stage"
+       data-aos="zoom-in"
+       data-aos-delay="120"
+       (mouseenter)="bumpAuto()"
+       (mouseleave)="bumpAuto()">
+    <button class="ss-arrow ss-prev" type="button" (click)="prev(true)" aria-label="Previous">‹</button>
 
     <div class="ss-phone">
       <div class="ss-phone-notch"></div>
@@ -39,7 +43,7 @@
       </div>
     </div>
 
-    <button class="ss-arrow ss-next" type="button" (click)="next()" aria-label="Next">›</button>
+    <button class="ss-arrow ss-next" type="button" (click)="next(true)" aria-label="Next">›</button>
   </div>
 
   <div class="ss-caption">
@@ -53,6 +57,6 @@
             class="ss-dot"
             [class.active]="i === activeIndex"
             [attr.aria-label]="s.title"
-            (click)="setActive(i)"></button>
+            (click)="setActive(i, true)"></button>
   </div>
 </section>

@@ -1,13 +1,13 @@
 <app-promo-banner></app-promo-banner>
 <app-header [activeSection]="activeSection" [pageXOffset]="pageXOffset" [ngClass]="{'sticky' : isSticky}"></app-header>
 <app-welcome in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'welcome')"></app-welcome>
-<app-about  in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'about')"></app-about>
+<app-about  data-aos="fade-up" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'about')"></app-about>
 <!-- <app-platforms in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'platforms')"></app-platforms> -->
-<app-counters in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'counters')"></app-counters>
-<app-my-work></app-my-work>
-<app-experience in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'experience')"></app-experience>
-<app-posts in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'posts')"></app-posts>
-<app-screenshots *ngIf="!isFlutterApp" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'app')"></app-screenshots>
-<app-contact in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'contact')"></app-contact>
+<app-counters data-aos="fade-up" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'counters')"></app-counters>
+<app-my-work data-aos="fade-up"></app-my-work>
+<app-experience data-aos="fade-right" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'experience')"></app-experience>
+<app-posts data-aos="fade-up" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'posts')"></app-posts>
+<app-screenshots *ngIf="!isFlutterApp" data-aos="fade-up" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'app')"></app-screenshots>
+<app-contact data-aos="fade-up" in-viewport [pageYOffset]="pageYOffset" (inViewport)="onViewport($event.value, 'contact')"></app-contact>
 <app-footer></app-footer>
 <app-agent *ngIf="!isFlutterApp"></app-agent>

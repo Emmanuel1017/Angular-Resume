@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 interface AppShot {
   file: string;
@@ -12,7 +12,7 @@ interface AppShot {
   templateUrl: './screenshots.component.html',
   styleUrls: ['./screenshots.component.scss'],
 })
-export class ScreenshotsComponent {
+export class ScreenshotsComponent implements OnInit, OnDestroy {
   /**
    * Native portfolio-admin app screenshots. Files live in
    * src/assets/screenshots-app/ and are served from GitHub Pages — no extra
@@ -36,11 +36,45 @@ export class ScreenshotsComponent {
   activeIndex = 0;
   trackBy = (_: number, s: AppShot) => s.file;
 
-  setActive(i: number): void {
-    if (i < 0 || i >= this.shots.length || i === this.activeIndex) return;
-    this.activeIndex = i;
+  /** Auto-advance timer. Paused while the user interacts (hover/tap on a dot
+   *  or arrow). Resumes after a short cool-down so it doesn't fight intent. */
+  private autoTimer: ReturnType<typeof setInterval> | null = null;
+  private readonly autoIntervalMs = 3200;
+  private readonly resumeAfterMs  = 6000;
+
+  ngOnInit(): void {
+    this.startAuto();
   }
 
-  next(): void { this.setActive((this.activeIndex + 1) % this.shots.length); }
-  prev(): void { this.setActive((this.activeIndex - 1 + this.shots.length) % this.shots.length); }
+  ngOnDestroy(): void {
+    this.stopAuto();
+  }
+
+  setActive(i: number, userInitiated = false): void {
+    if (i < 0 || i >= this.shots.length || i === this.activeIndex) return;
+    this.activeIndex = i;
+    if (userInitiated) this.bumpAuto();
+  }
+
+  next(userInitiated = false): void {
+    this.setActive((this.activeIndex + 1) % this.shots.length, userInitiated);
+  }
+  prev(userInitiated = false): void {
+    this.setActive((this.activeIndex - 1 + this.shots.length) % this.shots.length, userInitiated);
+  }
+
+  /** Pause + restart on user interaction so auto doesn't fight a click. */
+  bumpAuto(): void {
+    this.stopAuto();
+    setTimeout(() => this.startAuto(), this.resumeAfterMs);
+  }
+
+  private startAuto(): void {
+    this.stopAuto();
+    this.autoTimer = setInterval(() => this.next(), this.autoIntervalMs);
+  }
+
+  private stopAuto(): void {
+    if (this.autoTimer != null) { clearInterval(this.autoTimer); this.autoTimer = null; }
+  }
 }

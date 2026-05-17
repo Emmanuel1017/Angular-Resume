@@ -6,17 +6,19 @@ $ink:      #0F1117;
 $text:     #FFF;
 
 // ── Container ─────────────────────────────────────────────────────────────
-// Stays *above* the floating header (z 1100 > header's 1000). Off-screen
-// initially; slides in when .show is added. Pointer-events tied to .show so
-// taps don't get eaten while it's hidden.
+// Sits *below* the floating header — header keeps z-index 1200 and stays
+// pinned at top:14px no matter what. Banner slides in beneath it at a top
+// offset that clears the header pill (its measured height + a little
+// breathing room is set in promo-banner.component.ts as --header-height).
+// Pointer-events tied to .show so taps don't get eaten while it's hidden.
 .promo-banner {
   position: fixed;
-  top: 0;
+  top: var(--header-height, 72px);
   left: 0;
   right: 0;
-  z-index: 1100;
+  z-index: 1000;          // below the navbar (1200)
   pointer-events: none;
-  transform: translateY(-110%);
+  transform: translateY(-130%);
   opacity: 0;
   transition: transform .55s cubic-bezier(.16, 1, .3, 1),
               opacity   .35s ease;

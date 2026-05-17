@@ -14,16 +14,15 @@ $paw-dark: #D97A37;
 :host {
   display: block;
   position: fixed;
-  // The promo banner sets --promo-banner-height on the root when it slides in
-  // (64 px = pill height 54 + margin 10). Header drops by exactly that amount
-  // so the two never overlap. The transition matches the banner's slide curve.
-  top: calc(14px + var(--promo-banner-height, 0px));
+  // Header stays anchored at top: 14px no matter what. Banner sits *below*
+  // it and never pushes it down. z-index 1200 keeps the navbar above every
+  // other floating element on the page (banner is 1000).
+  top: 14px;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1200;
   padding: 0 18px;
   pointer-events: none;
-  transition: top .55s cubic-bezier(.16, 1, .3, 1);
 }
 
 // ─── Pill shell ───────────────────────────────────────────────────────────────

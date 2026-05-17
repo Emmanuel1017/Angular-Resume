@@ -105,13 +105,25 @@ $border:  #2a3142;
 }
 
 // ── Phone stage ─────────────────────────────────────────────────────────────
+// Grid (1fr · phone · 1fr) lets the arrows live in fixed-width side cells
+// without ever pushing the phone column. The phone never moves on slide
+// change, focus state, or scroll — it sits in the middle column at a fixed
+// width and only its inner <img> swaps.
 .ss-stage {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
-  gap: 28px;
+  column-gap: 28px;
   margin-bottom: 28px;
+
+  // Stop a sub-pixel layout reflow propagating to siblings when the dot
+  // strip below re-measures on slide change.
+  contain: layout style;
 }
+
+.ss-stage > .ss-arrow.ss-prev { justify-self: end;   }
+.ss-stage > .ss-phone        { justify-self: center; }
+.ss-stage > .ss-arrow.ss-next { justify-self: start; }
 
 .ss-arrow {
   width: 44px;
@@ -140,6 +152,7 @@ $border:  #2a3142;
   position: relative;
   width: 280px;
   height: 580px;
+  flex-shrink: 0;
   background: $ink-3;
   border-radius: 38px;
   border: 8px solid #0a0c12;
@@ -147,7 +160,15 @@ $border:  #2a3142;
     0 30px 60px rgba(0, 0, 0, .55),
     inset 0 0 0 1px rgba(255, 255, 255, .04);
   overflow: hidden;
-  flex-shrink: 0;
+  // Promote to its own composite layer so cross-fades on the image inside
+  // can't trigger a paint that nudges the phone's own X. translateZ(0)
+  // forces a stable composited layer; will-change tells the browser the
+  // transform stays put so it allocates a fixed GPU layer up-front.
+  transform: translateZ(0);
+  will-change: transform;
+  // Layout/paint isolation — the rotating <img> inside cannot reflow the
+  // surrounding stage no matter what.
+  contain: layout paint;
 }
 
 .ss-phone-notch {

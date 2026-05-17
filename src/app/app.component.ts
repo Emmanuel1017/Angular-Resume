@@ -4,6 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import moment from 'moment';
+import AOS from 'aos';
 import { PortfolioSettingsService } from './core/portfolio-settings.service';
 
 @Component({
@@ -54,6 +55,23 @@ export class AppComponent implements OnInit, OnDestroy {
       { name: 'og:description', content: '' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1"' }
     ]);
+
+    // AOS — scroll-triggered slide/fade-in animations on tagged elements.
+    // `once: true` so sections animate the first time they enter the viewport
+    // and stay put afterwards (avoids re-animation on every scroll past).
+    AOS.init({
+      duration:   650,
+      easing:     'ease-out-cubic',
+      once:       true,
+      offset:     80,
+      mirror:     false,
+      anchorPlacement: 'top-bottom',
+    });
+    // Re-run AOS layout once Angular has finished its first round of async
+    // renders (posts, my-work cards, etc). Without this, offsets are computed
+    // against an empty DOM and the trigger lines end up in the wrong place.
+    setTimeout(() => AOS.refreshHard(), 800);
+    window.addEventListener('load', () => AOS.refreshHard());
 
     this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
       // Save scroll position when going INTO maintenance so we can restore it on exit

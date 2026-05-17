@@ -4,6 +4,10 @@
 //----------------------------------*/
 @import 'assets/scss/modules/_fonts.scss';
 
+// AOS — scroll-triggered animation library. Init lives in AppComponent.
+// Animations are added per-element via `data-aos="fade-up"` etc in templates.
+@import 'aos/dist/aos.css';
+
 // primary background and font
 $primary_font: "Montserrat", sans-serif;
 $primary_background:#abd699 35%, ;

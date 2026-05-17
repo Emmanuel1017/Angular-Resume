@@ -52,16 +52,16 @@ export class PromoBannerComponent implements OnInit {
    */
   private setOffset(show: boolean): void {
     try {
-      if (!show) {
-        document.documentElement.style.setProperty('--promo-banner-height', '0px');
-        return;
-      }
-      // Read the actual rendered height so mobile (smaller pill) and desktop
-      // both get correct spacing. Wait one frame so layout has applied.
+      if (!show) return;
+      // Measure the floating header once so the banner can slot directly
+      // underneath it. Header is `position: fixed; top: 14px;` so its
+      // bottom edge is roughly 14 + pill height + a small gap.
       requestAnimationFrame(() => {
-        const inner = this.host.nativeElement.querySelector('.pb-inner') as HTMLElement | null;
-        const h = inner ? Math.ceil(inner.getBoundingClientRect().height) + 14 /* top+bottom margin */ : 64;
-        document.documentElement.style.setProperty('--promo-banner-height', h + 'px');
+        const header = document.querySelector('app-header header') as HTMLElement | null;
+        const headerBottom = header
+          ? Math.ceil(header.getBoundingClientRect().bottom) + 10 // breathing gap
+          : 72;
+        document.documentElement.style.setProperty('--header-height', headerBottom + 'px');
       });
     } catch {/* SSR */}
   }
