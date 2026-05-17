@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import moment from 'moment';
 import AOS from 'aos';
 import { PortfolioSettingsService } from './core/portfolio-settings.service';
+import { VisitTrackerService } from './core/visit-tracker.service';
 
 @Component({
   standalone: false,
@@ -28,7 +29,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private metaTagService: Meta,
     private canonicalService: CanonicalService,
-    private portfolioSettings: PortfolioSettingsService
+    private portfolioSettings: PortfolioSettingsService,
+    private visitTracker: VisitTrackerService,
   ) {}
 
   private scrollY = 0;
@@ -72,6 +74,11 @@ export class AppComponent implements OnInit, OnDestroy {
     // against an empty DOM and the trigger lines end up in the wrong place.
     setTimeout(() => AOS.refreshHard(), 800);
     window.addEventListener('load', () => AOS.refreshHard());
+
+    // Fire-and-forget visit count + diagnostics (one doc per browser session).
+    // Errors are swallowed inside the service so nothing here can break the
+    // app if Firestore rules reject or ipapi is unreachable.
+    this.visitTracker.track();
 
     this.settingsSub = this.portfolioSettings.settings$.subscribe(s => {
       // Save scroll position when going INTO maintenance so we can restore it on exit
