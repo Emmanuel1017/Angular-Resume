@@ -169,12 +169,26 @@ src/
 
 ## The companion app
 
-Built it because the things I actually want on my phone aren't "view the portfolio" &mdash; they're "ping me when someone messages me" and "flip availability without opening a laptop." So the Flutter app does both, plus runs a native Kori (no WebGL on the phone), plus has a paginated Firestore inbox.
+Built it because the things I actually want on my phone aren't "view the portfolio" &mdash; they're "ping me when someone messages me" and "flip availability without opening a laptop." So the Flutter app does both, plus runs a native Kori (no WebGL on the phone), plus has a paginated Firestore inbox with FCM push.
 
-Source &mdash; [Emmanuel1017/My-Resume-Flutter-APP](https://github.com/Emmanuel1017/My-Resume-Flutter-APP)
-Download &mdash; [v1.0.0 APK](https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest/download/portfolio-admin.apk)
+| Platform | Install |
+| --- | --- |
+| Android | [APK from latest release](https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest/download/portfolio-admin.apk) |
+| iOS | [Unsigned `.app` zip](https://github.com/Emmanuel1017/My-Resume-Flutter-APP/releases/latest) (re-sign with your Apple Developer cert), or `flutter build ipa --release` from source |
+| Windows | [Install this site as a PWA](#install-as-a-pwa) from Edge / Chrome &mdash; Flutter's Firebase plugins don't ship Windows desktop libs yet |
+| Linux | Same: install as a PWA from Chrome / Firefox |
 
-Both projects share one Firebase project. The Flutter README has the full setup &mdash; including the Cloud Function that fans out FCM pushes to admin devices when a new contact lands.
+Source &mdash; [Emmanuel1017/My-Resume-Flutter-APP](https://github.com/Emmanuel1017/My-Resume-Flutter-APP). The multi-platform release pipeline (`release-multiplatform.yml`) builds Android + iOS + Linux on `git push tag`. Cloud Function for FCM fan-out lives in that repo's `functions/` directory.
+
+### Install as a PWA
+
+This site ships a proper Web App Manifest (`assets/favicon/site.webmanifest`) so any modern browser will offer to install it as a standalone window:
+
+- **Chrome / Edge (Windows / Linux / macOS)** &mdash; click the install icon in the address bar, or *Settings &rarr; Apps &rarr; Install this site*.
+- **Safari (iOS)** &mdash; Share &rarr; Add to Home Screen.
+- **Chrome / Firefox (Android)** &mdash; the menu offers "Install app" or "Add to Home Screen".
+
+Once installed it gets its own launcher entry, its own window chrome (no browser tabs), and its own theme color. Best path until Flutter's Firebase plugins land Windows / Linux desktop support.
 
 ---
 
