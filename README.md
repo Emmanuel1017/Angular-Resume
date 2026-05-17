@@ -24,20 +24,58 @@
 
 ---
 
-## Screenshot
+## Demo
 
-![Portfolio Screenshot](https://github.com/user-attachments/assets/fa4aa207-97f2-4a7e-b911-8d8a043ddd12)
+<p align="center">
+  <img src="https://github.com/Emmanuel1017/Angular-Resume/releases/download/v1.0.0/demo.gif" alt="Portfolio demo" width="100%"/>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Emmanuel1017/Angular-Resume/releases/download/v1.0.0/demo.mp4">▶️ Download full-quality MP4 demo</a>
+</p>
 
 ---
 
-## Demo Video
+## Screenshots
 
-> 📹 **[Watch the demo on GitHub](https://github.com/Emmanuel1017/Angular-Resume)** — upload your screen recording to the repo's Releases or Issues for the embed to appear here.
-
-To record your own demo:
-1. Open the live site
-2. Screen-record interactions with Kori, the blog reader, and image generation
-3. Drag the `.mp4` / `.mov` into a GitHub Issue or Release → copy the URL → paste it here as `<video src="..."/>`
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/01-home-welcome.png" alt="Home – welcome hero" width="100%"/>
+      <sub><b>Home — 3D avatar + AI cat Kori</b></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/02-home-avatar.png" alt="Home – orbital avatar" width="100%"/>
+      <sub><b>Home — orbital tech icon rings</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/03-about.png" alt="About section" width="100%"/>
+      <sub><b>About — bio, badges, experience stats</b></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/04-stats-work.png" alt="Stats and project cards" width="100%"/>
+      <sub><b>By the Numbers + Things I've Built</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/05-experience.png" alt="Experience timeline" width="100%"/>
+      <sub><b>My Experiences — interactive timeline</b></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/06-blog-contact.png" alt="Blog posts" width="100%"/>
+      <sub><b>Latest Posts — blog engine</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/07-contact-form.png" alt="Contact form" width="50%"/>
+      <sub><b>Contact — Firestore-backed form</b></sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
