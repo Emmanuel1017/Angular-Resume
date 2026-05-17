@@ -313,8 +313,38 @@ $radius:  16px;
   }
 
   .work-card {
-    transform:     none !important;
-    border-radius: 14px;
+    display:        flex;
+    flex-direction: column;
+    transform:      none !important;
+    border-radius:  14px;
+  }
+
+  .card-body {
+    display:        flex;
+    flex-direction: column;
+    flex:           1;
+  }
+
+  // Tags: smaller text, tighter wrap
+  .card-tags {
+    gap: 5px;
+  }
+
+  .tag {
+    font-size: .65rem;
+  }
+
+  // Links: stack vertically, each button full-width
+  .card-links {
+    flex-direction: column;
+    gap:            8px;
+    margin-top:     auto; // push to bottom of card
+  }
+
+  .card-link {
+    justify-content: center;
+    padding:         8px 14px;
+    font-size:       .76rem;
   }
 
   // ── Controls bar ───────────────────────────────────────────────────────────
